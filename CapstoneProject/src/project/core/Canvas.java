@@ -11,7 +11,8 @@ public class Canvas extends PApplet{
 
     @Override
     public void draw(){
-        frameRate(10000000);
-        System.out.println(frameRate);
+        textAlign(CENTER, CENTER);
+        textSize(100);
+        text("Hello World!", width / 2f, height / 2f);
     }
 }

@@ -14,7 +14,10 @@ public class Main{
 
         PApplet.runSketch(new String[]{""}, canvas);
         JFrame window = (JFrame)((SmoothCanvas)canvas.getSurface().getNative()).getFrame();
-        window.setSize(width + 20, height + 50);
+        {
+            Point center = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
+            window.setBounds(center.x - width / 2 - 10, center.y - height / 2 - 25, width + 20, height + 50);
+        }
         window.setMinimumSize(new Dimension(width, height));
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(true);
