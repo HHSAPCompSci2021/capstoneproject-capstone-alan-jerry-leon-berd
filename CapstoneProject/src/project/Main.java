@@ -8,6 +8,7 @@ import java.awt.*;
 
 import static project.Vars.*;
 
+/** Contains the main method, which sets up the project. */
 public class Main{
     public static void main(String[] args){
         Vars.init();

@@ -1,3 +1,4 @@
 /bin/
 /.idea/
-CapstoneProject.iml
+*.iml
+*.DS_Store
