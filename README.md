@@ -147,4 +147,4 @@ Alan Ma: Skeleton Classes
 
 Jerry Yang: UI, Javadocs
 
-Leon Wang: Javadocs
+Leon Wang: Javadocs, UML
