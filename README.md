@@ -143,8 +143,8 @@ That's it!
 
 ## Credits
 
-Content, Graphics: Alan Ma 
+Alan Ma: Skeleton Classes
 
-UI, Framework: Jerry Yang
+Jerry Yang: UI, Javadocs
 
-Mechanics, Cleanup: Leon Wang
+Leon Wang: Javadocs
