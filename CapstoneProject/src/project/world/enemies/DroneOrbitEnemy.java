@@ -71,8 +71,6 @@ public class DroneOrbitEnemy extends MultiEnemy{
 
         @Override
         public void draw(){
-            super.draw();
-
             sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation);
         }
     }

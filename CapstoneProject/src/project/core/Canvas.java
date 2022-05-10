@@ -41,6 +41,7 @@ public class Canvas extends PApplet{
         super.setup();
         textFont(createFont("assets/fonts/brandbe/Brandbe Regular.otf", 100, true));
         for(Sprite s : Sprite.all) s.load();
+        Effects.glow.load();
         screen.rebuild();
     }
 
@@ -84,7 +85,7 @@ public class Canvas extends PApplet{
 
 
     public void background(Color color){
-        background(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+        background(color.getRGB());
     }
 
     public void fill(Color color){

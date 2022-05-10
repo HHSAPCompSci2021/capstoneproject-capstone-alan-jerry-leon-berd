@@ -1,6 +1,7 @@
 package project.graphics;
 
 import gameutils.func.*;
+import project.graphics.Sprite.*;
 import project.world.*;
 
 import static gameutils.util.Mathf.*;
@@ -8,6 +9,9 @@ import static project.Vars.*;
 
 /** Contains a list of all effects in the game. */
 public class Effects{
+    public static Sprite //TODO: Due to initialization order, this is actually made after all sprites are loaded. That is an issue, to say the least.
+    glow = new Sprite(SpritePath.effects, "glow");
+
     public static Effect
     explosion = new Effect(10, e -> {
         canvas.fill(255, 255, 255, 100 * e.fout());
