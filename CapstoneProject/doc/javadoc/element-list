@@ -1,1 +1,6 @@
 project
+project.content
+project.core
+project.graphics
+project.ui
+project.world
