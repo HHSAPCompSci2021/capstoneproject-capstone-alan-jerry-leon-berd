@@ -1,6 +1,23 @@
 package project.world;
 
-/** Represents a type of entity, and will be the superclass of all BulletTypes and EnemyTypes. Lists of each type will be declared in the java classes Bullets and Enemies, respectively. */
-public class Type{
+import project.core.Content.*;
 
+import static project.Vars.*;
+
+/** Represents a piece of content, and the type of instance. Contains fields and methods that may control how each instance functions. */
+public class Type{
+    public Type(){
+        content.add(this);
+    }
+
+    public void init(){
+    }
+
+    public ContentType type(){
+        return null;
+    }
+
+    public Instance create(){
+        return null;
+    }
 }
