@@ -5,6 +5,7 @@ import gameutils.util.*;
 import project.content.*;
 import project.core.Events.Event;
 import project.core.Input.*;
+import project.graphics.*;
 import project.world.modifiers.*;
 import project.world.modifiers.Modifier.*;
 import project.world.ship.Hull.*;
@@ -106,23 +107,14 @@ public class Player extends Ship{
 
     @Override
     public void draw(){
-        hull.type().sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation + 90);
+        Effects.glow.drawc(pos.x, pos.y, size() * 10, size() * 10, color(), 50);
+
+        hull.type().sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation + 90, color());
 
         canvas.noFill();
-        canvas.stroke(Color.white);
+        canvas.stroke(color());
         canvas.strokeWeight(2);
         canvas.ellipse(pos.x, pos.y, size() * 5, size() * 5);
-
-        if(glowRendered > 0){
-            canvas.glow(size() * 5, 2, Color.white, color(), 3, Interpf.pow5, f -> f / 2, i -> {
-                canvas.ellipse(pos.x, pos.y, i);
-            });
-
-            canvas.glows(size() / 2, 1, color(), 20, i -> {
-                canvas.strokeWeight(i);
-                canvas.ellipse(pos.x, pos.y, size() * 5);
-            });
-        }
 
         super.draw();
     }

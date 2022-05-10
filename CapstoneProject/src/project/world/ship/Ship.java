@@ -69,9 +69,6 @@ public abstract class Ship extends Entity{
 
     @Override
     public void draw(){
-        if(glowRendered > 0) canvas.glow(size() * 5 + 150, size() * 0.1f, color(), 1f, Interpf.pow5, i -> {
-            if(i > size() * 2) canvas.ellipse(pos.x, pos.y, i);
-        });
     }
 
     @Override

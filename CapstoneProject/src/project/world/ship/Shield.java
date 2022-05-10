@@ -10,7 +10,7 @@ import static gameutils.util.Mathf.*;
 /** Stores stats for a shield. */
 public class Shield extends Type{
     //    public Color color = new Color(120, 150, 255);
-    public Color color = new Color(255, 120, 120);
+    public Color color = new Color(255, 170, 170);
 
     public float max = 100;
     public float regen = 0.25f;

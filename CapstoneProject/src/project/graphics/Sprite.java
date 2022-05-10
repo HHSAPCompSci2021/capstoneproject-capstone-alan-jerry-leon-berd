@@ -3,6 +3,8 @@ package project.graphics;
 import gameutils.struct.*;
 import processing.core.*;
 
+import java.awt.*;
+
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
@@ -24,6 +26,7 @@ public class Sprite{
 
     public void load(){
         image = canvas.loadImage(path);
+        System.out.println(path + ": " + image);
     }
 
     public void draw(float x, float y){
@@ -35,10 +38,28 @@ public class Sprite{
     }
 
     public void draw(float x, float y, float w, float h){
+        draw(x, y, w, h, Color.white);
+    }
+
+    public void draw(float x, float y, float w, float h, Color tint){
+        draw(x, y, w, h, tint, 255);
+    }
+
+    public void draw(float x, float y, float w, float h, Color tint, float alpha){
+        canvas.tint(tint.getRGB(), alpha);
         canvas.image(image, x, y, w, h);
     }
 
     public void draw(float x, float y, float w, float h, float r){
+        draw(x, y, w, h, r, Color.white);
+    }
+
+    public void draw(float x, float y, float w, float h, float r, Color tint){
+        draw(x, y, w, h, r, tint, 255);
+    }
+
+    public void draw(float x, float y, float w, float h, float r, Color tint, float alpha){
+        canvas.tint(tint.getRGB(), alpha);
         canvas.pushMatrix();
         canvas.translate(x + w / 2, y + h / 2);
         canvas.rotate(r / 180f * pi);
@@ -46,8 +67,24 @@ public class Sprite{
         canvas.popMatrix();
     }
 
+    public void drawc(float x, float y, float w, float h){
+        draw(x - w / 2, y - h / 2, w, h);
+    }
+
+    public void drawc(float x, float y, float w, float h, Color tint){
+        draw(x - w / 2, y - h / 2, w, h, tint);
+    }
+
+    public void drawc(float x, float y, float w, float h, Color tint, float alpha){
+        draw(x - w / 2, y - h / 2, w, h, tint, alpha);
+    }
+
     public void drawc(float x, float y, float w, float h, float r){
         draw(x - w / 2, y - h / 2, w, h, r);
+    }
+
+    public void drawc(float x, float y, float w, float h, float r, Color tint){
+        draw(x - w / 2, y - h / 2, w, h, r, tint);
     }
 
     /** Represents a path in the project. */
@@ -55,8 +92,10 @@ public class Sprite{
         sprites("assets/sprites/"),
         bullets("assets/sprites/bullets/"),
         backgrounds("assets/sprites/backgrounds/"),
-        ships("assets/sprites/ships/"),
-        enemies("assets/sprites/enemies/");
+        effects("assets/sprites/effects/"),
+        enemies("assets/sprites/enemies/"),
+        ships("assets/sprites/ships/");
+
 
         public String path;
 
