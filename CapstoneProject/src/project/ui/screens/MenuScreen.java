@@ -21,9 +21,7 @@ public class MenuScreen extends Screen{
     public int menu = 0;
     public float sidex = 0;
 
-    public Cons<Button> buttonHover = b -> {
-        Effects.blur.draw(-50, 0, 350, b.height(), Pal.opaqueWhite);
-    };
+    public Cons<Button> buttonHover = b -> Effects.blur.draw(-50, 0, 350, b.height(), Pal.opaqueWhite);
 
     public MenuScreen(){
     }
@@ -106,7 +104,7 @@ public class MenuScreen extends Screen{
                                 text.text("(ABSOLUTELY BROKEN)").size(20).color(Color.white);
                                 text.alignX(AlignX.center).alignY(AlignY.bottom);
                             });
-                            t.update(tip -> tip.x(slider.x() + slider.width() * slider.value()).y(slider.y() - 10));
+                            t.update(tip -> tip.x(slider.x() + slider.width()/UIscale * slider.value()).y(slider.y() - 10));
                         });
                     });
                     list.row(10);
