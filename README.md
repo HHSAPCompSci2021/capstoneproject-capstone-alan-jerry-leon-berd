@@ -143,8 +143,8 @@ That's it!
 
 ## Credits
 
-Alan Ma: Skeleton Classes
+Alan Ma: Content, Bullets, Enemies, Sprites
 
-Jerry Yang: UI, Javadocs
+Jerry Yang: Buttons, Bars, Screens, UML
 
-Leon Wang: Javadocs, UML
+Leon Wang: Physics, Sprites, Entities, Core
