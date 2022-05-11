@@ -7,6 +7,7 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/GameUtils.jar"/>
-	<classpathentry kind="lib" path="lib/processing.jar"/>
+	<classpathentry kind="lib" path="lib/Processing.jar"/>
+	<classpathentry kind="lib" path="lib/JayLayer.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
