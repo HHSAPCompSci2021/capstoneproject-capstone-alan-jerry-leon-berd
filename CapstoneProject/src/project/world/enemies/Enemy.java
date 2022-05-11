@@ -107,7 +107,7 @@ public class Enemy extends Type{
 
             for(int i = 0;i < size / 10f;i++){
                 Experience exp = new Experience().amount(size);
-                exp.pos.set(pos);
+                exp.pos.set(pos);   9
                 exp.vel.setr(random(0, 360), random(0, rt2(size)));
                 world.experience.add(exp);
             }
