@@ -14,13 +14,14 @@ import java.awt.*;
 
 import static project.Vars.*;
 
-/** Contains all the UI of a menu screen. */
+/**
+ * Contains all the UI of a menu screen.
+ */
 public class MenuScreen extends Screen{
     public Table side;
     public Sprite background = new Sprite(SpritePath.backgrounds, "space3");
     public int menu = 0;
     public float sidex = 0;
-
     public Cons<Button> buttonHover = b -> Effects.blur.draw(-50, 0, 350, b.height(), Pal.opaqueWhite);
 
     public MenuScreen(){
@@ -104,7 +105,7 @@ public class MenuScreen extends Screen{
                                 text.text("(ABSOLUTELY BROKEN)").size(20).color(Color.white);
                                 text.alignX(AlignX.center).alignY(AlignY.bottom);
                             });
-                            t.update(tip -> tip.x(slider.x() + slider.width()/UIscale * slider.value()).y(slider.y() - 10));
+                            t.update(tip -> tip.x(slider.x() + slider.width() / UIscale * slider.value()).y(slider.y() - 10));
                         });
                     });
                     list.row(10);
@@ -147,9 +148,7 @@ public class MenuScreen extends Screen{
 
     @Override
     public void update(){
-        float wanted =
-        menu >= 1 ? 250 :
-        input.mouse.x < 200 ? 200 : 0;
+        float wanted = menu >= 1 ? 250 : input.mouse.x < 200 ? 200 : 0;
 
         sidex += (wanted - sidex) / 10;
     }
