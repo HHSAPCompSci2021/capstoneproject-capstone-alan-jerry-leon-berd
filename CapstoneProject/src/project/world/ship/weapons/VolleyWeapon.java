@@ -13,7 +13,7 @@ public class VolleyWeapon extends Weapon{
         super();
         bullet = new VolleyBullet();
         spread = 15;
-        inaccuracy = 1;
+        inaccuracy = 0.5f;
     }
 
     @Override

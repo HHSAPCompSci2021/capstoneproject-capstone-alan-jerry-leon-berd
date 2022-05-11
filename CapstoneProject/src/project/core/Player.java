@@ -110,14 +110,14 @@ public class Player extends Ship{
         super.draw();
 
         hull.type().sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation + 90, color());
-        hull.type().sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation + 90, Color.white, 100);
+        hull.type().sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation + 90, Color.white, 200);
 
         canvas.noFill();
         canvas.stroke(color());
         canvas.strokeWeight(2);
         canvas.ellipse(pos.x, pos.y, size() * 5, size() * 5);
 
-        canvas.stroke(Color.white, 100);
+        canvas.stroke(Color.white, 200);
         canvas.strokeWeight(2);
         canvas.ellipse(pos.x, pos.y, size() * 5, size() * 5);
 
