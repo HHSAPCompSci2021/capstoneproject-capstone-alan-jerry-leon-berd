@@ -73,7 +73,7 @@ public class Bullet extends Type{
 
             if(sprite == null) return; //TODO: Sprites for everything
             sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, origin.color());
-            sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, Color.white, 100);
+            sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, Color.white, 200);
         }
 
         @Override

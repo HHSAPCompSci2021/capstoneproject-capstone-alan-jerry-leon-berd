@@ -38,7 +38,7 @@ public class VolleyBullet extends Bullet{
             if(flip){
                 Effects.glow.drawc(pos.x, pos.y, size() * 15, size() * 15, origin.color(), 30);
                 sprite2.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, origin.color());
-                sprite2.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, Color.white, 100);
+                sprite2.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, Color.white, 200);
             }else{
                 super.draw();
             }
