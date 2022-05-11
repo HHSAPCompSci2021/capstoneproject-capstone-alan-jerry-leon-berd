@@ -18,8 +18,8 @@ public class SmoothBar extends ProgressBar{
         canvas.fill(color());
         canvas.rect(0, 0, width * progress.get(), height);
 
-        canvas.glow(glow(), 5, color(), 5, i -> {
-            canvas.rectc(width * progress.get() / 2, height / 2, width() + i, height);
-        });
+//        canvas.glow(glow(), 5, color(), 5, i -> {
+//            canvas.rectc(width * progress.get() / 2, height / 2, width() + i, height);
+//        });
     }
 }

@@ -100,13 +100,6 @@ public class Table{
         return this;
     }
 
-    public Table glow(Cons<GlowText> cons){
-        GlowText text = (GlowText)new GlowText().parent(this);
-        cons.get(text);
-        add(text);
-        return this;
-    }
-
     public Table button(Cons<Button> cons){
         Button button = (Button)new Button().parent(this);
         cons.get(button);

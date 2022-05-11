@@ -44,13 +44,6 @@ public class RailgunBullet extends Bullet{
             canvas.stroke(255);
             canvas.strokeWeight(size);
             canvas.line(pos.x, pos.y, pPos.x, pPos.y);
-
-            if(glowRendered > 0) canvas.glows(size * 10, 1, origin.color(), 3, Interpf.pow5, i -> {
-                if(i > size){
-                    canvas.strokeWeight(i);
-                    canvas.line(pos.x, pos.y, pPos.x, pPos.y);
-                }
-            });
         }
     }
 }

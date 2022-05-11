@@ -22,9 +22,9 @@ public class MenuScreen extends Screen{
     public float sidex = 0;
 
     public Cons<Button> buttonHover = b -> {
-        canvas.glow(300, 3, Color.white, 2, i -> {
-            canvas.rect(-100, 0, 50 + i, b.height());
-        });
+//        for(int i = 0;i < 100;i++)
+//            canvas.rect(-100, 0, 50 + i, b.height());
+//        });
     };
 
     public MenuScreen(){
@@ -42,12 +42,12 @@ public class MenuScreen extends Screen{
     public void rebuild(){
         side = new Table(table -> {
             table.add(new List(list -> {
-                list.glow(text -> text.text("N O V A   S U B R I F T").size(60).color(Pal.opaqueWhite));
+                list.text(text -> text.text("N O V A   S U B R I F T").size(60).color(Pal.opaqueWhite));
                 list.row(20);
                 if(menu == 0){
                     list.button(button -> {
                         button.hover = buttonHover;
-                        button.press(b -> canvas.screen(ui.gameScreen)).glow(text -> text.text("PLAY").size(35).color(Pal.opaqueWhite)).width(150);
+                        button.press(b -> canvas.screen(ui.gameScreen)).text(text -> text.text("PLAY").size(35).color(Pal.opaqueWhite)).width(150);
                     });
                     list.row(10);
                     list.button(button -> {
@@ -55,17 +55,17 @@ public class MenuScreen extends Screen{
                         button.press(b -> {
                             menu = 1;
                             rebuild();
-                        }).glow(text -> text.text("SETTINGS").size(35).color(Pal.opaqueWhite)).width(150);
+                        }).text(text -> text.text("SETTINGS").size(35).color(Pal.opaqueWhite)).width(150);
                     });
                 }else if(menu == 1){
-                    list.glow(text -> text.text("SETTINGS").size(40).color(Pal.opaqueWhite));
+                    list.text(text -> text.text("SETTINGS").size(40).color(Pal.opaqueWhite));
                     list.row(10);
                     list.button(button -> {
                         button.hover = buttonHover;
                         button.press(b -> {
                             menu = 2;
                             rebuild();
-                        }).glow(text -> text.text("KEYBINDS").size(30).color(Pal.opaqueWhite));
+                        }).text(text -> text.text("KEYBINDS").size(30).color(Pal.opaqueWhite));
                     });
                     list.row(10);
                     list.button(button -> {
@@ -73,34 +73,24 @@ public class MenuScreen extends Screen{
                         button.press(b -> {
                             menu = 3;
                             rebuild();
-                        }).glow(text -> text.text("GRAPHICS").size(30).color(Pal.opaqueWhite));
+                        }).text(text -> text.text("GRAPHICS").size(30).color(Pal.opaqueWhite));
                     });
                 }else if(menu == 2){
-                    list.glow(text -> text.text("KEYBINDS").size(40).color(Pal.opaqueWhite));
+                    list.text(text -> text.text("KEYBINDS").size(40).color(Pal.opaqueWhite));
                     list.row(10);
                     for(KeyBind k : KeyBind.all){
                         list.text(text -> text.text(k.name + ": " + k.value).size(20).color(Pal.opaqueWhite));
                         list.row(5);
                     }
                 }else if(menu == 3){
-                    list.glow(text -> text.text("GRAPHICS").size(40).color(Pal.opaqueWhite));
+                    list.text(text -> text.text("GRAPHICS").size(40).color(Pal.opaqueWhite));
                     list.row(10);
-                    list.text(text -> text.text("GLOW").size(30).color(Pal.opaqueWhite));
-                    list.row(10);
-                    list.slider(slider -> {
-                        def(slider);
-                        slider.slide(f -> {
-                            glowRendered = (int)(f * maxGlow + 0.5f);
+                    list.button(button -> {
+                        button.hover = buttonHover;
+                        button.press(b -> {
+                            glowEnabled = !glowEnabled;
                             rebuild();
-                        });
-                        slider.value(() -> glowRendered / (float)maxGlow).width(150).height(20);
-                        slider.tooltip(t -> {
-                            t.text(text -> {
-                                text.text("" + glowRendered).size(20).color(Color.white);
-                                text.alignX(AlignX.center).alignY(AlignY.bottom);
-                            });
-                            t.update(tip -> tip.x(slider.x() + slider.width() * slider.value()).y(slider.y() - 10));
-                        });
+                        }).text(text -> text.text("GLOW: " + (glowEnabled ? "ON" : "OFF")).size(30).color(Pal.opaqueWhite));
                     });
                     list.row(10);
                     list.text(text -> text.text("UI SCALE").size(30).color(Pal.opaqueWhite));
@@ -127,7 +117,7 @@ public class MenuScreen extends Screen{
                         button.press(b -> {
                             effectsEnabled = !effectsEnabled;
                             rebuild();
-                        }).glow(text -> text.text("EFFECTS: " + (effectsEnabled ? "ON" : "OFF")).size(30).color(Pal.opaqueWhite));
+                        }).text(text -> text.text("EFFECTS: " + (effectsEnabled ? "ON" : "OFF")).size(30).color(Pal.opaqueWhite));
                     });
                     list.row(10);
                     list.text(text -> text.text("SCREEN SHAKE").size(30).color(Pal.opaqueWhite));
@@ -154,7 +144,7 @@ public class MenuScreen extends Screen{
                 button.press(b -> {
                     menu = menu == 1 ? 0 : 1;
                     rebuild();
-                }).glow(text -> text.text("<").size(30).color(Pal.opaqueWhite)).width(150).y(height - 70);
+                }).text(text -> text.text("<").size(30).color(Pal.opaqueWhite)).width(150).y(height - 70);
             });
         }).x(20).y(10);
     }
@@ -174,10 +164,6 @@ public class MenuScreen extends Screen{
         canvas.translate(-canvas.mouseX / 50f, -canvas.mouseY / 50f);
         background.drawh(-125, 0, height);
         canvas.popMatrix();
-
-        canvas.glow(100, 2, Color.black, Color.black, 5, i -> {
-            canvas.rect(sidex - 300, 0, (200 + i) * UIscale, height);
-        });
 
         side.process();
     }

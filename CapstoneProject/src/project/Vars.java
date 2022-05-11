@@ -11,9 +11,9 @@ public class Vars{
     public static int width = 1000, height = 600;
     public static float screenShake = 1f, shakeDrag = 2f;
 
-    public static int glowRendered = 7, maxGlow = 10;
     public static float UIscale = 1f; //Well and completely broken.
     public static boolean effectsEnabled = true;
+    public static boolean glowEnabled = true;
 
     public static float universalDrag = 0.02f;
     public static float universalSpeedLimit = 25;
