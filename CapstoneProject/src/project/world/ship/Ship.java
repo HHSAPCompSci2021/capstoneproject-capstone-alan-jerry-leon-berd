@@ -69,6 +69,8 @@ public abstract class Ship extends Entity{
 
     @Override
     public void draw(){
+        Effects.glow.drawc(pos.x, pos.y, size() * 15, size() * 15, color(), 30);
+        Effects.glow.drawc(pos.x, pos.y, size() * 5, size() * 5, Color.white, 50);
     }
 
     @Override

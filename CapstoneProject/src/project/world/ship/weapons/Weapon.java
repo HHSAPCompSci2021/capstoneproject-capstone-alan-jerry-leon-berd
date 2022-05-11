@@ -15,7 +15,7 @@ import static project.Vars.*;
 public class Weapon extends Type{
     public int shots = 1;
     public float spread = 10;
-    public float reload = 20;
+    public float reload = 10;
     public float velRand = 1;
     public float inaccuracy = 5;
     public float recoil = 0.1f;
@@ -63,7 +63,7 @@ public class Weapon extends Type{
                 BulletEntity b = def(bullet.create());
                 b.rotation += spread * (i - (shots - 1) / 2f);
                 world.bullets.add(b);
-                Effects.gunfire.at(b.pos.x, b.pos.y);
+                Effects.gunfire.at(b.pos.x, b.pos.y, e -> e.color(0, world.player.color()).scale(1.2f));
             }
 
             world.player.thrust(-recoil * rules.weaponRecoil(world.player.team));

@@ -33,10 +33,10 @@ public class World{
         effects = new Entities<>();
 
         player = new Player();
-        player.weapon = Gear.thruster.create();
+//        player.weapon = Gear.thruster.create();
         player.pos.set(bounds.center());
-        player.addMod(Modifiers.shotgunShells);
-        player.addMod(Modifiers.doubleShot);
+//        player.addMod(Modifiers.shotgunShells);
+//        player.addMod(Modifiers.doubleShot);
         player.init();
         ships.add(player);
 
@@ -48,17 +48,17 @@ public class World{
     }
 
     public void update(){
+        experience.update();
         effects.update();
         bullets.update();
         ships.update();
-        experience.update();
     }
 
     public void draw(){
+        experience.draw();
         effects.draw();
         bullets.draw();
         ships.draw();
-        experience.draw();
 
         if(debug){
             bullets.hitbox();

@@ -1,0 +1,5 @@
+/CapstoneProject/bin/
+/CapstoneProject/classes/
+/CapstoneProject/.idea/
+*.iml
+*.DS_Store

@@ -95,6 +95,13 @@ public class Enemy extends Type{
         }
 
         @Override
+        public void draw(){
+            super.draw();
+
+            sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation);
+        }
+
+        @Override
         public void remove(){
             super.remove();
 

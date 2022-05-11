@@ -20,7 +20,7 @@ public class GameScreen extends Screen{
 
     public Sprite background = new Sprite(SpritePath.backgrounds, "space2");
     ;
-    public float rot = random(0, 360), shieldGlow = 50, healthGlow = 50;
+    public float rot = random(0, 360), trackx, tracky, shieldGlow = 50, healthGlow = 50;
 
     @Override
     public void init(){
@@ -42,6 +42,9 @@ public class GameScreen extends Screen{
     public void update(){
         rot += 0.025f;
 
+        trackx += (world.player.x() - trackx) / 10;
+        tracky += (world.player.y() - tracky) / 10;
+
         world.update();
 
         if(input.pressed(KeyBind.pause)){
@@ -53,7 +56,7 @@ public class GameScreen extends Screen{
     @Override
     public void draw(){
         canvas.pushMatrix();
-        canvas.translate(-world.player.x() / 50f, -world.player.y() / 50f);
+        canvas.translate(-trackx / 50f, -tracky / 50f);
         background.drawh(Tmp.v1.setr(rot, 1).x * 550 - 550, Tmp.v1.y * 100 - 100, height + 200);
         canvas.popMatrix();
 

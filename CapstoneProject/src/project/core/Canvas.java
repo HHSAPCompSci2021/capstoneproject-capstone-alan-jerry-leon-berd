@@ -41,7 +41,6 @@ public class Canvas extends PApplet{
         super.setup();
         textFont(createFont("assets/fonts/brandbe/Brandbe Regular.otf", 100, true));
         for(Sprite s : Sprite.all) s.load();
-        Effects.glow.load();
         screen.rebuild();
     }
 
@@ -74,7 +73,7 @@ public class Canvas extends PApplet{
 
     @Override
     public void keyPressed(){
-        if(keyCode == 'd') debug = !debug;
+        if(key == 'd') debug = !debug;
         input.register(keyCode);
     }
 

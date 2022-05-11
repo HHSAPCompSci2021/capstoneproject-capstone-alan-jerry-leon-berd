@@ -2,11 +2,13 @@ package project.core;
 
 import gameutils.struct.*;
 import project.content.*;
+import project.graphics.*;
 import project.world.*;
 
 /** Loads, stores, and processes all content in the game. */
 public class Content{
     public ContentList[] lists = new ContentList[]{
+    new Effects(),
     new Bullets(),
     new Modifiers(),
     new Gear(),
@@ -33,6 +35,7 @@ public class Content{
 
     /** Represents a type of content. Used to organize the lists in Content. */
     public enum ContentType{
+        effect,
         body,
         shield,
         weapon,

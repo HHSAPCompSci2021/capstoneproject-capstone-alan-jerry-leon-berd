@@ -98,8 +98,8 @@ public class Player extends Ship{
         if(input.pressed(KeyBind.thrust)) thrust(hull.type().accel * rules.engineAcceleration(team));
 
         if(!world.bounds.contains(pos)){
-            pos.x = clamp(pos.x, world.bounds.x, world.bounds.x + world.bounds.w);
-            pos.y = clamp(pos.y, world.bounds.y, world.bounds.y + world.bounds.h);
+            pos.x = mod(pos.x, world.bounds.w);
+            pos.y = mod(pos.y, world.bounds.h);
         }
 
         for(ModEntry m : modifiers) m.update();
@@ -107,12 +107,17 @@ public class Player extends Ship{
 
     @Override
     public void draw(){
-        Effects.glow.drawc(pos.x, pos.y, size() * 10, size() * 10, color(), 50);
+        super.draw();
 
         hull.type().sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation + 90, color());
+        hull.type().sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation + 90, Color.white, 100);
 
         canvas.noFill();
         canvas.stroke(color());
+        canvas.strokeWeight(2);
+        canvas.ellipse(pos.x, pos.y, size() * 5, size() * 5);
+
+        canvas.stroke(Color.white, 100);
         canvas.strokeWeight(2);
         canvas.ellipse(pos.x, pos.y, size() * 5, size() * 5);
 

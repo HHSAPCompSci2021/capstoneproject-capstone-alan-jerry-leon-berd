@@ -13,7 +13,7 @@ public class Sprite{
     public static Seq<Sprite> all = new Seq<>();
 
     public String path;
-    public PImage image;
+    public PImage image; //TODO: normalize all sprites (Processing sucks at scaling images)
 
     public Sprite(String path){
         this.path = path;
@@ -31,6 +31,10 @@ public class Sprite{
 
     public void draw(float x, float y){
         draw(x, y, image.width, image.height);
+    }
+
+    public void draw(float x, float y, float r, Color tint){
+        draw(x, y, image.width, image.height, r, tint);
     }
 
     public void drawh(float x, float y, float h){
@@ -67,6 +71,14 @@ public class Sprite{
         canvas.popMatrix();
     }
 
+    public void drawc(float x, float y, float r, Color tint){
+        draw(x - image.width / 2, y - image.height / 2, image.width, image.height, r, tint);
+    }
+
+    public void drawc(float x, float y, float r, Color tint, float alpha){
+        draw(x - image.width / 2, y - image.height / 2, image.width, image.height, r, tint, alpha);
+    }
+
     public void drawc(float x, float y, float w, float h){
         draw(x - w / 2, y - h / 2, w, h);
     }
@@ -85,6 +97,10 @@ public class Sprite{
 
     public void drawc(float x, float y, float w, float h, float r, Color tint){
         draw(x - w / 2, y - h / 2, w, h, r, tint);
+    }
+
+    public void drawc(float x, float y, float w, float h, float r, Color tint, float alpha){
+        draw(x - w / 2, y - h / 2, w, h, r, tint, alpha);
     }
 
     /** Represents a path in the project. */

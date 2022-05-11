@@ -82,7 +82,7 @@ public class Entities<T extends Entity>{
 
     public void hitbox(){
         canvas.noFill();
-        canvas.stroke(0, 0, 0, 30);
+        canvas.stroke(150, 150, 150, 100);
         canvas.strokeWeight(2);
         for(T e : entities) if(e.keep()) canvas.ellipse(e.x(), e.y(), e.size() * 2);
     }

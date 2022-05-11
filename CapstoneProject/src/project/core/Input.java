@@ -50,7 +50,6 @@ public class Input{
     }
 
     //TODO: Create KeyCode class, that processes and stores key values for keybinds (Mainly just for the name)
-
     /** Represents a keybind, storing both the value, and name. */
     public enum KeyBind{
         thrust("THRUST", input.right),

@@ -4,14 +4,19 @@ import gameutils.struct.*;
 import gameutils.util.*;
 import project.core.Content.*;
 import project.graphics.*;
+import project.graphics.Sprite.*;
 import project.world.*;
 import project.world.ship.*;
+
+import java.awt.*;
 
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 /** Contains stats for a bullet. */
 public class Bullet extends Type{
+    public Sprite sprite;
+
     public float speed = 10;
     public float size = 5;
     public float damage = 20;
@@ -64,12 +69,11 @@ public class Bullet extends Type{
 
         @Override
         public void draw(){
-            canvas.fill(255);
-            canvas.rectc(pos.x, pos.y, 10, 10, rotation);
+            Effects.glow.drawc(pos.x, pos.y, size() * 15, size() * 15, origin.color(), 30);
 
-            if(glowRendered > 0) canvas.glow(size * 10, 1, origin.color(), 3, Interpf.pow5, i -> {
-                if(i > size) canvas.ellipse(pos.x, pos.y, i);
-            });
+            if(sprite == null) return; //TODO: Sprites for everything
+            sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, origin.color());
+            sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, Color.white, 100);
         }
 
         @Override

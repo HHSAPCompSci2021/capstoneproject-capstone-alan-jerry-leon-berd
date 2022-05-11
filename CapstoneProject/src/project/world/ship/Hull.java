@@ -20,7 +20,7 @@ public class Hull extends Type{
     public float mass = 1; //Ship mass
     public float size = 10; //Hitbox size
 
-    public Vec2 shootPos = new Vec2(5, 0);
+    public Vec2 shootPos = new Vec2(3, 0);
 
     @Override
     public ContentType type(){

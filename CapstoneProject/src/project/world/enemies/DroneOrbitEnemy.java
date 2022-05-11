@@ -22,6 +22,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
         sprite = new Sprite(SpritePath.enemies, "host-body");
         color = new Color(120, 120, 255);
         reload = 0;
+        size = 17;
     }
 
     @Override
@@ -67,11 +68,6 @@ public class DroneOrbitEnemy extends MultiEnemy{
                     drone.pos.set(Tmp.v1.setr(orbit + 360f / drones * i, droneSpace).add(pos));
                 }
             }
-        }
-
-        @Override
-        public void draw(){
-            sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation);
         }
     }
 
