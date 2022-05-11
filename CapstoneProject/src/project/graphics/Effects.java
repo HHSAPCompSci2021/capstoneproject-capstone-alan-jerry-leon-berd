@@ -1,6 +1,7 @@
 package project.graphics;
 
 import gameutils.func.*;
+import gameutils.math.*;
 import project.core.Content.*;
 import project.graphics.Sprite.*;
 import project.world.*;
@@ -62,13 +63,13 @@ public class Effects implements ContentList{
             canvas.fill(255, 255, 255, 255 * e.fout());
             canvas.rectc(maxLineLen / 2, 0, 0, 0, maxLineLen, e.fout() * 2, e.data[0]);
         }).essential(true);
-        gunfire = new Effect(10, e -> e.create(3), e -> {
+        gunfire = new Effect(8, e -> e.create(3), e -> {
             e.fill(0);
             canvas.ellipse(0, 0, 10 * e.fout(), 10 * e.fout());
 
             canvas.fill(255, 255, 255, 255 * e.fout() * 2 - 255);
             canvas.ellipse(0, 0, 10 * e.fout(), 10 * e.fout());
-        });
+        }).follow(true);
     }
 
     /** Represents a type of effect. Stores the effect renderer and initialization runnables. */
@@ -78,7 +79,7 @@ public class Effects implements ContentList{
 
         public float lifetime;
 
-        public boolean essential;
+        public boolean essential, follow;
 
         public Effect(float lifetime, Cons<EffectEntity> drawer){
             this.lifetime = lifetime;
@@ -92,6 +93,11 @@ public class Effects implements ContentList{
 
         public Effect essential(boolean essential){
             this.essential = essential;
+            return this;
+        }
+
+        public Effect follow(boolean follow){
+            this.follow = follow;
             return this;
         }
 
@@ -121,6 +127,8 @@ public class Effects implements ContentList{
         public class EffectEntity extends Entity{
             public float scale;
             public float[] data;
+
+            public Pos2 parent;
 
             public EffectEntity(Effect effect){
                 super(effect);
@@ -155,6 +163,11 @@ public class Effects implements ContentList{
                 return this;
             }
 
+            public EffectEntity parent(Pos2 parent){
+                this.parent = parent;
+                return this;
+            }
+
             public float fin(){
                 return life / lifetime;
             }
@@ -176,6 +189,7 @@ public class Effects implements ContentList{
             public void draw(){
                 canvas.pushMatrix();
                 canvas.translate(pos.x, pos.y);
+                if(follow) canvas.translate(parent.x(), parent.y());
                 canvas.scale(scale);
                 drawer.get(this);
                 canvas.popMatrix();
