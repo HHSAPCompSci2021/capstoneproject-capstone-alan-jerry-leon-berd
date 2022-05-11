@@ -13,8 +13,7 @@ import static project.Vars.*;
 
 /** Contains a list of all effects in the game. */
 public class Effects implements ContentList{
-    public static Sprite
-    glow;
+    public static Sprite glow, blur;
 
     public static Effect
     explosion,
@@ -28,6 +27,7 @@ public class Effects implements ContentList{
 
     public void load(){
         glow = new Sprite(SpritePath.effects, "glow");
+        blur = new Sprite(SpritePath.effects, "blur");
 
         explosion = new Effect(10, e -> {
             canvas.fill(255, 255, 255, 100 * e.fout());

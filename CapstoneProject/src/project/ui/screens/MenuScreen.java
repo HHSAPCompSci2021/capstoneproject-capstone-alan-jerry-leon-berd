@@ -22,9 +22,7 @@ public class MenuScreen extends Screen{
     public float sidex = 0;
 
     public Cons<Button> buttonHover = b -> {
-//        for(int i = 0;i < 100;i++)
-//            canvas.rect(-100, 0, 50 + i, b.height());
-//        });
+        Effects.blur.draw(-50, 0, 350, b.height(), Pal.opaqueWhite);
     };
 
     public MenuScreen(){
@@ -144,7 +142,7 @@ public class MenuScreen extends Screen{
                 button.press(b -> {
                     menu = menu == 1 ? 0 : 1;
                     rebuild();
-                }).text(text -> text.text("<").size(30).color(Pal.opaqueWhite)).width(150).y(height - 70);
+                }).text(text -> text.text("<").size(30).color(Pal.opaqueWhite)).width(150).y(height - 80);
             });
         }).x(20).y(10);
     }
@@ -164,6 +162,8 @@ public class MenuScreen extends Screen{
         canvas.translate(-canvas.mouseX / 50f, -canvas.mouseY / 50f);
         background.drawh(-125, 0, height);
         canvas.popMatrix();
+
+        Effects.blur.draw(sidex - 300, 0, 300, height, Color.black);
 
         side.process();
     }
