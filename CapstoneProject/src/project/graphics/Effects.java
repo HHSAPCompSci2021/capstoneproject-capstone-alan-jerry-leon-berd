@@ -13,7 +13,7 @@ import static project.Vars.*;
 
 /** Contains a list of all effects in the game. */
 public class Effects implements ContentList{
-    public static Sprite glow, blur;
+    public static GlowSprite glow, blur;
 
     public static Effect
     explosion,
@@ -26,8 +26,8 @@ public class Effects implements ContentList{
     gunfire;
 
     public void load(){
-        glow = new Sprite(SpritePath.effects, "glow");
-        blur = new Sprite(SpritePath.effects, "blur");
+        glow = new GlowSprite(SpritePath.effects, "glow");
+        blur = new GlowSprite(SpritePath.effects, "blur");
 
         explosion = new Effect(10, e -> {
             canvas.fill(255, 255, 255, 100 * e.fout());
@@ -70,6 +70,22 @@ public class Effects implements ContentList{
             canvas.fill(255, 255, 255, 255 * e.fout() * 2 - 255);
             canvas.ellipse(0, 0, 10 * e.fout(), 10 * e.fout());
         }).follow(true);
+    }
+
+    public class GlowSprite extends Sprite{
+        public GlowSprite(SpritePath path, String name){
+            super(path, name);
+        }
+
+        @Override
+        public void draw(float x, float y, float w, float h, Color tint, float alpha){
+            if(glowEnabled) super.draw(x, y, w, h, tint, alpha);
+        }
+
+        @Override
+        public void draw(float x, float y, float w, float h, float r, Color tint, float alpha){
+            if(glowEnabled) super.draw(x, y, w, h, r, tint, alpha);
+        }
     }
 
     /** Represents a type of effect. Stores the effect renderer and initialization runnables. */
