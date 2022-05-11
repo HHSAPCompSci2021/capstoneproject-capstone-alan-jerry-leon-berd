@@ -3,4 +3,14 @@ project.content
 project.core
 project.graphics
 project.ui
+project.ui.bars
+project.ui.drawables
+project.ui.interactables
+project.ui.screens
 project.world
+project.world.bullets
+project.world.enemies
+project.world.enemies.ai
+project.world.modifiers
+project.world.ship
+project.world.ship.weapons
