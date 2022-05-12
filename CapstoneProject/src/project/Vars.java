@@ -51,7 +51,6 @@ public class Vars{
         content.init();
         rules.init();
         world.init();
-        canvas.init();
         input.init();
         ui.init();
     }

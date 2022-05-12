@@ -37,7 +37,7 @@ public class Content{
     /** Represents a type of content. Used to organize the lists in Content. */
     public enum ContentType{
         effect,
-        body,
+        hull,
         shield,
         weapon,
         modifier,

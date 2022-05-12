@@ -26,7 +26,6 @@ public class Sprite{
 
     public void load(){
         image = canvas.loadImage(path);
-        System.out.println(path + ": " + image);
     }
 
     public void draw(float x, float y){

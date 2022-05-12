@@ -41,11 +41,7 @@ public class Canvas extends PApplet{
         super.setup();
         textFont(createFont("assets/fonts/brandbe/Brandbe Regular.otf", 100, true));
         for(Sprite s : Sprite.all) s.load();
-        screen.rebuild();
-    }
-
-    public void init(){
-        screen = ui.menuScreen;
+        screen(ui.menuScreen);
     }
 
     @Override

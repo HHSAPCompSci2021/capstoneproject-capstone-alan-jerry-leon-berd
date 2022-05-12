@@ -36,12 +36,12 @@ public class World{
 //        player.weapon = Gear.thruster.create();
         player.pos.set(bounds.center());
 //        player.addMod(Modifiers.shotgunShells);
-//        player.addMod(Modifiers.doubleShot);
+        player.addMod(Modifiers.doubleShot);
         player.init();
         ships.add(player);
 
         for(int i = 0;i < 1;i++){
-            EnemyEntity e = Enemies.orbiting.create();
+            EnemyEntity e = Enemies.host.create();
             e.pos.set(random(0, width), random(0, height));
             ships.add(e);
         }

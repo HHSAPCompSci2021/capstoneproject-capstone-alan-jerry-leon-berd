@@ -17,7 +17,7 @@ public class Weapon extends Type{
     public float spread = 10;
     public float reload = 10;
     public float velRand = 1;
-    public float inaccuracy = 5;
+    public float inaccuracy = 0;
     public float recoil = 0.1f;
 
     public Bullet bullet = Bullets.normal;

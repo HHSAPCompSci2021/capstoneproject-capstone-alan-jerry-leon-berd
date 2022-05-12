@@ -12,13 +12,20 @@ import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 public class VolleyBullet extends Bullet{
-    public Sprite sprite2 = new Sprite(SpritePath.bullets, "blaster-2");
+    public Sprite sprite2;
 
     public VolleyBullet(){
         super();
         speed = 15;
-        size = 4;
-        sprite = new Sprite(SpritePath.bullets, "blaster-1");
+        size = 3;
+    }
+
+    @Override
+    public void init(){
+        super.init();
+
+        if(sprite == null) sprite = new Sprite(SpritePath.bullets, "blaster-1");
+        if(sprite2 == null) sprite2 = new Sprite(SpritePath.bullets, "blaster-2");
     }
 
     @Override
