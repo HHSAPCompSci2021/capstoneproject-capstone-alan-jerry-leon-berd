@@ -8,9 +8,7 @@ import project.world.*;
 /** Loads, stores, and processes all content in the game. */
 public class Content{
     public ContentList[] lists = new ContentList[]{
-    new Music(),
-    new Sounds(),
-    new Effects(),
+    new Effects(), //TODO: Effects should not be a contentlist
     new Bullets(),
     new Modifiers(),
     new Gear(),
@@ -31,6 +29,8 @@ public class Content{
     }
 
     public void add(Type content){
+        if(content.type() == null) return;
+
         all.add(content);
         map[content.type().id()].add(content);
     }

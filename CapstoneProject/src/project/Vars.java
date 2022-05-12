@@ -2,12 +2,12 @@ package project;
 
 import jay.jaysound.*;
 import project.core.*;
+import project.core.Sounds.*;
 
 import static gameutils.util.Mathf.*;
 
 /** Contains variables that control gameplay or are essential to the game in general. */
 public class Vars{
-    public static JayLayer layer = new JayLayer("assets/audio/music/", "assets/audio/effects/", false);
     public static boolean debug = false;
 
     public static int width = 1000, height = 600;
@@ -32,6 +32,7 @@ public class Vars{
     public static float baseLevelExp = 250;
     public static float expScaling = 1.1f;
 
+    public static Sounds sounds;
     public static Events events;
     public static Content content;
     public static Rules rules;
@@ -41,6 +42,7 @@ public class Vars{
     public static UI ui;
 
     public static void init(){
+        sounds = new Sounds();
         events = new Events();
         content = new Content();
         rules = new Rules();
@@ -49,6 +51,7 @@ public class Vars{
         input = new Input();
         ui = new UI();
 
+        sounds.init();
         events.init();
         content.init();
         rules.init();

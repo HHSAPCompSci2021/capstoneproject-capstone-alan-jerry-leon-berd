@@ -118,11 +118,6 @@ public class Effects implements ContentList{
         }
 
         @Override
-        public ContentType type(){
-            return ContentType.effect;
-        }
-
-        @Override
         public EffectEntity create(){
             return new EffectEntity(this);
         }
