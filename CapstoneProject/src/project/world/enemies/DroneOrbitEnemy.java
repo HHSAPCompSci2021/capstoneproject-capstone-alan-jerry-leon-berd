@@ -19,7 +19,6 @@ public class DroneOrbitEnemy extends MultiEnemy{
 
     public DroneOrbitEnemy(){
         super();
-        sprite = new Sprite(SpritePath.enemies, "host-body");
         color = new Color(120, 120, 255);
         reload = 0;
         size = 17;
@@ -28,6 +27,8 @@ public class DroneOrbitEnemy extends MultiEnemy{
     @Override
     public void init(){
         for(int i = 0;i < drones;i++) pieces.add(drone);
+
+        if(sprite == null) sprite = new Sprite(SpritePath.enemies, "host-body");
 
         super.init();
     }
@@ -83,7 +84,13 @@ public class DroneOrbitEnemy extends MultiEnemy{
             bullet = Bullets.small;
 
             ai = new ShootAI();
-            sprite = new Sprite(SpritePath.enemies, "host-drone-1");
+        }
+
+        @Override
+        public void init(){
+            super.init();
+
+            if(sprite == null) sprite = new Sprite(SpritePath.enemies, "host-drone-1");
         }
 
         @Override

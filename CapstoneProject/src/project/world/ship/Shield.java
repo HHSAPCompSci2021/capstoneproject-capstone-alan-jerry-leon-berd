@@ -17,7 +17,7 @@ public class Shield extends Type{
 
     @Override
     public ContentType type(){
-        return ContentType.body;
+        return ContentType.shield;
     }
 
     @Override

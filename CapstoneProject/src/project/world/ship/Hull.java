@@ -11,7 +11,7 @@ import static project.Vars.*;
 
 /** Stores stats for a hull. */
 public class Hull extends Type{
-    public Sprite sprite = new Sprite(SpritePath.ships, "standard");
+    public Sprite sprite;
 
     public float health = 100;
 
@@ -20,11 +20,22 @@ public class Hull extends Type{
     public float mass = 1; //Ship mass
     public float size = 10; //Hitbox size
 
-    public Vec2 shootPos = new Vec2(5, 0);
+    public Vec2 shootPos = new Vec2(10, 0);
+
+    @Override
+    public void init(){
+        super.init();
+
+        System.out.println("Initialized");
+
+        if(sprite == null) sprite = new Sprite(SpritePath.ships, "standard");
+
+        System.out.println(sprite);
+    }
 
     @Override
     public ContentType type(){
-        return ContentType.shield;
+        return ContentType.hull;
     }
 
     @Override
