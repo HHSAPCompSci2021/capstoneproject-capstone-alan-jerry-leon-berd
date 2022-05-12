@@ -8,6 +8,7 @@ import project.world.*;
 /** Loads, stores, and processes all content in the game. */
 public class Content{
     public ContentList[] lists = new ContentList[]{
+    new Music(),
     new Sounds(),
     new Effects(),
     new Bullets(),
