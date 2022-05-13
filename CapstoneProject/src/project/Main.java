@@ -3,14 +3,17 @@ package project;
 import processing.awt.PSurfaceAWT.*;
 import processing.core.*;
 
+import javax.media.CannotRealizeException;
+import javax.media.NoPlayerException;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 import static project.Vars.*;
 
 /** The main method. Sets up and runs everything. */
 public class Main{
-    public static void main(String[] args){
+    public static void main(String[] args) throws CannotRealizeException, IOException, NoPlayerException {
         Vars.init();
 
         PApplet.runSketch(new String[]{""}, canvas);

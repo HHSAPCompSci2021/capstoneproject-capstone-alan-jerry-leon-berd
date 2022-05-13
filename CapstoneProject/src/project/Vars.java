@@ -5,6 +5,10 @@ import project.core.*;
 import project.core.Sounds.*;
 import project.graphics.*;
 
+import javax.media.CannotRealizeException;
+import javax.media.NoPlayerException;
+import java.io.IOException;
+
 import static gameutils.util.Mathf.*;
 
 /** Contains variables that control gameplay or are essential to the game in general. */
@@ -43,7 +47,7 @@ public class Vars{
     public static Input input;
     public static UI ui;
 
-    public static void init(){
+    public static void init() throws CannotRealizeException, IOException, NoPlayerException {
         sounds = new Sounds();
         events = new Events();
         effects = new Effects();
