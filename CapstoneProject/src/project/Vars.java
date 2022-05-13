@@ -13,6 +13,7 @@ import static gameutils.util.Mathf.*;
 
 /** Contains variables that control gameplay or are essential to the game in general. */
 public class Vars{
+    public static JayLayer layer = new JayLayer("assets/audio/music/", "assets/audio/effects/", false);
     public static boolean debug = false;
 
     public static int width = 1000, height = 600;
@@ -47,7 +48,7 @@ public class Vars{
     public static Input input;
     public static UI ui;
 
-    public static void init() throws CannotRealizeException, IOException, NoPlayerException {
+    public static void init() {
         sounds = new Sounds();
         events = new Events();
         effects = new Effects();

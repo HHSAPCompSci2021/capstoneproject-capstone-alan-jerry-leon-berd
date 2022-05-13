@@ -13,7 +13,7 @@ import static project.Vars.*;
 
 /** The main method. Sets up and runs everything. */
 public class Main{
-    public static void main(String[] args) throws CannotRealizeException, IOException, NoPlayerException {
+    public static void main(String[] args) {
         Vars.init();
 
         PApplet.runSketch(new String[]{""}, canvas);
