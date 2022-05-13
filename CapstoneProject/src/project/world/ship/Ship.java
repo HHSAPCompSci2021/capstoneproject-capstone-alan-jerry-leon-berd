@@ -14,6 +14,7 @@ import static project.Vars.*;
 
 /** Represents a ship. */
 public abstract class Ship extends Entity{
+    /** Stores the rotation of this ship. */
     public float rotation = 0;
 
     public Set<Ship> collided = new Set<>();
@@ -22,6 +23,7 @@ public abstract class Ship extends Entity{
         super(type);
     }
 
+    /** Applies the specified force on this ship. */
     public void apply(Vec2 force){
         apply(force.x, force.y);
     }
@@ -30,25 +32,35 @@ public abstract class Ship extends Entity{
         vel.add(x / mass(), y / mass());
     }
 
+    /** Returns the mass of this ship. */
     public abstract float mass();
 
     @Override
     public abstract float size();
 
+    /** Returns the acceleration of this ship. */
     public abstract float accel();
 
+    /** Returns the rotation speed of this ship. */
     public abstract float rotate();
 
+    /** Returns the color of this ship. */
     public abstract Color color();
 
+    /** Returns the sprite of this ship. */
+    public abstract Sprite sprite();
+
+    /** Deals the specified damage to this ship. */
     public void damage(float damage){
         life -= damage;
     }
 
+    /** Moves the ship forward. */
     public void thrust(){
         apply(Tmp.v1.set(accel(), 0).rot(rotation));
     }
 
+    /** Rotates the ship to the specified angle. */
     public void rotate(float angle){
         rotation = turn(rotation, angle, rotate());
     }

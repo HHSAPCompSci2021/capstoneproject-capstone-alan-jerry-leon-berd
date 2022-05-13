@@ -23,20 +23,24 @@ public class Entities<T extends Entity>{
         buffer = new Seq<>();
     }
 
+    /** Creates an quadtree for this entity list. */
     public Entities tree(){
         tree = new QuadTree<>(world.bounds.cpy().expand(universalSpeedLimit * 4));
         return this;
     }
 
+    /** Add an entity to this list. */
     public void add(T entity){
         entity.init();
         entities.add(entity);
     }
 
+    /** Call the specified runnable for every entity in this list. */
     public void each(Cons<T> cons){
         for(T e : entities) if(e.keep()) cons.get(e);
     }
 
+    /** Runs the specified runnable for every possible entity in the given range. */
     public void range(Range2 range, Cons<T> cons){
         if(tree == null) return;
         arr.clear();
@@ -44,6 +48,7 @@ public class Entities<T extends Entity>{
         for(T e : arr) if(e.keep()) cons.get(e);
     }
 
+    /** Runs the specified runnable for every possible entity in the circle defined with center at (x, y) and radius r. */
     public void query(float x, float y, float r, Cons<T> cons){
         if(tree == null) return;
         range(Tmp.r1.set(x, y, 0, 0).expand(r), e -> {
@@ -51,6 +56,7 @@ public class Entities<T extends Entity>{
         });
     }
 
+    /** Runs the specified runnable for every possible entity in the ray starting at (x, y), with width r, angle ang, and length len. */
     public void raycast(float x, float y, float r, float ang, float len, Cons2<T, Vec2> cons){
         Vec2 pos = new Vec2();
         for(float i = 0;i < len + raycastLength;i += raycastLength){
@@ -59,6 +65,7 @@ public class Entities<T extends Entity>{
         }
     }
 
+    /** Updates every valid entity in this list. */
     public void update(){
         if(tree != null){
             tree.clear();
@@ -76,10 +83,12 @@ public class Entities<T extends Entity>{
         entities.addAll(buffer);
     }
 
+    /** Draws every valid entity in this list. */
     public void draw(){
         for(T e : entities) if(e.keep()) e.draw();
     }
 
+    /** Draws the hitbox of every valid entity in this list. */
     public void hitbox(){
         canvas.noFill();
         canvas.stroke(150, 150, 150, 100);

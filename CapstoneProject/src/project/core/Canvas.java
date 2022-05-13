@@ -15,16 +15,20 @@ import static project.Vars.*;
 
 /** An extension of PApplet. Represents the canvas of the project. */
 public class Canvas extends PApplet{
+    /** The current screen. */
     public Screen screen;
+    /** Stores a "shake" variable, the current shaking of the screen. Used for visuals only. */
     public float shake;
 
     public Canvas(){
     }
 
+    /** Shake the screen with a specified intensity. */
     public void shake(float shake){
         this.shake = max(this.shake, shake);
     }
 
+    /** Switch the screen. */
     public void screen(Screen screen){
         screen.rebuild();
         this.screen = screen;
@@ -44,6 +48,7 @@ public class Canvas extends PApplet{
         screen(ui.menuScreen);
     }
 
+    /** Draw the screen. */
     @Override
     public void draw(){
         input.mouse = new Vec2(mouseX, mouseY);
@@ -78,7 +83,7 @@ public class Canvas extends PApplet{
         input.remove(keyCode);
     }
 
-    /** Very unreliable. Use only for visual effects. */
+    /** Very unreliable timer function; Returns true in once for every length specified. Use only for visual effects. */
     public boolean timer(int length){
         return frameCount % length == 0;
     }

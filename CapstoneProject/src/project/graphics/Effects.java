@@ -2,6 +2,7 @@ package project.graphics;
 
 import gameutils.func.*;
 import gameutils.math.*;
+import project.*;
 import project.core.Content.*;
 import project.graphics.Sprite.*;
 import project.world.*;
@@ -73,11 +74,12 @@ public class Effects{
             canvas.fill(255, 255, 255, 255 * e.fout() * 2 - 255);
             canvas.ellipse(0, 0, 10 * e.fout(), 10 * e.fout());
         }).follow(true);
-        thrust = new Effect(30, e -> e.create(6), e -> {
+        thrust = new Effect(35, e -> e.create(6), e -> {
             e.tint(0, e.fout() * 255);
-            thruster.drawc(0, 0, e.data[3], e.data[4] * e.fin(), e.data[5]);
+            Tmp.v1.setr(e.data[5] + 90, e.data[4] * e.fin() / 2);
+            thruster.drawc(Tmp.v1.x, Tmp.v1.y, e.data[3], e.data[4] * e.fin(), e.data[5]);
             canvas.tint(255, 255, 255, 255 * e.fout() * 2 - 255);
-            thruster.drawc(0, 0, e.data[3], e.data[4] * e.fin(), e.data[5]);
+            thruster.drawc(Tmp.v1.x, Tmp.v1.y, e.data[3], e.data[4] * e.fin(), e.data[5]);
         }).follow(true);
         upgrade = new Effect(25, e -> e.create(2), e -> {
             for(int i = 0;i < 3;i++){
@@ -89,6 +91,7 @@ public class Effects{
         }).follow(true);
     }
 
+    /** Represents a sprite that is only drawn when glowEnabled is on. */
     public class GlowSprite extends Sprite{
         public GlowSprite(SpritePath path, String name){
             super(path, name);
@@ -124,16 +127,19 @@ public class Effects{
             this.init = init;
         }
 
+        /** Set whether this effect should still be drawn even when effects are disabled. */
         public Effect essential(boolean essential){
             this.essential = essential;
             return this;
         }
 
+        /** Set whether this effect follows along with it's parent. */
         public Effect follow(boolean follow){
             this.follow = follow;
             return this;
         }
 
+        /** Create an effect at (x, y). */
         public EffectEntity at(float x, float y){
             EffectEntity e = new EffectEntity(this);
             e.pos.set(x, y);
@@ -141,6 +147,7 @@ public class Effects{
             return e;
         }
 
+        /** Create an effect at (x, y) and run the runnable init on it. */
         public void at(float x, float y, Cons<EffectEntity> init){
             EffectEntity e = at(x, y);
             init.get(e);
@@ -162,16 +169,19 @@ public class Effects{
                 if(init != null) init.get(this);
             }
 
+            /** Create the data array as a float array of length len. */
             public EffectEntity create(int len){
                 data = new float[len];
                 return this;
             }
 
+            /** Sets all values in the data array in range [start, end - 1] inclusive to random values from 0-1. */
             public EffectEntity rand(int start, int end){
                 for(int i = start;i < end;i++) data[i] = random();
                 return this;
             }
 
+            /** Sets the values of data[i], data[i+1], and data[i+2] to the rgb of the color, respectively. */
             public EffectEntity color(int i, Color c){
                 data[i] = c.getRed();
                 data[i + 1] = c.getGreen();
@@ -179,41 +189,50 @@ public class Effects{
                 return this;
             }
 
+            /** Sets the value at data[i] to the specified value. */
             public EffectEntity set(int i, float value){
                 data[i] = value;
                 return this;
             }
 
+            /** Sets the scale of this effect. */
             public EffectEntity scale(float scale){
                 this.scale = scale;
                 return this;
             }
 
+            /** Sets the parent of this effect. */
             public EffectEntity parent(Pos2 parent){
                 this.parent = parent;
                 return this;
             }
 
+            /** Returns the ratio of life to lifetime. */
             public float fin(){
                 return life / lifetime;
             }
 
+            /** Returns 1f - fin(). */
             public float fout(){
                 return 1f - fin();
             }
 
+            /** Call the fill method of canvas with arguments data[i], data[i+1], and data[i+2], the rgb, respectively. */
             public void fill(int i){
                 canvas.fill(data[i], data[i + 1], data[i + 2]);
             }
 
+            /** Call the fill method of canvas with arguments data[i], data[i+1], and data[i+2], the rgb, respectively, with the specified alpha. */
             public void fill(int i, float alpha){
                 canvas.fill(data[i], data[i + 1], data[i + 2], alpha);
             }
 
+            /** Call the tint method of canvas with arguments data[i], data[i+1], and data[i+2], the rgb, respectively. */
             public void tint(int i){
                 canvas.tint(data[i], data[i + 1], data[i + 2]);
             }
 
+            /** Call the tint method of canvas with arguments data[i], data[i+1], and data[i+2], the rgb, respectively, with the specified alpha. */
             public void tint(int i, float alpha){
                 canvas.tint(data[i], data[i + 1], data[i + 2], alpha);
             }

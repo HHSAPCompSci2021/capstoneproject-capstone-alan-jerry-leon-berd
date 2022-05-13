@@ -24,9 +24,7 @@ public class MenuScreen extends Screen{
     public float sidex = 0;
     public Cons<Button> buttonHover = b -> Effects.blur.draw(-50, 0, 350, b.height(), Pal.opaqueWhite);
 
-    public MenuScreen(){
-    }
-
+    /** Sets the defaults for the specified slider. */
     public void def(Slider slider){
         slider.color(s -> s.bounds().contains(input.mouse) ? Pal.opaqueWhite : Pal.opaqueGray);
         slider.drawer(s -> {

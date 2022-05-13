@@ -21,14 +21,17 @@ public class Input{
         inputs = new IntSet();
     }
 
+    /** Process an input. */
     public void register(int input){
         inputs.add(input);
     }
 
+    /** Return whether the current KeyBind is pressed. */
     public boolean pressed(KeyBind keyBind){
         return inputs.contains(keyBind.value);
     }
 
+    /** Removes the specified from the storage list. */
     public void consume(KeyBind keyBind){
         inputs.remove(keyBind.value);
     }
@@ -37,14 +40,17 @@ public class Input{
         inputs.remove(input);
     }
 
+    /** Returns whether the left mouse if pressed. */
     public boolean mouseLeft(){
         return inputs.contains(left);
     }
 
+    /** Returns whether the scroll wheel if pressed. */
     public boolean mouseMiddle(){
         return inputs.contains(middle);
     }
 
+    /** Returns whether the right mouse if pressed. */
     public boolean mouseRight(){
         return inputs.contains(right);
     }

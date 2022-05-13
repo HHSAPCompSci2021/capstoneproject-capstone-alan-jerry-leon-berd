@@ -6,9 +6,6 @@ import static project.Vars.*;
 
 /** Contains all the UI of a pause screen. */
 public class PauseScreen extends Screen{
-    public PauseScreen(){
-    }
-
     @Override
     public void update(){
         if(input.pressed(KeyBind.pause)){

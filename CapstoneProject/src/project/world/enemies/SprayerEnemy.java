@@ -10,12 +10,14 @@ import java.awt.*;
 
 import static project.Vars.*;
 
+/** An enemy which rotates and spams bullets around itself. */
 public class SprayerEnemy extends Enemy{
     public float shootDuration = 120;
     public float shootRotation = 1;
     public float shootInterval = 3;
 
     public int bullets = 2;
+    /** Angle offset of each of the shots. */
     public float offset = 120;
 
     public SprayerEnemy(){
@@ -43,6 +45,7 @@ public class SprayerEnemy extends Enemy{
         return new SprayerEnemyEntity(this);
     }
 
+    /** Represents and simulates an entity that rotates and spams bullets around itself. */
     public class SprayerEnemyEntity extends EnemyEntity{
         public SprayerEnemyEntity(SprayerEnemy type){
             super(type);

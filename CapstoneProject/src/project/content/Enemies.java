@@ -6,7 +6,7 @@ import project.graphics.Sprite.*;
 import project.world.bullets.*;
 import project.world.enemies.*;
 
-/** Contains a list of all enemy types in the game. */
+/** Contains and loads all the enemy types in the game. */
 public class Enemies implements ContentList{
     public static EnemyVersions host, gyrogun;
 

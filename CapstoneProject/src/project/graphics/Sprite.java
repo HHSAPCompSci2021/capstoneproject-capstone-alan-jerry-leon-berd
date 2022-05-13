@@ -20,10 +20,12 @@ public class Sprite{
         all.add(this);
     }
 
+    /** Creates a sprite with the source png at the specified path and name. */
     public Sprite(SpritePath path, String name){
         this(path.path + name + ".png");
     }
 
+    /** Loads this sprite. */
     public void load(){
         image = canvas.loadImage(path);
     }
@@ -65,6 +67,7 @@ public class Sprite{
         draw(x, y, w, h, r, tint, 255);
     }
 
+    /** Draw an image with top left corner at (x, y), a width w, a height h, a rotation r, the specified tint and alpha. All other draw methods are overloaded variants of this method. */
     public void draw(float x, float y, float w, float h, float r, Color tint, float alpha){
         canvas.tint(tint.getRGB(), alpha);
         draw(x, y, w, h, r);
@@ -98,6 +101,7 @@ public class Sprite{
         draw(x - w / 2, y - h / 2, w, h, r, tint);
     }
 
+    /** Draw an image with center at (x, y), a width w, a height h, a rotation r, the specified tint and alpha. All other drawc methods are overloaded variants of this method. */
     public void drawc(float x, float y, float w, float h, float r, Color tint, float alpha){
         draw(x - w / 2, y - h / 2, w, h, r, tint, alpha);
     }
@@ -110,7 +114,6 @@ public class Sprite{
         effects("assets/sprites/effects/"),
         enemies("assets/sprites/enemies/"),
         ships("assets/sprites/ships/");
-
 
         public String path;
 

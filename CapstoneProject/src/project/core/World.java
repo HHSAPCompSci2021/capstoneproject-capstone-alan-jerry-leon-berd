@@ -14,6 +14,7 @@ import static project.Vars.*;
 
 /** Stores all entities and simulates the game. */
 public class World{
+    /** Stores all entities, in seperate lists. */
     public Entities<BulletEntity> bullets;
     public Entities<Ship> ships;
     public Entities<Experience> experience;
@@ -59,6 +60,7 @@ public class World{
         });
     }
 
+    /** Simulates the world. */
     public void update(){
         experience.update();
         effects.update();
@@ -66,6 +68,7 @@ public class World{
         ships.update();
     }
 
+    /** Draws the world. */
     public void draw(){
         experience.draw();
         effects.draw();

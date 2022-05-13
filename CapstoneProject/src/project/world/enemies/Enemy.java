@@ -44,6 +44,7 @@ public class Enemy extends Type{
 
     /** Represents and simulates an enemy. */
     public class EnemyEntity extends Ship{
+        /** Stores the reloadTimer, which is incremented every frame and stores when the enemy should shoot. */
         public float reloadt;
 
         public boolean justSpawned; //TODO: Turn this into a status effect
@@ -77,6 +78,7 @@ public class Enemy extends Type{
             return rotate * rules.rotateSpeed(team);
         }
 
+        /** Returns the real reload speed of this enemy. */
         public float reload(){
             return reload * rules.weaponReload(team);
         }
@@ -84,6 +86,11 @@ public class Enemy extends Type{
         @Override
         public Color color(){
             return color;
+        }
+
+        @Override
+        public Sprite sprite(){
+            return sprite;
         }
 
         public void shoot(float offset){

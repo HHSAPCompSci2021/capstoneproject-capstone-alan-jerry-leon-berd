@@ -1,6 +1,8 @@
+unnamed package
 project
 project.content
 project.core
+project.game
 project.graphics
 project.ui
 project.ui.bars
@@ -10,7 +12,6 @@ project.ui.screens
 project.world
 project.world.bullets
 project.world.enemies
-project.world.enemies.ai
 project.world.modifiers
 project.world.ship
 project.world.ship.weapons

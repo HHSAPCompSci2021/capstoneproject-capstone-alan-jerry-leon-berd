@@ -34,6 +34,7 @@ public class VolleyBullet extends Bullet{
     }
 
     public class VolleyBulletEntity extends BulletEntity{
+        /** Whether the alternate sprite for this bullet should be drawn. */
         public boolean flip;
 
         public VolleyBulletEntity(VolleyBullet type){

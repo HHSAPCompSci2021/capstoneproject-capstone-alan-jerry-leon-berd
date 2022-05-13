@@ -4,6 +4,7 @@ import project.ui.*;
 
 import static project.Vars.*;
 
+/** Represents a piece of UI which is only drawn and updated when it's parent is hovered over. */
 public class Tooltip extends Table{
     @Override
     public float x(){

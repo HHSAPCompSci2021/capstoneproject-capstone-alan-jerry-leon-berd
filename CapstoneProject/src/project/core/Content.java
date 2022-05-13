@@ -6,6 +6,7 @@ import project.world.*;
 
 /** Loads, stores, and processes all content in the game. */
 public class Content{
+    /** Stores all content classes to be loaded. */
     public ContentList[] lists = new ContentList[]{
     new Bullets(),
     new Modifiers(),
@@ -13,9 +14,12 @@ public class Content{
     new Enemies()
     };
 
+    /** Contains all content, sorted by it's type. */
     public Seq<Type>[] map;
+    /** Contains all the content. */
     public Seq<Type> all;
 
+    /** Initialize the lists and loads the content. */
     public void init(){
         all = new Seq<>();
         map = new Seq[ContentType.all.length];
@@ -26,6 +30,7 @@ public class Content{
         for(Type content : all) content.init();
     }
 
+    /** Process the content specified (Add it to the content map and list). */
     public void add(Type content){
         if(content.type() == null) return;
 

@@ -19,23 +19,13 @@ public class GameScreen extends Screen{
     public ProgressBar playerExp;
 
     public Sprite background = new Sprite(SpritePath.backgrounds, "space2");
-    ;
-    public float rot = random(0, 360), trackx, tracky, shieldGlow = 50, healthGlow = 50;
+    public float rot = random(0, 360), trackx, tracky;
 
     @Override
     public void init(){
-        playerHealth = (SmoothBar)new SmoothBar(width / 2f, 10).glow(() -> healthGlow).progress(() -> world.player.fin()).color(healthRed).alignX(AlignX.center).x(width / 2f).y(height - 55).update(t -> {
-            healthGlow += (50 - healthGlow) / 10;
-        });
-        playerShield = (SegmentedBar)new SegmentedBar(width / 2.5f, 8, 5, 5).glow(() -> shieldGlow).progress(() -> world.player.shield.fin()).color(shieldBlue).alignX(AlignX.center).x(width / 2f).y(height - 70).update(t -> {
-            shieldGlow += (50 - shieldGlow) / 10;
-        });
+        playerHealth = (SmoothBar)new SmoothBar(width / 2f, 10).progress(() -> world.player.fin()).color(healthRed).alignX(AlignX.center).x(width / 2f).y(height - 55);
+        playerShield = (SegmentedBar)new SegmentedBar(width / 2.5f, 8, 5, 5).progress(() -> world.player.shield.fin()).color(shieldBlue).alignX(AlignX.center).x(width / 2f).y(height - 70);
         playerExp = (SmoothBar)new SmoothBar(width - 100, 5).progress(() -> world.player.exp / pow(expScaling, world.player.level) / baseLevelExp).color(expGray).alignX(AlignX.center).x(width / 2f).y(10);
-
-        events.on(Event.playerDamage, e -> {
-            if(world.player.shield.value > 0) shieldGlow = 200;
-            else healthGlow = 200;
-        });
     }
 
     @Override

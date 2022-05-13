@@ -4,7 +4,7 @@ import project.core.Content.*;
 import project.world.ship.*;
 import project.world.ship.weapons.*;
 
-/** Contains a list of all gears in the game. */
+/** Contains anf laods all gears in the game. Might be better if this was split into 3 classes. */
 public class Gear implements ContentList{
     public static Hull normal;
 
