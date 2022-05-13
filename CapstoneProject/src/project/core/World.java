@@ -38,7 +38,7 @@ public class World{
         player = new Player();
 //        player.weapon = Gear.thruster.create();
         player.pos.set(bounds.center());
-        player.addMod(Modifiers.shotgunShells);
+//        player.addMod(Modifiers.shotgunShells);
 //        player.addMod(Modifiers.doubleShot);
         player.init();
         ships.add(player);
