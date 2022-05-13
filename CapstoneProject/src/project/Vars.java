@@ -1,13 +1,7 @@
 package project;
 
-import jay.jaysound.*;
 import project.core.*;
-import project.core.Sounds.*;
 import project.graphics.*;
-
-import javax.media.CannotRealizeException;
-import javax.media.NoPlayerException;
-import java.io.IOException;
 
 import static gameutils.util.Mathf.*;
 
@@ -47,7 +41,7 @@ public class Vars{
     public static Input input;
     public static UI ui;
 
-    public static void init() {
+    public static void init(){
         sounds = new Sounds();
         events = new Events();
         effects = new Effects();

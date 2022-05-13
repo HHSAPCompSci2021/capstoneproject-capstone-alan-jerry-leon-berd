@@ -2,7 +2,6 @@ package project.core;
 
 import gameutils.struct.*;
 import project.content.*;
-import project.graphics.*;
 import project.world.*;
 
 /** Loads, stores, and processes all content in the game. */
