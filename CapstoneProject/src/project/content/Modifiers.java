@@ -26,7 +26,7 @@ public class Modifiers implements ContentList{
         shotgunShells = new Modifier(){{
             set(bulletDamage, -0.2f);
             set(weaponReload, -0.5f);
-            set(shotProjectiles, 1);
+            set(shotProjectiles, 50);
         }};
         doubleShot = new Modifier(){{
             set(weaponCharges, 1);

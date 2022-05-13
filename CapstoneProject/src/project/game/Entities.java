@@ -1,4 +1,4 @@
-package project.core;
+package project.game;
 
 import gameutils.func.*;
 import gameutils.math.*;

@@ -1,4 +1,4 @@
-package project.core;
+package project.game;
 
 /** Represents a team in the game. All enemies, bullets, and players have a team. */
 public enum Team{

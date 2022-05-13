@@ -1,11 +1,9 @@
-package project.core;
+package project.game;
 
 import gameutils.struct.*;
-import gameutils.util.*;
 import project.content.*;
 import project.core.Events.Event;
 import project.core.Input.*;
-import project.graphics.*;
 import project.world.modifiers.*;
 import project.world.modifiers.Modifier.*;
 import project.world.ship.Hull.*;
@@ -95,7 +93,10 @@ public class Player extends Ship{
         weapon.update();
         shield.update();
 
-        if(input.pressed(KeyBind.thrust)) thrust(hull.type().accel * rules.engineAcceleration(team));
+        if(input.pressed(KeyBind.thrust)){
+            hull.thrust();
+            thrust(hull.type().accel * rules.engineAcceleration(team));
+        }
 
         if(!world.bounds.contains(pos)){
             pos.x = mod(pos.x, world.bounds.w);

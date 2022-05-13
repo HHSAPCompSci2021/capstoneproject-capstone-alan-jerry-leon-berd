@@ -19,7 +19,7 @@ public class Bullet extends Type{
 
     public float speed = 10;
     public float size = 5;
-    public float damage = 20;
+    public float damage = 10;
     public float knockback = 0.05f;
     public int pierce = 1;
 

@@ -8,7 +8,6 @@ import project.world.*;
 /** Loads, stores, and processes all content in the game. */
 public class Content{
     public ContentList[] lists = new ContentList[]{
-    new Effects(), //TODO: Effects should not be a contentlist
     new Bullets(),
     new Modifiers(),
     new Gear(),
@@ -37,7 +36,6 @@ public class Content{
 
     /** Represents a type of content. Used to organize the lists in Content. */
     public enum ContentType{
-        effect,
         hull,
         shield,
         weapon,

@@ -157,6 +157,7 @@ public class MenuScreen extends Screen{
     public void draw(){
         canvas.pushMatrix();
         canvas.translate(-canvas.mouseX / 50f, -canvas.mouseY / 50f);
+        canvas.tint(255, 255, 255);
         background.drawh(-125, 0, height);
         canvas.popMatrix();
 

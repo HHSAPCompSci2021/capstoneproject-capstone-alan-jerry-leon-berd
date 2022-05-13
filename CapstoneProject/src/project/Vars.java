@@ -3,6 +3,7 @@ package project;
 import jay.jaysound.*;
 import project.core.*;
 import project.core.Sounds.*;
+import project.graphics.*;
 
 import static gameutils.util.Mathf.*;
 
@@ -34,6 +35,7 @@ public class Vars{
 
     public static Sounds sounds;
     public static Events events;
+    public static Effects effects;
     public static Content content;
     public static Rules rules;
     public static World world;
@@ -44,6 +46,7 @@ public class Vars{
     public static void init(){
         sounds = new Sounds();
         events = new Events();
+        effects = new Effects();
         content = new Content();
         rules = new Rules();
         world = new World();
@@ -53,6 +56,7 @@ public class Vars{
 
         sounds.init();
         events.init();
+        effects.init();
         content.init();
         rules.init();
         world.init();

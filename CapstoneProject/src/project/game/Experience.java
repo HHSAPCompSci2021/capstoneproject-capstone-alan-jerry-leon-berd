@@ -1,4 +1,4 @@
-package project.core;
+package project.game;
 
 import project.core.Events.*;
 import project.graphics.*;

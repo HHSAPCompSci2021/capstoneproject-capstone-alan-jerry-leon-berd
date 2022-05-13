@@ -2,6 +2,7 @@ package project.core;
 
 import gameutils.math.*;
 import project.content.*;
+import project.game.*;
 import project.graphics.Effects.Effect.*;
 import project.world.bullets.Bullet.*;
 import project.world.enemies.Enemy.*;
@@ -35,8 +36,8 @@ public class World{
         player = new Player();
 //        player.weapon = Gear.thruster.create();
         player.pos.set(bounds.center());
-//        player.addMod(Modifiers.shotgunShells);
-        player.addMod(Modifiers.doubleShot);
+        player.addMod(Modifiers.shotgunShells);
+//        player.addMod(Modifiers.doubleShot);
         player.init();
         ships.add(player);
 
@@ -45,6 +46,10 @@ public class World{
             e.pos.set(random(0, width), random(0, height));
             ships.add(e);
         }
+
+        EnemyEntity e = Enemies.gyrogun.create();
+        e.pos.set(random(0, width), random(0, height));
+        ships.add(e);
     }
 
     public void update(){

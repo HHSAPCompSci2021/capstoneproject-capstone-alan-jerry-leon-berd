@@ -1,7 +1,7 @@
 package project.world;
 
 import gameutils.math.*;
-import project.core.*;
+import project.game.*;
 
 import static project.Vars.*;
 

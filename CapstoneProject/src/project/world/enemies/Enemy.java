@@ -2,7 +2,7 @@ package project.world.enemies;
 
 import project.content.*;
 import project.core.Content.*;
-import project.core.*;
+import project.game.*;
 import project.graphics.*;
 import project.world.*;
 import project.world.bullets.*;
@@ -98,6 +98,7 @@ public class Enemy extends Type{
         public void draw(){
             super.draw();
 
+            canvas.tint(255, 255, 255);
             sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation);
         }
 

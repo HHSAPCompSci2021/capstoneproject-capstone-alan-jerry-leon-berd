@@ -78,6 +78,11 @@ public class Canvas extends PApplet{
         input.remove(keyCode);
     }
 
+    /** Very unreliable. Use only for visual effects. */
+    public boolean timer(int length){
+        return frameCount % length == 0;
+    }
+
 
     public void background(Color color){
         background(color.getRGB());

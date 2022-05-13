@@ -8,5 +8,4 @@ public class Tmp{
     public static Vec2 v2 = new Vec2();
 
     public static Range2 r1 = new Range2();
-    public static Range2 r2 = new Range2();
 }

@@ -1,6 +1,7 @@
 package project.world.ship;
 
 import gameutils.math.*;
+import gameutils.struct.*;
 import project.*;
 import project.core.Content.*;
 import project.graphics.*;
@@ -21,16 +22,16 @@ public class Hull extends Type{
     public float size = 10; //Hitbox size
 
     public Vec2 shootPos = new Vec2(10, 0);
+    public Seq<Thruster> thrusters = new Seq<>();
 
     @Override
     public void init(){
         super.init();
 
-        System.out.println("Initialized");
-
-        if(sprite == null) sprite = new Sprite(SpritePath.ships, "standard");
-
-        System.out.println(sprite);
+        if(sprite == null){
+            sprite = new Sprite(SpritePath.ships, "standard");
+            thrusters.add(new Thruster(0, 8, 4f, 15f, 0));
+        }
     }
 
     @Override
@@ -56,9 +57,15 @@ public class Hull extends Type{
         public void update(){
         }
 
+        public void thrust(){
+            if(!canvas.timer(10)) return;
+            for(Thruster t : thrusters) t.effect(world.player);
+        }
+
         @Override
         public Hull type(){
             return (Hull)type;
         }
     }
+
 }

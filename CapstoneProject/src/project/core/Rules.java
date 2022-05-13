@@ -2,6 +2,7 @@ package project.core;
 
 import gameutils.util.*;
 import project.core.Events.*;
+import project.game.*;
 import project.world.modifiers.Modifier.*;
 
 import static project.Vars.*;

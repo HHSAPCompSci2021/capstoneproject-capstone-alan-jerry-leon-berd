@@ -1,6 +1,7 @@
 package project.world.ship.weapons;
 
 import project.*;
+import project.content.*;
 import project.graphics.*;
 import project.world.bullets.*;
 import project.world.bullets.Bullet.*;
@@ -11,7 +12,7 @@ import static project.Vars.*;
 public class VolleyWeapon extends Weapon{
     public VolleyWeapon(){
         super();
-        bullet = new VolleyBullet();
+        bullet = Bullets.volley;
         spread = 10;
     }
 

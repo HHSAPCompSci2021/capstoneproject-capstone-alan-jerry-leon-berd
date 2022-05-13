@@ -12,8 +12,8 @@ import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 /** Contains a list of all effects in the game. */
-public class Effects implements ContentList{
-    public static GlowSprite glow, blur;
+public class Effects{
+    public static Sprite glow, blur, thruster;
 
     public static Effect
     explosion,
@@ -23,11 +23,13 @@ public class Effects implements ContentList{
     fragment5,
     fragment10,
     laserLine,
-    gunfire;
+    gunfire,
+    thrust;
 
-    public void load(){
+    public void init(){
         glow = new GlowSprite(SpritePath.effects, "glow");
         blur = new GlowSprite(SpritePath.effects, "blur");
+        thruster = new Sprite(SpritePath.effects, "thruster");
 
         explosion = new Effect(10, e -> {
             canvas.fill(255, 255, 255, 100 * e.fout());
@@ -70,6 +72,12 @@ public class Effects implements ContentList{
             canvas.fill(255, 255, 255, 255 * e.fout() * 2 - 255);
             canvas.ellipse(0, 0, 10 * e.fout(), 10 * e.fout());
         }).follow(true);
+        thrust = new Effect(30, e -> e.create(6), e -> {
+            e.tint(0, e.fout() * 255);
+            thruster.drawc(0, 0, e.data[3], e.data[4] * e.fin(), e.data[5]);
+            canvas.tint(255, 255, 255, 255 * e.fout() * 2 - 255);
+            thruster.drawc(0, 0, e.data[3], e.data[4] * e.fin(), e.data[5]);
+        }).follow(true);
     }
 
     public class GlowSprite extends Sprite{
@@ -89,7 +97,7 @@ public class Effects implements ContentList{
     }
 
     /** Represents a type of effect. Stores the effect renderer and initialization runnables. */
-    public class Effect extends Type{
+    public class Effect{
         public Cons<EffectEntity> init;
         public Cons<EffectEntity> drawer;
 
@@ -117,13 +125,8 @@ public class Effects implements ContentList{
             return this;
         }
 
-        @Override
-        public EffectEntity create(){
-            return new EffectEntity(this);
-        }
-
         public EffectEntity at(float x, float y){
-            EffectEntity e = create();
+            EffectEntity e = new EffectEntity(this);
             e.pos.set(x, y);
             if(effectsEnabled || essential) world.effects.add(e);
             return e;
@@ -136,13 +139,16 @@ public class Effects implements ContentList{
 
         /** Represents a effect. */
         public class EffectEntity extends Entity{
+            public Effect effect;
+
             public float scale;
             public float[] data;
 
             public Pos2 parent;
 
             public EffectEntity(Effect effect){
-                super(effect);
+                super(null);
+                this.effect = effect;
                 this.scale = 1;
                 if(init != null) init.get(this);
             }
@@ -191,6 +197,18 @@ public class Effects implements ContentList{
                 canvas.fill(data[i], data[i + 1], data[i + 2]);
             }
 
+            public void fill(int i, float alpha){
+                canvas.fill(data[i], data[i + 1], data[i + 2], alpha);
+            }
+
+            public void tint(int i){
+                canvas.tint(data[i], data[i + 1], data[i + 2]);
+            }
+
+            public void tint(int i, float alpha){
+                canvas.tint(data[i], data[i + 1], data[i + 2], alpha);
+            }
+
             @Override
             public void update(){
                 life++;
@@ -209,11 +227,6 @@ public class Effects implements ContentList{
             @Override
             public boolean keep(){
                 return !(life >= lifetime);
-            }
-
-            @Override
-            public Effect type(){
-                return (Effect)type;
             }
         }
     }

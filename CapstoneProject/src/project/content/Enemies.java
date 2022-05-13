@@ -5,12 +5,11 @@ import project.world.enemies.*;
 
 /** Contains a list of all enemy types in the game. */
 public class Enemies implements ContentList{
-    public static Enemy host, rammer;
+    public static Enemy host, gyrogun;
 
     @Override
     public void load(){
         host = new DroneOrbitEnemy();
-        rammer = new Enemy(){
-        };
+        gyrogun = new SprayerEnemy();
     }
 }

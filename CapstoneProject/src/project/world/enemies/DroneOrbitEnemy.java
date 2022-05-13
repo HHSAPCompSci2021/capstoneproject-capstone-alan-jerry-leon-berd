@@ -9,6 +9,8 @@ import project.world.enemies.ai.*;
 
 import java.awt.*;
 
+import static project.Vars.*;
+
 /** Stores stats for an enemy with drones orbiting around it. */
 public class DroneOrbitEnemy extends MultiEnemy{
     public int drones = 8;
@@ -19,7 +21,8 @@ public class DroneOrbitEnemy extends MultiEnemy{
 
     public DroneOrbitEnemy(){
         super();
-        color = new Color(120, 120, 255);
+
+        color = new Color(80, 170, 255);
         reload = 0;
         size = 17;
     }
@@ -76,12 +79,11 @@ public class DroneOrbitEnemy extends MultiEnemy{
     public class OrbitDrone extends EnemyPart{
         public OrbitDrone(){
             super();
+
             health = 5;
             size = 6;
             mass = 0.1f;
             reload = 0.5f;
-
-            bullet = Bullets.small;
 
             ai = new ShootAI();
         }
@@ -106,6 +108,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
 
             @Override
             public void draw(){
+                canvas.tint(255, 255, 255);
                 sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation);
             }
         }

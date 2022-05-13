@@ -36,6 +36,7 @@ public abstract class Ship extends Entity{
 
     public abstract Color color();
 
+    //TODO: Recode alot of this stuff, cause it's kinda scuffed.
     public void damage(float damage){
         life -= damage;
     }
@@ -45,7 +46,7 @@ public abstract class Ship extends Entity{
     }
 
     public void rotate(float angle, float speed){
-        rotation = turn(rotation * rules.rotateSpeed(team), angle, speed);
+        rotation = turn(rotation, angle, speed * rules.rotateSpeed(team));
     }
 
     @Override

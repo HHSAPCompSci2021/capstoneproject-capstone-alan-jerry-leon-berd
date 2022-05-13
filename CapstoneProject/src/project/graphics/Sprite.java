@@ -41,7 +41,7 @@ public class Sprite{
     }
 
     public void draw(float x, float y, float w, float h){
-        draw(x, y, w, h, Color.white);
+        canvas.image(image, x, y, w, h);
     }
 
     public void draw(float x, float y, float w, float h, Color tint){
@@ -50,11 +50,15 @@ public class Sprite{
 
     public void draw(float x, float y, float w, float h, Color tint, float alpha){
         canvas.tint(tint.getRGB(), alpha);
-        canvas.image(image, x, y, w, h);
+        draw(x, y, w, h);
     }
 
     public void draw(float x, float y, float w, float h, float r){
-        draw(x, y, w, h, r, Color.white);
+        canvas.pushMatrix();
+        canvas.translate(x + w / 2, y + h / 2);
+        canvas.rotate(r / 180f * pi);
+        canvas.image(image, -w / 2, -h / 2, w, h);
+        canvas.popMatrix();
     }
 
     public void draw(float x, float y, float w, float h, float r, Color tint){
@@ -63,11 +67,7 @@ public class Sprite{
 
     public void draw(float x, float y, float w, float h, float r, Color tint, float alpha){
         canvas.tint(tint.getRGB(), alpha);
-        canvas.pushMatrix();
-        canvas.translate(x + w / 2, y + h / 2);
-        canvas.rotate(r / 180f * pi);
-        canvas.image(image, -w / 2, -h / 2, w, h);
-        canvas.popMatrix();
+        draw(x, y, w, h, r);
     }
 
     public void drawc(float x, float y, float r, Color tint){
