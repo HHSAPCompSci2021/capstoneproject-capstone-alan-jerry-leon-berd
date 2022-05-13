@@ -13,7 +13,6 @@ import static gameutils.util.Mathf.*;
 
 /** Contains variables that control gameplay or are essential to the game in general. */
 public class Vars{
-    public static JayLayer layer = new JayLayer("assets/audio/music/", "assets/audio/effects/", false);
     public static boolean debug = false;
 
     public static int width = 1000, height = 600;

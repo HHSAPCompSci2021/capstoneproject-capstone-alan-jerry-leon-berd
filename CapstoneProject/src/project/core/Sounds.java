@@ -1,16 +1,14 @@
 package project.core;
 
 import gameutils.struct.*;
-
-import static project.Vars.*;
+import jay.jaysound.*;
 
 public class Sounds {
-
+    public static JayLayer layer = new JayLayer("assets/audio/music/", "assets/audio/effects/", false);
     public Seq<Sound> effects = new Seq<>();
     public Seq<Sound> songs = new Seq<>();
 
     public static SoundEffect shockwave, fuel_explosion, field_explosion, car_explosion, fire_explosion, laser_impact;
-
     public static Song Neverend, Slowburn, Blueshift, Rubidium, Near_Miss, Collider, Superlumen, Freefall, Zeroed, Singular, Terminus, Ares, Seraphim, Parsec, Rainseed, Low_Orbit, Neverend_Waves, Slowburn_Nova, Rubidium_Core, Collider_Synced, Superlumen_Warped, Blueshift_Centered, Recursor, Nograv, Parallelism, Parallelism_Freed, Centerless, Infinitum_Genesis, Infinitum, Eclipsed;
 
     public void init() {
@@ -61,11 +59,7 @@ public class Sounds {
         layer.changePlayList(0);
         layer.nextSong();
 
-//        shockwave.play();
-        layer.playSoundEffect(0);
-        layer.playSoundEffect(0);
-//        layer.stopSong();
-//        layer.playSoundEffect(0);
+        shockwave.play();
     }
 
     public String[] list(Seq<Sound> seq) {
@@ -74,7 +68,7 @@ public class Sounds {
         return all;
     }
 
-    public class Sound {
+    public static class Sound {
         public String name;
         public int id;
 

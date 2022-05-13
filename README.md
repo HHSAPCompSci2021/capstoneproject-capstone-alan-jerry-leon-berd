@@ -2,13 +2,14 @@
 
 Authors: Alan Ma, Jerry Yang, Leon Wang
 
-Last Revised: *Check last commit date*
+Last Revised: *Check the last commit date*
 
 ## Introduction:
 
-This is a project created as a sub-replica of the game Nova Drift, a 2D space shooter game developed by Chimera Entertainment. As for how accurate this attempt at a replica is, probably ***not at all***, considering how none of us have ever played the game in question.
+This project was created as a sub-replica of the game, Nova Drift, a 2D space shooter developed by Chimera Entertainment. As for how accurate this attempt at a replica is, probably not at all, considering how none of us have played the game in question.
 
-Take the disparities as unique features; applications of the creative license, etc.
+Take the disparities as unique features, applications of creative license, etc.
+
 
 ### Gameplay
 
@@ -145,6 +146,6 @@ That's it!
 
 Alan Ma: Content, Bullets, Enemies, Sprites
 
-Jerry Yang: Buttons, Bars, Screens, UML
+Jerry Yang: Buttons, Bars, Screens, UML, Sound
 
 Leon Wang: Physics, Sprites, Entities, Core
