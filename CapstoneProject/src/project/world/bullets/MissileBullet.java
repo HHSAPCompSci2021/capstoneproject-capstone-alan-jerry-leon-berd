@@ -9,6 +9,13 @@ import project.Tmp;
 public class MissileBullet extends Bullet{
 	public float homingPower = 10;
 	public float homingRange = 200;
+//	
+//	@Override
+//	public void init() {
+//		super.init();
+//		
+//		if(sprite == null) sprite = new Sprite(SpritePath.bullets, "missile");)
+//	}
 	
 	public MissileBulletEntity create() {
 		return new MissileBulletEntity(this);
