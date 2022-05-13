@@ -3,6 +3,7 @@ package project.world.ship;
 import gameutils.math.*;
 import gameutils.struct.*;
 import gameutils.util.*;
+import project.*;
 import project.graphics.*;
 import project.world.*;
 
@@ -34,19 +35,22 @@ public abstract class Ship extends Entity{
     @Override
     public abstract float size();
 
+    public abstract float accel();
+
+    public abstract float rotate();
+
     public abstract Color color();
 
-    //TODO: Recode alot of this stuff, cause it's kinda scuffed.
     public void damage(float damage){
         life -= damage;
     }
 
-    public void thrust(float accel){
-        apply(tmp.set(accel * rules.engineAcceleration(team), 0).rot(rotation));
+    public void thrust(){
+        apply(Tmp.v1.set(accel(), 0).rot(rotation));
     }
 
-    public void rotate(float angle, float speed){
-        rotation = turn(rotation, angle, speed * rules.rotateSpeed(team));
+    public void rotate(float angle){
+        rotation = turn(rotation, angle, rotate());
     }
 
     @Override

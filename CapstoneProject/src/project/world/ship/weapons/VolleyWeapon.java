@@ -39,7 +39,7 @@ public class VolleyWeapon extends Weapon{
                 if(b instanceof VolleyBulletEntity && i >= actual / 2) ((VolleyBulletEntity)b).flip = true;
             }
 
-            world.player.thrust(-recoil * rules.weaponRecoil(world.player.team));
+            world.player.apply(Tmp.v1.set(-recoil * rules.weaponRecoil(world.player.team) * actual, 0).rot(world.player.rotation));
         }
     }
 }

@@ -42,12 +42,20 @@ public class World{
         ships.add(player);
 
         for(int i = 0;i < 1;i++){
-            EnemyEntity e = Enemies.host.create();
+            EnemyEntity e = Enemies.host.common.create();
             e.pos.set(random(0, width), random(0, height));
             ships.add(e);
         }
 
-        EnemyEntity e = Enemies.gyrogun.create();
+        EnemyEntity e = Enemies.gyrogun.common.create();
+        e.pos.set(random(0, width), random(0, height));
+        ships.add(e);
+
+        e = Enemies.gyrogun.elite.create();
+        e.pos.set(random(0, width), random(0, height));
+        ships.add(e);
+
+        e = Enemies.gyrogun.champion.create();
         e.pos.set(random(0, width), random(0, height));
         ships.add(e);
     }

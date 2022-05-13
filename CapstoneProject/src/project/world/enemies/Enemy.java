@@ -7,7 +7,6 @@ import project.graphics.*;
 import project.world.*;
 import project.world.bullets.*;
 import project.world.bullets.Bullet.*;
-import project.world.enemies.ai.*;
 import project.world.ship.*;
 
 import java.awt.*;
@@ -29,8 +28,6 @@ public class Enemy extends Type{
     public float reload = 1;
 
     public Bullet bullet = Bullets.normal;
-
-    public EnemyAI ai = new KiteAI();
 
     @Override
     public ContentType type(){
@@ -66,30 +63,36 @@ public class Enemy extends Type{
         }
 
         @Override
+        public float accel(){
+            return accel * rules.engineAcceleration(team);
+        }
+
+        @Override
+        public float rotate(){
+            return rotate * rules.rotateSpeed(team);
+        }
+
+        public float reload(){
+            return reload * rules.weaponReload(team);
+        }
+
+        @Override
         public Color color(){
             return color;
         }
 
-        public void shoot(){
-            reloadt += reload * rules.weaponReload(team);
-
-            if(reloadt >= 60){
-                reloadt %= 60;
-
-                BulletEntity b = bullet.create();
-                b.pos.set(pos);
-                b.team = team;
-                b.rotation = rotation;
-                b.origin = this;
-                world.bullets.add(b);
-            }
+        public void shoot(float offset){
+            BulletEntity b = bullet.create();
+            b.pos.set(pos);
+            b.team = team;
+            b.rotation = rotation + offset;
+            b.origin = this;
+            world.bullets.add(b);
         }
 
         @Override
         public void update(){
             super.update();
-
-            if(ai != null) ai.update(this);
 
             apply(tmp.set(vel).scl(-0.02f));
         }
@@ -124,4 +127,5 @@ public class Enemy extends Type{
             return !(life <= 0) && world.bounds.contains(pos);
         }
     }
+
 }

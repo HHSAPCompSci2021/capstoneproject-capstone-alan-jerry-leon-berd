@@ -5,10 +5,10 @@ import project.content.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
 import project.world.enemies.DroneOrbitEnemy.OrbitDrone.*;
-import project.world.enemies.ai.*;
 
 import java.awt.*;
 
+import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 /** Stores stats for an enemy with drones orbiting around it. */
@@ -17,13 +17,14 @@ public class DroneOrbitEnemy extends MultiEnemy{
     public float droneSpace = 35;
     public float orbitSpeed = 2;
 
+    public float kiteDistance = 100;
+
     public EnemyPart drone = new OrbitDrone();
 
     public DroneOrbitEnemy(){
         super();
 
         color = new Color(80, 170, 255);
-        reload = 0;
         size = 17;
     }
 
@@ -72,6 +73,9 @@ public class DroneOrbitEnemy extends MultiEnemy{
                     drone.pos.set(Tmp.v1.setr(orbit + 360f / drones * i, droneSpace).add(pos));
                 }
             }
+
+            rotate(Tmp.v1.set(world.player.pos).sub(pos).ang());
+            if(dst(world.player.pos, pos) > kiteDistance) thrust();
         }
     }
 
@@ -84,8 +88,6 @@ public class DroneOrbitEnemy extends MultiEnemy{
             size = 6;
             mass = 0.1f;
             reload = 0.5f;
-
-            ai = new ShootAI();
         }
 
         @Override
@@ -110,6 +112,17 @@ public class DroneOrbitEnemy extends MultiEnemy{
             public void draw(){
                 canvas.tint(255, 255, 255);
                 sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation);
+            }
+
+            @Override
+            public void update(){
+                rotate(Tmp.v1.set(world.player.pos).sub(pos).ang());
+
+                reloadt += reload();
+                if(reloadt >= 60){
+                    reloadt = 0;
+                    shoot(0);
+                }
             }
         }
     }
