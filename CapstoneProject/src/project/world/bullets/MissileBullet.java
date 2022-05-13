@@ -7,6 +7,7 @@ import project.graphics.Sprite.*;
 import gameutils.util.Mathf;
 import project.Tmp;
 
+/** Represents a missile bullet */
 public class MissileBullet extends Bullet{
 	public float accel = 0.4f;
 	
