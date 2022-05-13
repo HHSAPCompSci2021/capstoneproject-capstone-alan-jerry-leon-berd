@@ -11,6 +11,7 @@ import java.awt.*;
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
+/** Represents a volley of one type of bullet. */
 public class VolleyBullet extends Bullet{
     public Sprite sprite2;
 
