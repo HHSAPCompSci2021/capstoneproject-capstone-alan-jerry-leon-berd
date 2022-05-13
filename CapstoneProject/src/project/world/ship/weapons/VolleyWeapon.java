@@ -12,7 +12,7 @@ import static project.Vars.*;
 public class VolleyWeapon extends Weapon{
     public VolleyWeapon(){
         super();
-        bullet = Bullets.volley;
+        bullet = new MissileBullet();
         spread = 10;
     }
 
