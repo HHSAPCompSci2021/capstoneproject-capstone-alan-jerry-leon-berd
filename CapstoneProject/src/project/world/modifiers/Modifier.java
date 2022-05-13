@@ -31,6 +31,7 @@ public class Modifier extends Type{
             super(type);
         }
 
+        //TODO: Implement/remove?
         public void apply(){
         }
 

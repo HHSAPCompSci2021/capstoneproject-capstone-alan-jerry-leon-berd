@@ -35,24 +35,29 @@ public class Weapon extends Type{
 
     /** Represents an instance of a weapon. */
     public class WeaponInstance extends Instance{
+        /** Stores the reloadTimer, which is incremented every frame and stores when the enemy should shoot. */
         public float reloadt;
 
         public WeaponInstance(Weapon type){
             super(type);
         }
 
+        /** Returns the charges this weapon can store. */
         public int charges(){
             return rules.weaponCharges(world.player.team);
         }
 
+        /** Returns the amount of projectiles this weapon shoots. */
         public int projectiles(){
             return shots + rules.shotProjectiles(world.player.team) - 1;
         }
 
+        /** Returns the recoil this weapon has. */
         public float recoil(){
             return recoil * rules.weaponRecoil(world.player.team);
         }
 
+        /** Updates this weapon. */
         public void update(){
             reloadt = min(reloadt + reload * rules.weaponReload(world.player.team), 60 * charges());
 
@@ -62,6 +67,7 @@ public class Weapon extends Type{
             }
         }
 
+        /** Sets the defaults of the specified bullet shot by this weapon. */
         public BulletEntity def(BulletEntity b){
             b.pos.set(world.player.hull.shootPos());
             b.team = world.player.team;
@@ -71,6 +77,7 @@ public class Weapon extends Type{
             return b;
         }
 
+        /** Creates bullets based on the weapon type. */
         public void shoot(){
             for(int i = 0;i < projectiles();i++){
                 BulletEntity b = def(bullet.create());

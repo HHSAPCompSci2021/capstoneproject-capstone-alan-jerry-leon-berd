@@ -16,6 +16,7 @@ public class Experience extends Entity{
         super(null);
     }
 
+    /** Set the amount of experience of this orb. */
     public Experience amount(float amount){
         this.amount = amount;
         return this;

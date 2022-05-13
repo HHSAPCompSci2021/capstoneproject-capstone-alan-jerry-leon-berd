@@ -7,6 +7,7 @@ public class SegmentedBar extends ProgressBar{
     public int segments;
     public float padding;
 
+    /** Creates a segmented bar with the specified width, height, segments, and padding between segments. */
     public SegmentedBar(float width, float height, int segments, float padding){
         super(width, height);
         this.segments = segments;

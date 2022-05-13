@@ -4,7 +4,9 @@ import gameutils.math.*;
 import project.*;
 import project.graphics.*;
 
+/** Represents a thruster on a ship. For visuals only. */
 public class Thruster{
+    /** The position of this thruster. */
     public Vec2 pos;
     public float width, height, rot;
 
@@ -15,6 +17,7 @@ public class Thruster{
         this.rot = rot;
     }
 
+    /** Creates the thruster effect. */
     public void effect(Ship ship){
         Tmp.v1.set(pos).rot(ship.rotation + 90);
         Effects.thrust.at(Tmp.v1.x, Tmp.v1.y, e -> e.color(0, ship.color()).set(3, width * ship.size()).set(4, height * ship.size()).set(5, ship.rotation + rot + 90).parent(ship));

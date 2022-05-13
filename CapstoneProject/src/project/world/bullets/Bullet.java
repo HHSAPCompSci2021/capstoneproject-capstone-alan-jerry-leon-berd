@@ -37,6 +37,7 @@ public class Bullet extends Type{
     public class BulletEntity extends Entity{
         public float rotation, speed = 1f;
 
+        /** Calculates and returns the real height of this table. */
         public Ship origin;
 
         public Set<Entity> collided = new Set<>();

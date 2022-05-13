@@ -12,6 +12,7 @@ import project.world.enemies.EnemyPart.*;
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
+/** Stores and simulates all waves in the game. */
 public class Waves{
     public int wave = 0;
 
@@ -29,7 +30,6 @@ public class Waves{
             e.team = Team.enemy;
             e.justSpawned = true;
             e.pos.set(Tmp.v1.set(random(0, width), random(0, height)).sub(world.bounds.center()).nor().scl(width).add(world.bounds.center()));
-            System.out.println(e.pos);
             world.ships.add(e);
         }
     }

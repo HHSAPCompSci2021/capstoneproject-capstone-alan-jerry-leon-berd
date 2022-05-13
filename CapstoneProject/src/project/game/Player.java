@@ -38,6 +38,7 @@ public class Player extends Ship{
         life = hull.type().health;
     }
 
+    /** Returns the ratio of current hp to max health. */
     public float fin(){
         return life / hull.type().health;
     }
@@ -67,10 +68,12 @@ public class Player extends Ship{
         return shield.type().color;
     }
 
+    @Override
     public Sprite sprite(){
         return hull.type().sprite;
     }
 
+    /** Add a modifier to this player. */
     public void addMod(Modifier mod){
         modifiers.add(mod.create());
         events.call(Event.modChange);
@@ -142,6 +145,7 @@ public class Player extends Ship{
         super.draw();
     }
 
+    @Override
     public boolean keep(){
         return !(life <= 0);
     }

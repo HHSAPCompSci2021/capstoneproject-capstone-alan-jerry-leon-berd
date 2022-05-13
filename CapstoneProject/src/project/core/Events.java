@@ -20,12 +20,14 @@ public class Events{
         }
     }
 
+    /** Add a runnable to the specified event. */
     public void on(Event event, Cons<Event> cons){
         if(set[event.id()].contains(cons)) return;
         on[event.id()].add(cons);
         set[event.id()].add(cons);
     }
 
+    /** Throw an event, and run all related runnables. */
     public void call(Event event){
         for(Cons<Event> cons : on[event.id()]) cons.get(event);
     }

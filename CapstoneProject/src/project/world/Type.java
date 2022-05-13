@@ -10,13 +10,16 @@ public class Type{
         content.add(this);
     }
 
+    /** Initialize this piece of content. */
     public void init(){
     }
 
+    /** Returns the type of this content. */
     public ContentType type(){
         return null;
     }
 
+    /** Create an instance with this content as it's type. */
     public Instance create(){
         return null;
     }

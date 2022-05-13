@@ -45,6 +45,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
 
     /** Represents and simulates an enemy with drones orbiting around it. */
     public class DroneOrbitEntity extends MultiEnemyEntity{
+        /** The current orbit angle of the drones orbiting around it. */
         public float orbit = 0;
 
         public DroneOrbitEntity(DroneOrbitEnemy type){

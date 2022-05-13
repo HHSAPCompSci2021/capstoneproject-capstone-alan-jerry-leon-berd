@@ -30,7 +30,7 @@ public class Hull extends Type{
 
         if(sprite == null){
             sprite = new Sprite(SpritePath.ships, "standard");
-            thrusters.add(new Thruster(0, 8, 4f, 15f, 0));
+            thrusters.add(new Thruster(0, 8, 6f, 25f, 0));
         }
     }
 
@@ -50,13 +50,16 @@ public class Hull extends Type{
             super(type);
         }
 
+        /** Returns the position to create bullets, taking the player's rotation into account. */
         public Vec2 shootPos(){
             return Tmp.v1.set(world.player.hull.type().shootPos).rot(world.player.rotation).add(world.player.pos);
         }
 
+        /** Updates this hull. */
         public void update(){
         }
 
+        /** Creates the thrust effects of this ship. */
         public void thrust(){
             if(!canvas.timer(10)) return;
             for(Thruster t : thrusters) t.effect(world.player);

@@ -21,6 +21,7 @@ public class RailgunBullet extends Bullet{
 
     /** Represents and simulates a railgun bullet. */
     public class RailgunBulletEntity extends BulletEntity{
+        /** The last position of this bullet. */
         public Vec2 pPos = new Vec2();
 
         public RailgunBulletEntity(RailgunBullet type){

@@ -31,6 +31,7 @@ public class Rules{
         });
     }
 
+    /** Returns the respective multipliers based on the team given. */
     public float bulletDamage(Team team){
         return rules[team.id()][bulletDamage.id()] * globalDamage(team);
     }

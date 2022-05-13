@@ -5,7 +5,7 @@ import project.world.modifiers.*;
 
 import static project.core.Rules.Rule.*;
 
-/** Contains a list of all modifiers in the game. */
+/** Contains and loads all modifiers in the game. */
 public class Modifiers implements ContentList{
     public static Modifier overdrive, bluntedBullets, piercingHull, shotgunShells, doubleShot;
 
