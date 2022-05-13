@@ -83,7 +83,8 @@ public class Weapon extends Type{
                 BulletEntity b = def(bullet.create());
                 b.rotation += spread * (i - (shots - 1) / 2f);
                 world.bullets.add(b);
-                Effects.gunfire.at(world.player.hull.shootPos().x, world.player.hull.shootPos().y, e -> e.color(0, world.player.color()).scale(1.2f).parent(world.player));
+                Tmp.v1.set(world.player.hull.shootPos()).sub(world.player.pos);
+                Effects.gunfire.at(Tmp.v1.x, Tmp.v1.y, e -> e.color(0, world.player.color()).scale(1.2f).parent(world.player));
             }
 
             world.player.apply(Tmp.v1.set(-recoil(), 0).rot(world.player.rotation));
