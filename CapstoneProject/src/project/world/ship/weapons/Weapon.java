@@ -1,5 +1,6 @@
 package project.world.ship.weapons;
 
+import project.*;
 import project.content.*;
 import project.core.Content.*;
 import project.core.Input.*;
@@ -66,7 +67,7 @@ public class Weapon extends Type{
                 Effects.gunfire.at(world.player.hull.shootPos().x, world.player.hull.shootPos().y, e -> e.color(0, world.player.color()).scale(1.2f).parent(world.player));
             }
 
-            world.player.thrust(-recoil * rules.weaponRecoil(world.player.team));
+            world.player.apply(Tmp.v1.set(-recoil * rules.weaponRecoil(world.player.team), 0).rot(world.player.rotation));
         }
 
         @Override

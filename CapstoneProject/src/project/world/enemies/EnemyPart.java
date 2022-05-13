@@ -8,7 +8,6 @@ import java.awt.*;
 public class EnemyPart extends Enemy{
     public EnemyPart(){
         super();
-        ai = null;
     }
 
     @Override

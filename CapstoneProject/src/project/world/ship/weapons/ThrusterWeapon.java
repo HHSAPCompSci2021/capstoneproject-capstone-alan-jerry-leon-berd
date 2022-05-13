@@ -1,8 +1,10 @@
 package project.world.ship.weapons;
 
+import project.*;
 import project.content.*;
 import project.world.bullets.Bullet.*;
 
+import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 /** Stores stats for a weapon which propels the player forward and drops mines behind it. */
@@ -39,7 +41,7 @@ public class ThrusterWeapon extends Weapon{
                 world.bullets.add(b);
             }
 
-            world.player.thrust(recoil * rules.weaponRecoil(world.player.team));
+            world.player.apply(Tmp.v1.set(recoil * rules.weaponRecoil(world.player.team), 0).rot(world.player.rotation));
         }
     }
 }

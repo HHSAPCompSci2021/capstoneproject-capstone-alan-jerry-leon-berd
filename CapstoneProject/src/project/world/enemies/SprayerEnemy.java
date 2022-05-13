@@ -13,10 +13,10 @@ import static project.Vars.*;
 public class SprayerEnemy extends Enemy{
     public float shootDuration = 120;
     public float shootRotation = 1;
-    public float shootReload = 10;
+    public float shootInterval = 3;
 
-    public int bullets = 8;
-    public float offset = 20;
+    public int bullets = 2;
+    public float offset = 120;
 
     public SprayerEnemy(){
         super();
@@ -24,6 +24,7 @@ public class SprayerEnemy extends Enemy{
         accel = 0.02f;
         color = new Color(255, 110, 50);
         bullet = new VolleyBullet(){{
+            size = 2;
             speed = 5;
         }};
         reload = 0.25f;
@@ -43,58 +44,23 @@ public class SprayerEnemy extends Enemy{
     }
 
     public class SprayerEnemyEntity extends EnemyEntity{
-        public int shootingTimer = 1000;
-        public float shootReloadt = 0;
-
         public SprayerEnemyEntity(SprayerEnemy type){
             super(type);
-        }
-
-        @Override
-        public void thrust(float accel){
-            if(shootingTimer < shootDuration) accel /= 10;
-            super.thrust(accel);
-        }
-
-        @Override
-        public void rotate(float angle, float speed){
-            if(shootingTimer >= shootDuration) super.rotate(angle, speed);
         }
 
         @Override
         public void update(){
             super.update();
 
-            shootingTimer++;
+            reloadt += reload();
+            rotation += shootRotation;
 
-            if(shootingTimer < shootDuration){
-                rotation += shootRotation;
-                shootReloadt += shootReload * rules.weaponReload(team);
-
-                if(shootReloadt >= 60){
-                    shootReloadt = 0;
-                    for(int i = 0;i < bullets;i++){
-                        BulletEntity b = bullet.create();
-                        b.pos.set(pos);
-                        b.team = team;
-                        b.rotation = rotation + 360f * i / bullets;
-                        b.origin = this;
-                        world.bullets.add(b);
-                    }
+            if(reloadt >= 0){
+                if(reloadt % shootInterval < reload()){
+                    for(int i = 0;i < bullets;i++) shoot(offset + 360f * i / bullets);
                 }
             }
-        }
-
-        @Override
-        public void shoot(){
-            if(shootingTimer < shootDuration) return;
-
-            reloadt += reload * rules.weaponReload(team);
-
-            if(reloadt >= 60){
-                reloadt %= 60;
-                shootingTimer = 0;
-            }
+            if(reloadt > shootDuration * reload()) reloadt = -60;
         }
     }
 }

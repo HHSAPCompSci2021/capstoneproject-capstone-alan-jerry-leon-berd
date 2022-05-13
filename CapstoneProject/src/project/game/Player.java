@@ -51,6 +51,16 @@ public class Player extends Ship{
     }
 
     @Override
+    public float accel(){
+        return hull.type().accel * rules.engineAcceleration(team);
+    }
+
+    @Override
+    public float rotate(){
+        return hull.type().rotate * rules.rotateSpeed(team);
+    }
+
+    @Override
     public Color color(){
         return shield.type().color;
     }
@@ -87,7 +97,7 @@ public class Player extends Ship{
     public void update(){
         super.update();
 
-        rotate(tmp.set(input.mouse).sub(pos).ang(), hull.type().rotate * rules.rotateSpeed(team));
+        rotate(tmp.set(input.mouse).sub(pos).ang());
 
         hull.update();
         weapon.update();
@@ -95,7 +105,7 @@ public class Player extends Ship{
 
         if(input.pressed(KeyBind.thrust)){
             hull.thrust();
-            thrust(hull.type().accel * rules.engineAcceleration(team));
+            thrust();
         }
 
         if(!world.bounds.contains(pos)){
