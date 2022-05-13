@@ -2,20 +2,28 @@ package project.world.bullets;
 
 import project.world.ship.Ship;
 import static project.Vars.*;
-
+import project.graphics.*;
+import project.graphics.Sprite.*;
 import gameutils.util.Mathf;
 import project.Tmp;
 
 public class MissileBullet extends Bullet{
-	public float homingPower = 10;
+	public float accel = 0.4f;
+	
+	public float homingPower = 0.01f;
 	public float homingRange = 200;
-//	
-//	@Override
-//	public void init() {
-//		super.init();
-//		
-//		if(sprite == null) sprite = new Sprite(SpritePath.bullets, "missile");)
-//	}
+	
+	public MissileBullet() {
+		super();
+		speed = 1f;		
+	}
+	
+	@Override
+	public void init() {
+		super.init();
+		
+		if(sprite == null) sprite = new Sprite(SpritePath.bullets, "salvo");
+	}
 	
 	public MissileBulletEntity create() {
 		return new MissileBulletEntity(this);
@@ -29,7 +37,7 @@ public class MissileBullet extends Bullet{
 		}
 		
 		public void update() {
-			speed += 1f;
+			speed += accel;
 			super.update();
 			
 			if (target == null || !target.keep()) {
@@ -38,7 +46,7 @@ public class MissileBullet extends Bullet{
 				});
 			} else {
 				float wanted = Tmp.v1.set(target.pos).sub(pos).ang();
-				rotation = Mathf.turn(rotation, wanted, homingPower);
+				rotation = Mathf.turn(rotation, wanted, homingPower * speed * speed);
 			}
 		}
 	}
