@@ -10,12 +10,13 @@ import project.Tmp;
 public class MissileBullet extends Bullet{
 	public float accel = 0.4f;
 	
-	public float homingPower = 0.01f;
+	public float homingPower = 0.02f;
 	public float homingRange = 200;
 	
 	public MissileBullet() {
 		super();
-		speed = 1f;		
+		speed = 1f;
+        size = 4;
 	}
 	
 	@Override
