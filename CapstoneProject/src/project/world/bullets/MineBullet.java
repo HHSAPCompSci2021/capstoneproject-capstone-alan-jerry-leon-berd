@@ -10,6 +10,7 @@ public class MineBullet extends Bullet{
     public float accel = 0.1f;
     public float range = 25;
 
+    @Override
     public MineBulletEntity create(){
         return new MineBulletEntity(this);
     }
