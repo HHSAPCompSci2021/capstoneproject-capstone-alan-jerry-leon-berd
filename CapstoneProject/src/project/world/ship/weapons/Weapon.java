@@ -14,6 +14,7 @@ import static project.Vars.*;
 
 /** Stores stats for a weapon. */
 public class Weapon extends Type{
+    public int charges = 1;
     public int shots = 1;
     public float spread = 10;
     public float reload = 10;
@@ -21,7 +22,7 @@ public class Weapon extends Type{
     public float inaccuracy = 0;
     public float recoil = 0.1f;
 
-    public Bullet bullet = new MissileBullet();;
+    public Bullet bullet;
 
     @Override
     public ContentType type(){
@@ -44,7 +45,7 @@ public class Weapon extends Type{
 
         /** Returns the charges this weapon can store. */
         public int charges(){
-            return rules.weaponCharges(world.player.team);
+            return charges + rules.weaponCharges(world.player.team) - 1;
         }
 
         /** Returns the amount of projectiles this weapon shoots. */
@@ -57,13 +58,18 @@ public class Weapon extends Type{
             return recoil * rules.weaponRecoil(world.player.team);
         }
 
+        public float reload(){
+            return reload * rules.weaponReload(world.player.team);
+        }
+
         /** Updates this weapon. */
         public void update(){
-            reloadt = min(reloadt + reload * rules.weaponReload(world.player.team), 60 * charges());
+            reloadt = min(reloadt + reload(), 60 * charges());
 
             if(input.pressed(KeyBind.shoot) && reloadt >= 60){
                 reloadt -= 60;
                 shoot();
+                System.out.println(reloadt);
             }
         }
 

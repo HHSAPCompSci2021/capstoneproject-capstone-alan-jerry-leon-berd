@@ -15,6 +15,7 @@ public class MissileBullet extends Bullet{
 	
 	public MissileBullet() {
 		super();
+        damage = 10;
 		speed = 1f;
         size = 4;
 	}

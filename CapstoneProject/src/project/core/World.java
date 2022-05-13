@@ -37,7 +37,7 @@ public class World{
         effects = new Entities<>();
 
         player = new Player();
-//        player.weapon = Gear.thruster.create();
+        player.weapon = Gear.blaster.create();
         player.pos.set(bounds.center());
 //        player.addMod(Modifiers.shotgunShells);
 //        player.addMod(Modifiers.doubleShot);
