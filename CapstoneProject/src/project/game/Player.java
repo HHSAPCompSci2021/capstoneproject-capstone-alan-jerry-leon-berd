@@ -1,9 +1,11 @@
 package project.game;
 
 import gameutils.struct.*;
+import project.*;
 import project.content.*;
 import project.core.Events.Event;
 import project.core.Input.*;
+import project.graphics.*;
 import project.world.modifiers.*;
 import project.world.modifiers.Modifier.*;
 import project.world.ship.Hull.*;
@@ -65,6 +67,10 @@ public class Player extends Ship{
         return shield.type().color;
     }
 
+    public Sprite sprite(){
+        return hull.type().sprite;
+    }
+
     public void addMod(Modifier mod){
         modifiers.add(mod.create());
         events.call(Event.modChange);
@@ -84,20 +90,21 @@ public class Player extends Ship{
 
     @Override
     public void init(){
-        events.on(Event.expGain, e -> {
+        events.on(Event.expGain, event -> {
             while(exp > pow(expScaling, level) * baseLevelExp){
                 exp -= pow(expScaling, level) * baseLevelExp;
                 level++;
                 events.call(Event.levelUp);
             }
         });
+        events.on(Event.levelUp, event -> Effects.upgrade.at(0, 0, e -> e.set(0, size()).parent(this)));
     }
 
     @Override
     public void update(){
         super.update();
 
-        rotate(tmp.set(input.mouse).sub(pos).ang());
+        rotate(Tmp.v1.set(input.mouse).sub(pos).ang());
 
         hull.update();
         weapon.update();
@@ -120,8 +127,8 @@ public class Player extends Ship{
     public void draw(){
         super.draw();
 
-        hull.type().sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation + 90, color());
-        hull.type().sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation + 90, Color.white, 200);
+        sprite().drawc(pos.x, pos.y, size() * 5, size() * 5, rotation + 90, color());
+        sprite().drawc(pos.x, pos.y, size() * 5, size() * 5, rotation + 90, Color.white, 200);
 
         canvas.noFill();
         canvas.stroke(color());

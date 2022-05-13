@@ -2,6 +2,7 @@ package project.core;
 
 import gameutils.math.*;
 import project.content.*;
+import project.core.Events.*;
 import project.game.*;
 import project.graphics.Effects.Effect.*;
 import project.world.bullets.Bullet.*;
@@ -19,6 +20,7 @@ public class World{
     public Entities<EffectEntity> effects;
 
     public Player player;
+    public Waves waves;
 
     public Range2 bounds;
 
@@ -41,23 +43,20 @@ public class World{
         player.init();
         ships.add(player);
 
-        for(int i = 0;i < 1;i++){
-            EnemyEntity e = Enemies.host.common.create();
-            e.pos.set(random(0, width), random(0, height));
-            ships.add(e);
-        }
+        waves = new Waves();
+        waves.spawnWave();
 
-        EnemyEntity e = Enemies.gyrogun.common.create();
-        e.pos.set(random(0, width), random(0, height));
-        ships.add(e);
+        events.on(Event.enemyDestroyed, event -> {
+            boolean spawnNext = true;
+            for(Ship ship : ships.entities){
+                if(ship.keep() && ship.team != world.player.team){
+                    spawnNext = false;
+                    break;
+                }
+            }
 
-        e = Enemies.gyrogun.elite.create();
-        e.pos.set(random(0, width), random(0, height));
-        ships.add(e);
-
-        e = Enemies.gyrogun.champion.create();
-        e.pos.set(random(0, width), random(0, height));
-        ships.add(e);
+            if(spawnNext) waves.spawnWave();
+        });
     }
 
     public void update(){

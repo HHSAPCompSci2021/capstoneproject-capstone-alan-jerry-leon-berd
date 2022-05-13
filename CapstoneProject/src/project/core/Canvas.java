@@ -88,6 +88,14 @@ public class Canvas extends PApplet{
         background(color.getRGB());
     }
 
+    public void tint(Color color){
+        tint(color, color.getAlpha());
+    }
+
+    public void tint(Color color, float alpha){
+        tint(color.getRed(), color.getGreen(), color.getBlue(), alpha);
+    }
+
     public void fill(Color color){
         fill(color, color.getAlpha());
     }

@@ -21,7 +21,7 @@ public class SprayerEnemy extends Enemy{
     public SprayerEnemy(){
         super();
 
-        accel = 0.02f;
+        accel = 0.5f;
         color = new Color(255, 110, 50);
         bullet = new VolleyBullet(){{
             size = 2;

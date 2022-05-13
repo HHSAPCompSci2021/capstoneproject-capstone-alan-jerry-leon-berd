@@ -24,7 +24,8 @@ public class Effects{
     fragment10,
     laserLine,
     gunfire,
-    thrust;
+    thrust,
+    upgrade;
 
     public void init(){
         glow = new GlowSprite(SpritePath.effects, "glow");
@@ -77,6 +78,14 @@ public class Effects{
             thruster.drawc(0, 0, e.data[3], e.data[4] * e.fin(), e.data[5]);
             canvas.tint(255, 255, 255, 255 * e.fout() * 2 - 255);
             thruster.drawc(0, 0, e.data[3], e.data[4] * e.fin(), e.data[5]);
+        }).follow(true);
+        upgrade = new Effect(25, e -> e.create(2), e -> {
+            for(int i = 0;i < 3;i++){
+                canvas.tint(world.player.color(), 255 * e.fout() / (i + 1));
+                world.player.sprite().drawc(0, 0, e.data[0] * 20 * e.fin() * i, e.data[0] * 20 * e.fin() * i, world.player.rotation + 90);
+                canvas.tint(255, 255, 255, 100 * e.fout() / (i + 1));
+                world.player.sprite().drawc(0, 0, e.data[0] * 20 * e.fin() * i, e.data[0] * 20 * e.fin() * i, world.player.rotation + 90);
+            }
         }).follow(true);
     }
 

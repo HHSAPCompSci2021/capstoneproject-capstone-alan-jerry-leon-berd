@@ -2,6 +2,7 @@ package project.world.bullets;
 
 import gameutils.struct.*;
 import gameutils.util.*;
+import project.*;
 import project.core.Content.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
@@ -61,7 +62,7 @@ public class Bullet extends Type{
             world.ships.raycast(pos.x, pos.y, size + maxEntitySize, rotation, speed, (s, pos) -> {
                 if(s.team != this.team && !collided.contains(s) && dst(s, pos) < s.size() + size){
                     collided.add(s);
-                    s.apply(tmp.set(vel).scl(knockback * rules.bulletKnockback(team)));
+                    s.apply(Tmp.v1.set(vel).scl(knockback * rules.bulletKnockback(team)));
                     s.damage(damage * rules.bulletDamage(team));
                 }
             });
@@ -71,9 +72,16 @@ public class Bullet extends Type{
         public void draw(){
             Effects.glow.drawc(pos.x, pos.y, size() * 15, size() * 15, origin.color(), 30);
 
-            if(sprite == null) return; //TODO: Sprites for everything
-            sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, origin.color());
-            sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, Color.white, 200);
+            if(sprite == null){
+                //TODO: Sprites for everything
+                canvas.fill(origin.color());
+                canvas.ellipse(pos.x, pos.y, size());
+                canvas.fill(255, 255, 255, 200);
+                canvas.ellipse(pos.x, pos.y, size());
+            }else{
+                sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, origin.color());
+                sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, Color.white, 200);
+            }
         }
 
         @Override

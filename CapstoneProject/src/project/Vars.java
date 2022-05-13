@@ -34,7 +34,7 @@ public class Vars{
     public static float expLifetime = 60 * 10;
     public static float expDrag = 0.05f;
 
-    public static float baseLevelExp = 250;
+    public static float baseLevelExp = 50;
     public static float expScaling = 1.1f;
 
     public static Sounds sounds;

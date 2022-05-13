@@ -41,8 +41,20 @@ public class Weapon extends Type{
             super(type);
         }
 
+        public int charges(){
+            return rules.weaponCharges(world.player.team);
+        }
+
+        public int projectiles(){
+            return shots + rules.shotProjectiles(world.player.team) - 1;
+        }
+
+        public float recoil(){
+            return recoil * rules.weaponRecoil(world.player.team);
+        }
+
         public void update(){
-            reloadt = min(reloadt + reload * rules.weaponReload(world.player.team), 60 * rules.weaponCharges(world.player.team));
+            reloadt = min(reloadt + reload * rules.weaponReload(world.player.team), 60 * charges());
 
             if(input.pressed(KeyBind.shoot) && reloadt >= 60){
                 reloadt -= 60;
@@ -60,14 +72,14 @@ public class Weapon extends Type{
         }
 
         public void shoot(){
-            for(int i = 0;i < shots + rules.shotProjectiles(world.player.team) - 1;i++){
+            for(int i = 0;i < projectiles();i++){
                 BulletEntity b = def(bullet.create());
                 b.rotation += spread * (i - (shots - 1) / 2f);
                 world.bullets.add(b);
                 Effects.gunfire.at(world.player.hull.shootPos().x, world.player.hull.shootPos().y, e -> e.color(0, world.player.color()).scale(1.2f).parent(world.player));
             }
 
-            world.player.apply(Tmp.v1.set(-recoil * rules.weaponRecoil(world.player.team), 0).rot(world.player.rotation));
+            world.player.apply(Tmp.v1.set(-recoil(), 0).rot(world.player.rotation));
         }
 
         @Override
