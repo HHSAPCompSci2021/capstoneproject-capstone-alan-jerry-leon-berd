@@ -18,6 +18,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
     public float orbitSpeed = 2;
 
     public float kiteDistance = 100;
+    public boolean spacedShooting = false;
 
     public EnemyPart drone = new OrbitDrone();
 
@@ -25,7 +26,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
         super();
 
         color = new Color(80, 170, 255);
-        size = 17;
+        size = 15;
     }
 
     @Override
@@ -58,6 +59,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
                 OrbitDroneEntity drone = (OrbitDroneEntity)parts.get(i);
                 drone.vel.set(0, 0);
                 drone.pos.set(Tmp.v1.setr(orbit + 360f / drones * i, droneSpace).add(pos));
+                if(spacedShooting) drone.reloadt = 60 * ((float)i / drones);
             }
         }
 

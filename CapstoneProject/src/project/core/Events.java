@@ -36,7 +36,8 @@ public class Events{
         expGain,
         levelUp,
 
-        playerDamage;
+        playerDamage,
+        enemyDestroyed;
 
         public static Event[] all = values();
 

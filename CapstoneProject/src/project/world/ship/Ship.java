@@ -62,8 +62,8 @@ public abstract class Ship extends Entity{
         world.ships.raycast(x, y, size() + maxEntitySize, vel.ang(), vel.len(), (s, pos) -> {
             if(s != this && !collided.contains(s) && dst(s, pos) < s.size() + size()){
                 if(s.team != team) s.damage(vel.len() * mass() * rules.ramDamage(team));
-                s.apply(tmp.set(s.pos).sub(pos).nor().scl(universalDamping * (s.team != team ? 10 : 1) * rules.collisionForce(team)));
-                apply(tmp.inv());
+                s.apply(Tmp.v1.set(s.pos).sub(pos).nor().scl(universalDamping * (s.team != team ? 10 : 1) * rules.collisionForce(team)));
+                apply(Tmp.v1.inv());
                 collided.add(s);
             }
         });

@@ -34,14 +34,14 @@ public class ThrusterWeapon extends Weapon{
 
         @Override
         public void shoot(){
-            for(int i = 0;i < shots + rules.shotProjectiles(world.player.team) - 1;i++){
+            for(int i = 0;i < projectiles();i++){
                 BulletEntity b = def(bullet.create());
                 b.pos.set(world.player.pos);
                 b.rotation += spread * (i - (shots - 1) / 2f) + 180;
                 world.bullets.add(b);
             }
 
-            world.player.apply(Tmp.v1.set(recoil * rules.weaponRecoil(world.player.team), 0).rot(world.player.rotation));
+            world.player.apply(Tmp.v1.set(recoil(), 0).rot(world.player.rotation));
         }
     }
 }

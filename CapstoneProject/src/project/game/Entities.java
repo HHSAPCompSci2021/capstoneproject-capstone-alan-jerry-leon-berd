@@ -24,7 +24,7 @@ public class Entities<T extends Entity>{
     }
 
     public Entities tree(){
-        tree = new QuadTree<>(world.bounds.cpy().expand(universalSpeedLimit * 5));
+        tree = new QuadTree<>(world.bounds.cpy().expand(universalSpeedLimit * 4));
         return this;
     }
 

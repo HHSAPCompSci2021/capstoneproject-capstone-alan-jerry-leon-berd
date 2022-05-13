@@ -1,5 +1,6 @@
 package project.game;
 
+import project.*;
 import project.core.Events.*;
 import project.graphics.*;
 import project.world.*;
@@ -29,7 +30,7 @@ public class Experience extends Entity{
     public void update(){
         super.update();
         life++;
-        if(dst(pos, world.player) < expRange) vel.add(tmp.set(world.player.pos).sub(pos).nor().scl(0.5f));
+        if(dst(pos, world.player) < expRange) vel.add(Tmp.v1.set(world.player.pos).sub(pos).nor().scl(0.5f));
         if(dst(pos, world.player) < world.player.size() + 5){
             world.player.exp += amount;
             amount = 0;

@@ -1,7 +1,10 @@
 package project.world.enemies;
 
+import project.*;
 import project.content.*;
 import project.core.Content.*;
+import project.core.Events.*;
+import project.core.Events.*;
 import project.game.*;
 import project.graphics.*;
 import project.world.*;
@@ -9,7 +12,7 @@ import project.world.bullets.*;
 import project.world.bullets.Bullet.*;
 import project.world.ship.*;
 
-import java.awt.*;
+import java.awt.Color;
 
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
@@ -42,6 +45,8 @@ public class Enemy extends Type{
     /** Represents and simulates an enemy. */
     public class EnemyEntity extends Ship{
         public float reloadt;
+
+        public boolean justSpawned; //TODO: Turn this into a status effect
 
         public EnemyEntity(Enemy type){
             super(type);
@@ -94,7 +99,12 @@ public class Enemy extends Type{
         public void update(){
             super.update();
 
-            apply(tmp.set(vel).scl(-0.02f));
+            apply(Tmp.v1.set(vel).scl(-0.02f));
+
+            if(justSpawned){
+                if(!world.bounds.contains(pos)) apply(Tmp.v1.set(world.bounds.center()).sub(pos).nor().scl(accel()));
+                else justSpawned = false;
+            }
         }
 
         @Override
@@ -115,6 +125,8 @@ public class Enemy extends Type{
                 exp.vel.setr(random(0, 360), random(0, rt2(size)));
                 world.experience.add(exp);
             }
+
+            events.call(Event.enemyDestroyed);
         }
 
         @Override
@@ -124,7 +136,7 @@ public class Enemy extends Type{
 
         @Override
         public boolean keep(){
-            return !(life <= 0) && world.bounds.contains(pos);
+            return !(life <= 0) && (justSpawned || world.bounds.contains(pos));
         }
     }
 

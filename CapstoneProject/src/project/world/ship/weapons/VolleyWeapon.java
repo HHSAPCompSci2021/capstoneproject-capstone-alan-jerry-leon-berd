@@ -28,18 +28,17 @@ public class VolleyWeapon extends Weapon{
 
         @Override
         public void shoot(){
-            int actual = (shots + rules.shotProjectiles(world.player.team) - 1) * 2;
-            for(int i = 0;i < actual;i++){
+            for(int i = 0;i < projectiles() * 2;i++){
                 BulletEntity b = def(bullet.create());
 //                float x = ((float)i / (actual - 1) - 0.5f) * spread;
-                float x = (i - actual / 2f + 0.5f) * spread;
+                float x = (i - projectiles() + 0.5f) * spread;
                 b.pos.set(world.player.hull.shootPos()).add(Tmp.v1.set(0, x).rot(world.player.rotation));
                 Effects.gunfire.at(Tmp.v1.x, Tmp.v1.y, e -> e.color(0, world.player.color()).scale(1.3f).parent(world.player));
                 world.bullets.add(b);
-                if(b instanceof VolleyBulletEntity && i >= actual / 2) ((VolleyBulletEntity)b).flip = true;
-            }
+                if(b instanceof VolleyBulletEntity && i >= projectiles()) ((VolleyBulletEntity)b).flip = true;
 
-            world.player.apply(Tmp.v1.set(-recoil * rules.weaponRecoil(world.player.team) * actual, 0).rot(world.player.rotation));
+                world.player.apply(Tmp.v1.set(-recoil(), 0).rot(world.player.rotation));
+            }
         }
     }
 }
