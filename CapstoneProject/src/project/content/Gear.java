@@ -16,7 +16,7 @@ public class Gear implements ContentList{
     public void load(){
         normal = new Hull();
         shield = new Shield();
-        bullet = new VolleyWeapon();
+        bullet = new Weapon();
         thruster = new ThrusterWeapon();
         laser = new Weapon(){{
             reload = 2;

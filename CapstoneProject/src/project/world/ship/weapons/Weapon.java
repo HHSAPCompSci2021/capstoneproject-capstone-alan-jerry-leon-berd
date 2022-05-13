@@ -21,7 +21,7 @@ public class Weapon extends Type{
     public float inaccuracy = 0;
     public float recoil = 0.1f;
 
-    public Bullet bullet = Bullets.normal;
+    public Bullet bullet = new MissileBullet();;
 
     @Override
     public ContentType type(){

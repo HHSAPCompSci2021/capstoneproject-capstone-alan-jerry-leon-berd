@@ -7,7 +7,7 @@ import gameutils.util.Mathf;
 import project.Tmp;
 
 public class MissileBullet extends Bullet{
-	public float homingPower = 5;
+	public float homingPower = 10;
 	public float homingRange = 200;
 	
 	public MissileBulletEntity create() {
@@ -22,6 +22,7 @@ public class MissileBullet extends Bullet{
 		}
 		
 		public void update() {
+			speed += 1f;
 			super.update();
 			
 			if (target == null || !target.keep()) {
