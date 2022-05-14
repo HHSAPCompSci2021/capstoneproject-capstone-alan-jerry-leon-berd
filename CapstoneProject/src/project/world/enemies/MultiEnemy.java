@@ -53,7 +53,7 @@ public class MultiEnemy extends Enemy{
         public void remove() {
             super.remove();
 
-            Sounds.playSounds("fuel_explosion.mp3");
+            Sounds.playSound("fuel_explosion.mp3");
         }
     }
 }

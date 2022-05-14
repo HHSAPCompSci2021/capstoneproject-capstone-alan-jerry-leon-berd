@@ -72,7 +72,7 @@ public class SprayerEnemy extends Enemy{
         public void remove() {
             super.remove();
 
-            Sounds.playSounds("laser_impact.mp3");
+            Sounds.playSound("laser_impact.mp3");
         }
     }
 }
