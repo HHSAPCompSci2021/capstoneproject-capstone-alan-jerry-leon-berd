@@ -1,5 +1,6 @@
 package project.ui.screens;
 
+import gameutils.math.*;
 import project.*;
 import project.core.Events.*;
 import project.core.Input.*;
@@ -18,7 +19,8 @@ public class GameScreen extends Screen{
     public Table playerHealth, playerShield, playerAmmo, playerExp;
 
     public Sprite background = new Sprite(SpritePath.backgrounds, "space2");
-    public float rot = random(0, 360), trackx, tracky;
+    public float rot = random(0, 360);
+    public Vec2 pan = new Vec2();
 
     @Override
     public void init(){
@@ -27,27 +29,33 @@ public class GameScreen extends Screen{
         playerAmmo = new SegmentedBar(width / 3f, 5, 3).segments(() -> world.player.weapon.charges()).progress(() -> world.player.weapon.fin()).color(expGray).alignX(AlignX.center).x(width / 2f).y(height - 80);
 
         playerExp = (SmoothBar)new SmoothBar(width - 100, 5).progress(() -> world.player.exp / pow(expScaling, world.player.level) / baseLevelExp).color(expGray).alignX(AlignX.center).x(width / 2f).y(10);
+
+        events.on(Event.playerKilled, event -> {
+            canvas.shake(100);
+            canvas.screen(ui.loseScreen);
+        });
     }
 
     @Override
     public void update(){
-        rot += 0.025f;
+        rot += 0.025f * delta;
 
-        trackx += (world.player.x() - trackx) / 10;
-        tracky += (world.player.y() - tracky) / 10;
+        pan.add(Tmp.v1.set(world.player.pos).sub(pan).scl(0.1f));
 
         world.update();
 
-        if(input.pressed(KeyBind.pause)){
-            input.consume(KeyBind.pause);
-            canvas.screen(ui.pauseScreen);
+        if(input.pressed(KeyBind.upgrade)){
+            input.consume(KeyBind.upgrade);
+            if(world.player.level > world.player.spent) canvas.screen(ui.upgradeScreen);
+            else canvas.screen(ui.pauseScreen);
         }
     }
 
     @Override
     public void draw(){
         canvas.pushMatrix();
-        canvas.translate(-trackx / 50f, -tracky / 50f);
+        canvas.translate(-pan.x / 50f, -pan.y / 50f);
+        canvas.tint(255, 255, 255);
         background.drawh(Tmp.v1.setr(rot, 1).x * 550 - 550, Tmp.v1.y * 100 - 100, height + 200);
         canvas.popMatrix();
 

@@ -57,11 +57,6 @@ public class Bullet extends Type{
             return size;
         }
 
-        @Override
-        public void init(){
-            speed *= speed();
-        }
-
         public float speed(){
             return type().speed * rules.bulletSpeedMult(team);
         }
@@ -82,17 +77,38 @@ public class Bullet extends Type{
             return (rules.splashDamageAdd(team) + splashDamage) * rules.splashDamageMult(team);
         }
 
+        public void hit(Ship s){
+            if(splashRadius() > 0){
+                canvas.shake(rt2(splashRadius()));
+
+                world.ships.query(pos.x, pos.y, splashRadius() + maxEntitySize, e -> {
+                    if(e.team != team && dst(e, pos) < e.size() + splashRadius()) e.damage(splashDamage() * (1f - dst(e, pos) / (e.size() + splashRadius())));
+                });
+
+                Effects.shockwave.at(pos.x, pos.y, e -> e.color(0, origin.color()).set(3, splashRadius() / 2).lifetime(rt2(splashRadius()) * 1.5f));
+            }else Effects.fragment.at(pos.x, pos.y, e -> e.color(20, origin.color()).set(23, size() * 2));
+
+            s.apply(Tmp.v1.set(vel).scl(knockback()));
+            s.damage(damage());
+        }
+
+        @Override
+        public void init(){
+            speed *= speed();
+        }
+
         @Override
         public void update(){
-            life++;
+            life += delta;
 
-            pos.add(vel.set(speed, 0).rot(rotation));
+            vel.set(speed, 0).rot(rotation);
+
+            super.update();
 
             world.ships.raycast(pos.x, pos.y, size + maxEntitySize, rotation, speed, (s, pos) -> {
                 if(s.team != this.team && !collided.contains(s) && dst(s, pos) < s.size() + size){
                     collided.add(s);
-                    s.apply(Tmp.v1.set(vel).scl(knockback()));
-                    s.damage(damage());
+                    hit(s);
                 }
             });
 
@@ -107,27 +123,8 @@ public class Bullet extends Type{
         public void draw(){
             Effects.glow.drawc(pos.x, pos.y, size() * 15, size() * 15, origin.color(), 30);
 
-            if(sprite == null){
-                //TODO: Sprites for everything
-                canvas.fill(origin.color());
-                canvas.ellipse(pos.x, pos.y, size());
-                canvas.fill(255, 255, 255, 200);
-                canvas.ellipse(pos.x, pos.y, size());
-            }else{
-                sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, origin.color());
-                sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, Color.white, 200);
-            }
-        }
-
-        @Override
-        public void remove(){
-            if(splashRadius() > 0){
-                world.ships.query(pos.x, pos.y, splashRadius() + maxEntitySize, e -> {
-                    if(e.team != team && dst(e, pos) < e.size() + splashRadius()) e.damage(splashDamage() * dst(e, pos) / (e.size() + splashRadius()));
-                });
-
-                Effects.shockwave.at(pos.x, pos.y, e -> e.color(0, origin.color()).set(3, splashRadius() / 2).lifetime(rt2(splashRadius()) * 1.5f));
-            }
+            sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, origin.color());
+            sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, Color.white, 200);
         }
 
         @Override

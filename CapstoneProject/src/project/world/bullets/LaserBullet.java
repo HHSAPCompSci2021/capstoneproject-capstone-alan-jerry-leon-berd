@@ -25,7 +25,7 @@ public class LaserBullet extends Bullet{
 
         @Override
         public void init(){
-            if(!world.bounds.contains(this)) return;
+            if(!world.bounds.contains(pos)) return;
 
             world.ships.raycast(pos.x, pos.y, size + maxEntitySize, rotation, maxLineLen, (s, pos) -> {
                 if(s.team != team && s.keep() && !collided.contains(s) && dst(s, pos) < s.size() + size){

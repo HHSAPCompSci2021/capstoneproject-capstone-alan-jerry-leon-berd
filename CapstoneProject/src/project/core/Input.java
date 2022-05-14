@@ -61,7 +61,7 @@ public class Input{
         thrust("THRUST", input.right),
         shoot("SHOOT", input.left),
 
-        pause("PAUSE", KeyEvent.VK_SPACE);
+        upgrade("UPGRADE", KeyEvent.VK_SPACE);
 
         public static KeyBind[] all = values();
 

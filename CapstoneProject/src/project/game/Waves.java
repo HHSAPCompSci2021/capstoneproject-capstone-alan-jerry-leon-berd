@@ -15,7 +15,7 @@ import static project.Vars.*;
 
 /** Stores and simulates all waves in the game. */
 public class Waves{
-    public int wave = 0;
+    public int wave = 50;
 
     public void spawnWave(){
         //Ridiculous scaling

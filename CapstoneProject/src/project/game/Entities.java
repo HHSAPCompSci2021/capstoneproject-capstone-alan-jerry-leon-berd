@@ -25,7 +25,7 @@ public class Entities<T extends Entity>{
 
     /** Creates an quadtree for this entity list. */
     public Entities tree(){
-        tree = new QuadTree<>(world.bounds.cpy().expand(universalSpeedLimit * 4));
+        tree = new QuadTree<>(world.bounds.cpy().expand(universalSpeedLimit * 5));
         return this;
     }
 

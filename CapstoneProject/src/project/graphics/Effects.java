@@ -3,7 +3,6 @@ package project.graphics;
 import gameutils.func.*;
 import gameutils.math.*;
 import project.*;
-import project.core.Content.*;
 import project.graphics.Sprite.*;
 import project.world.*;
 
@@ -14,7 +13,7 @@ import static project.Vars.*;
 
 /** Contains a list of all effects in the game. */
 public class Effects{
-    public static Sprite glow, blur, thruster;
+    public static Sprite glow, blur, thruster, frame;
 
     public static Effect
     explosion,
@@ -30,13 +29,8 @@ public class Effects{
         glow = new GlowSprite(SpritePath.effects, "glow");
         blur = new GlowSprite(SpritePath.effects, "blur");
         thruster = new Sprite(SpritePath.effects, "thruster");
+        frame = new Sprite(SpritePath.effects, "frame");
 
-//        explosion = new Effect(5, e -> e.create(3), e -> {
-//            e.fill(0, 100 * e.fout());
-//            canvas.ellipse(0, 0, 10 * e.fin(), 10 * e.fin());
-//            canvas.fill(255, 255, 255, 100 * e.fout());
-//            canvas.ellipse(0, 0, 10 * e.fin(), 10 * e.fin());
-//        });
         shockwave = new Effect(20, e -> e.create(5).set(3, 1).set(4, 1), e -> {
             canvas.noFill();
             for(int i = 1;i < e.data[4] + 1;i++){
@@ -45,9 +39,9 @@ public class Effects{
                 canvas.ellipse(0, 0, e.fin() * 2 * (0.5f + i * 1.5f) * e.data[3], e.fin() * 2 * (0.5f + i * 1.5f) * e.data[3]);
             }
         });
-        fragment = new Effect(25, e -> e.create(10 * 2 + 2).rand(0, 10 * 2).set(20, 1).set(21, 1), e -> {
-            canvas.fill(255, 255, 255, 255 * e.fout());
-            for(int i = 0;i < e.data[21];i++) canvas.rectc(e.fin() * 10 * e.data[i + 10] * e.data[20], 0, 0, 0, e.fout() * e.data[20], 0.4f * e.data[20], e.data[i] * 360);
+        fragment = new Effect(25, e -> e.create(10 * 2 + 5).rand(0, 10 * 2).set(23, 1).set(24, 5), e -> {
+            e.fill(20, 255 * e.fout());
+            for(int i = 0;i < e.data[24];i++) canvas.rectc(e.fin() * 10 * e.data[i + 10] * e.data[23], 0, 0, 0, e.fout() * e.data[23], 0.4f * e.data[23], e.data[i] * 360);
         });
         laserLine = new Effect(10, e -> e.create(2), e -> {
             canvas.fill(255, 255, 255, 255 * e.fout());
@@ -240,7 +234,7 @@ public class Effects{
 
             @Override
             public void update(){
-                life++;
+                life += delta;
             }
 
             @Override

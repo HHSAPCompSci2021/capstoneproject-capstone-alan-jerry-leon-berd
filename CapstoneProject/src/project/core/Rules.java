@@ -23,7 +23,7 @@ public class Rules{
         events.on(Event.modChange, e -> {
             reset();
 
-            for(ModEntry m : world.player.modifiers){
+            for(ModInstance m : world.player.modifiers){
                 for(int i = 0;i < all.length;i++){
                     rules[world.player.team.id()][i][0] += m.type().mult[i];
                     rules[world.player.team.id()][i][1] += m.type().add[i];

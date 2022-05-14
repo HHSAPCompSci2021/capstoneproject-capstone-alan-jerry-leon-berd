@@ -4,15 +4,17 @@ import project.*;
 import project.core.Content.*;
 import project.core.Input.*;
 import project.graphics.*;
+import project.graphics.Sprite.*;
 import project.world.*;
 import project.world.bullets.*;
 import project.world.bullets.Bullet.*;
+import project.world.modifiers.*;
 
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 /** Stores stats for a weapon. */
-public class Weapon extends Type{
+public class Weapon extends Modifier{
     public int charges = 1;
     public int shots = 1;
     public float spread = 10;
@@ -26,6 +28,17 @@ public class Weapon extends Type{
 
     public Bullet bullet;
 
+    public Weapon(String name){
+        super(name);
+    }
+
+    @Override
+    public void init(){
+        if(sprite == null) sprite = new Sprite(SpritePath.upgrades, "weapon-" + name);
+
+        super.init();
+    }
+
     @Override
     public ContentType type(){
         return ContentType.weapon;
@@ -37,7 +50,7 @@ public class Weapon extends Type{
     }
 
     /** Represents an instance of a weapon. */
-    public class WeaponInstance extends Instance{
+    public class WeaponInstance extends ModInstance{
         /** Stores the reloadTimer, which is incremented every frame and stores when the enemy should shoot. */
         public float reloadt;
 
@@ -66,7 +79,7 @@ public class Weapon extends Type{
         }
 
         public float reload(){
-            return reload * rules.weaponReloadMult(world.player.team);
+            return reload * rules.weaponReloadMult(world.player.team) * delta;
         }
 
         /** Updates this weapon. */

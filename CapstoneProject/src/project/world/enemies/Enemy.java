@@ -77,17 +77,17 @@ public class Enemy extends Type{
 
         @Override
         public float accel(){
-            return accel * rules.engineAccelerationMult(team);
+            return accel * rules.engineAccelerationMult(team) * delta;
         }
 
         @Override
         public float rotate(){
-            return rotate * rules.rotateSpeedMult(team);
+            return rotate * rules.rotateSpeedMult(team) * delta;
         }
 
         /** Returns the real reload speed of this enemy. */
         public float reload(){
-            return reload * rules.weaponReloadMult(team);
+            return reload * rules.weaponReloadMult(team) * delta;
         }
 
         @Override
@@ -101,6 +101,8 @@ public class Enemy extends Type{
         }
 
         public void shoot(float offset){
+            if(!world.bounds.contains(pos)) return;
+
             BulletEntity b = bullet.create();
             b.pos.set(pos);
             b.team = team;

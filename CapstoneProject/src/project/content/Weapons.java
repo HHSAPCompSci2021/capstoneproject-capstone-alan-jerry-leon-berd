@@ -4,31 +4,24 @@ import project.core.Content.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
 import project.world.bullets.*;
-import project.world.ship.*;
 import project.world.ship.weapons.*;
 
 /** Contains anf laods all gears in the game. Might be better if this was split into 3 classes. */
-public class Gear implements ContentList{
-    public static Hull normal;
-
-    public static Shield shield;
-
+public class Weapons implements ContentList{
     public static Weapon blaster, salvo, flak;
 
     @Override
     public void load(){
-        normal = new Hull();
-        shield = new Shield();
-        blaster = new VolleyWeapon(){{
+        blaster = new VolleyWeapon("blaster"){{
             bullet = new VolleyBullet();
         }};
-        salvo = new ChargeWeapon(){{
+        salvo = new ChargeWeapon("salvo"){{
             reload = 2;
             inaccuracy = 20;
             charges = 25;
             bullet = new MissileBullet();
         }};
-        flak = new Weapon(){{
+        flak = new Weapon("flak"){{
             reload = 1.5f;
             shots = 15;
             spread = 4;

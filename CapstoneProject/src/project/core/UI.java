@@ -9,17 +9,21 @@ public class UI{
     public MenuScreen menuScreen;
     public GameScreen gameScreen;
     public PauseScreen pauseScreen;
+    public UpgradeScreen upgradeScreen;
+    public LoseScreen loseScreen;
 
     public void init(){
         menuScreen = new MenuScreen();
         gameScreen = new GameScreen();
         pauseScreen = new PauseScreen();
+        upgradeScreen = new UpgradeScreen();
+        loseScreen = new LoseScreen();
 
         menuScreen.init();
         gameScreen.init();
         pauseScreen.init();
-
-        canvas.screen = menuScreen;
+        upgradeScreen.init();
+        loseScreen.init();
     }
 
     /** Represents a x align configuration of a table. */

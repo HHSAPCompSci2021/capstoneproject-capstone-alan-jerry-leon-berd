@@ -8,6 +8,10 @@ import static project.Vars.*;
 public class ChargeWeapon extends Weapon{
     public float chargeBonus = 0.01f;
 
+    public ChargeWeapon(String name){
+        super(name);
+    }
+
     @Override
     public ChargeWeaponInstance create(){
         return new ChargeWeaponInstance(this);
@@ -33,7 +37,7 @@ public class ChargeWeapon extends Weapon{
 
         @Override
         public float reload(){
-            return (reload + reloadt * chargeBonus) * rules.weaponReloadMult(world.player.team);
+            return (reload + reloadt * chargeBonus) * rules.weaponReloadMult(world.player.team) * delta;
         }
 
         public void update(){
