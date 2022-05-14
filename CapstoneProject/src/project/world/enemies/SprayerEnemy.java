@@ -1,6 +1,7 @@
 package project.world.enemies;
 
 import project.content.*;
+import project.core.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
 import project.world.bullets.*;
@@ -65,6 +66,13 @@ public class SprayerEnemy extends Enemy{
                 }
             }
             if(reloadt >= 60 + shootDuration * reload()) reloadt = 0;
+        }
+
+        @Override
+        public void remove() {
+            super.remove();
+
+            Sounds.playSounds("laser_impact.mp3");
         }
     }
 }
