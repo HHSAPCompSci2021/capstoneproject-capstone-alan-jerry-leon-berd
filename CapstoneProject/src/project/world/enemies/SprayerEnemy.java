@@ -14,7 +14,6 @@ import static project.Vars.*;
 /** An enemy which rotates and spams bullets around itself. */
 public class SprayerEnemy extends Enemy{
     public float shootDuration = 120;
-    public float shootRotation = 1;
     public float shootInterval = 3;
 
     public int bullets = 2;
@@ -28,6 +27,7 @@ public class SprayerEnemy extends Enemy{
         color = new Color(255, 110, 50);
         health = 50;
         reload = 0.25f;
+        rotate = 1f;
         size = 10;
     }
 
@@ -58,7 +58,7 @@ public class SprayerEnemy extends Enemy{
             super.update();
 
             reloadt += reload();
-            rotation += shootRotation;
+            rotation += rotate();
 
             if(reloadt >= 60){
                 if((reloadt - 60) % shootInterval < reload()){

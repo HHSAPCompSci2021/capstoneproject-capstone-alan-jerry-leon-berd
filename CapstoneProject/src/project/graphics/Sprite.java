@@ -38,6 +38,11 @@ public class Sprite{
         draw(x, y, image.width, image.height, r, tint);
     }
 
+
+    public void ç(float x, float y, float w){
+        draw(x, y, w, image.height * (w / image.width));
+    }
+
     public void drawh(float x, float y, float h){
         draw(x, y, image.width * (h / image.height), h);
     }
@@ -113,7 +118,8 @@ public class Sprite{
         backgrounds("assets/sprites/backgrounds/"),
         effects("assets/sprites/effects/"),
         enemies("assets/sprites/enemies/"),
-        ships("assets/sprites/ships/");
+        ships("assets/sprites/ships/"),
+        upgrades("assets/sprites/upgrades/");
 
         public String path;
 

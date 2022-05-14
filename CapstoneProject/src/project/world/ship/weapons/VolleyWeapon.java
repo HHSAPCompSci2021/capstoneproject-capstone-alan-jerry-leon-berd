@@ -10,8 +10,8 @@ import project.world.bullets.VolleyBullet.*;
 import static project.Vars.*;
 
 public class VolleyWeapon extends Weapon{
-    public VolleyWeapon(){
-        super();
+    public VolleyWeapon(String name){
+        super(name);
         spread = 10;
     }
 

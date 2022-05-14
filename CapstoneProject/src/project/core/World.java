@@ -39,12 +39,12 @@ public class World{
         effects = new Entities<>();
 
         player = new Player();
-        player.weapon = Gear.salvo.create();
+//        player.weapon = Gear.salvo.create();
         player.pos.set(bounds.center());
 //        player.addMod(Modifiers.shotgunShells);
 //        player.addMod(Modifiers.doubleShot);
-        player.addMod(Modifiers.deadlyCartridges);
-        player.addMod(Modifiers.largerExplosives);
+//        player.addMod(Modifiers.deadlyCartridges);
+//        player.addMod(Modifiers.largerExplosives);
         player.init();
         ships.add(player);
 

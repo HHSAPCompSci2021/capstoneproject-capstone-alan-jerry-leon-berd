@@ -8,8 +8,8 @@ import static project.Vars.*;
 public class PauseScreen extends Screen{
     @Override
     public void update(){
-        if(input.pressed(KeyBind.pause)){
-            input.consume(KeyBind.pause);
+        if(input.pressed(KeyBind.upgrade)){
+            input.consume(KeyBind.upgrade);
             canvas.screen(ui.gameScreen);
         }
     }

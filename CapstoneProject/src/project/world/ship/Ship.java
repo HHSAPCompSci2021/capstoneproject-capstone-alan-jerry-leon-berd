@@ -93,7 +93,7 @@ public abstract class Ship extends Entity{
     @Override
     public void remove(){
         canvas.shake(size());
-        Effects.shockwave.at(pos.x, pos.y, e -> e.color(0, color()).set(3, size()));
-        Effects.fragment.at(pos.x, pos.y, e -> e.color(0, color()).set(5, size()));
+        Effects.shockwave.at(pos.x, pos.y, e -> e.color(0, color()).set(3, size() * 2));
+        Effects.fragment.at(pos.x, pos.y, e -> e.color(20, color()).set(23, size()));
     }
 }
