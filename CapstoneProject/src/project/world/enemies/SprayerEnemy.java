@@ -25,10 +25,7 @@ public class SprayerEnemy extends Enemy{
 
         accel = 0.5f;
         color = new Color(255, 110, 50);
-        bullet = new VolleyBullet(){{
-            size = 2;
-            speed = 5;
-        }};
+        health = 50;
         reload = 0.25f;
         size = 10;
     }
@@ -36,6 +33,10 @@ public class SprayerEnemy extends Enemy{
     @Override
     public void init(){
         if(sprite == null) sprite = new Sprite(SpritePath.enemies, "gyrogun-1");
+        if(bullet == null) bullet = new VolleyBullet(){{
+            size = 2;
+            speed = 5;
+        }};
 
         super.init();
     }
@@ -58,12 +59,12 @@ public class SprayerEnemy extends Enemy{
             reloadt += reload();
             rotation += shootRotation;
 
-            if(reloadt >= 0){
-                if(reloadt % shootInterval < reload()){
+            if(reloadt >= 60){
+                if((reloadt - 60) % shootInterval < reload()){
                     for(int i = 0;i < bullets;i++) shoot(offset + 360f * i / bullets);
                 }
             }
-            if(reloadt > shootDuration * reload()) reloadt = -60;
+            if(reloadt >= 60 + shootDuration * reload()) reloadt = 0;
         }
     }
 }

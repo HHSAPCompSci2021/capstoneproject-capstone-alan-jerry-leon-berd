@@ -26,12 +26,12 @@ public class Hull extends Type{
 
     @Override
     public void init(){
-        super.init();
-
         if(sprite == null){
             sprite = new Sprite(SpritePath.ships, "standard");
             thrusters.add(new Thruster(0, 8, 6f, 25f, 0));
         }
+
+        super.init();
     }
 
     @Override
@@ -48,6 +48,11 @@ public class Hull extends Type{
     public class HullInstance extends Instance{
         public HullInstance(Hull type){
             super(type);
+        }
+
+        /** Returns the ratio of current hp to max health. */
+        public float fin(){
+            return world.player.life / health;
         }
 
         /** Returns the position to create bullets, taking the player's rotation into account. */

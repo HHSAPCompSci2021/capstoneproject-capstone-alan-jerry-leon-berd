@@ -73,8 +73,8 @@ public abstract class Ship extends Entity{
 
         world.ships.raycast(x, y, size() + maxEntitySize, vel.ang(), vel.len(), (s, pos) -> {
             if(s != this && !collided.contains(s) && dst(s, pos) < s.size() + size()){
-                if(s.team != team) s.damage(vel.len() * mass() * rules.ramDamage(team));
-                s.apply(Tmp.v1.set(s.pos).sub(pos).nor().scl(universalDamping * (s.team != team ? 10 : 1) * rules.collisionForce(team)));
+                if(s.team != team) s.damage(vel.len() * mass() * rules.ramDamageMult(team));
+                s.apply(Tmp.v1.set(s.pos).sub(pos).nor().scl(universalDamping * (s.team != team ? 10 : 1)));
                 apply(Tmp.v1.inv());
                 collided.add(s);
             }
@@ -93,7 +93,7 @@ public abstract class Ship extends Entity{
     @Override
     public void remove(){
         canvas.shake(size());
-        Effects.shockwave1.at(pos.x, pos.y, e -> e.scale(size()));
-        Effects.fragment5.at(pos.x, pos.y, e -> e.scale(size()));
+        Effects.shockwave.at(pos.x, pos.y, e -> e.color(0, color()).set(3, size()));
+        Effects.fragment.at(pos.x, pos.y, e -> e.color(0, color()).set(5, size()));
     }
 }

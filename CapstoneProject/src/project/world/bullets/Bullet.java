@@ -1,11 +1,10 @@
 package project.world.bullets;
 
+import gameutils.math.*;
 import gameutils.struct.*;
-import gameutils.util.*;
 import project.*;
 import project.core.Content.*;
 import project.graphics.*;
-import project.graphics.Sprite.*;
 import project.world.*;
 import project.world.ship.*;
 
@@ -23,6 +22,13 @@ public class Bullet extends Type{
     public float damage = 10;
     public float knockback = 0.05f;
     public int pierce = 1;
+    public float lifetime = -1;
+
+    public float splashRadius = -1;
+    public float splashDamage = 0;
+
+    public int trailDuration = -1;
+    public float trailSize = 3;
 
     @Override
     public ContentType type(){
@@ -36,8 +42,8 @@ public class Bullet extends Type{
     /** Represents and simulates a bullet. */
     public class BulletEntity extends Entity{
         public float rotation, speed = 1f;
+        public Vec2 pPos;
 
-        /** Calculates and returns the real height of this table. */
         public Ship origin;
 
         public Set<Entity> collided = new Set<>();
@@ -53,20 +59,48 @@ public class Bullet extends Type{
 
         @Override
         public void init(){
-            speed *= type().speed * rules.bulletSpeed(team);
+            speed *= speed();
+        }
+
+        public float speed(){
+            return type().speed * rules.bulletSpeedMult(team);
+        }
+
+        public float knockback(){
+            return knockback * rules.bulletKnockbackMult(team);
+        }
+
+        public float damage(){
+            return damage * rules.bulletDamageMult(team);
+        }
+
+        public float splashRadius(){
+            return (rules.splashRadiusAdd(team) + splashRadius) * rules.splashRadiusMult(team);
+        }
+
+        public float splashDamage(){
+            return (rules.splashDamageAdd(team) + splashDamage) * rules.splashDamageMult(team);
         }
 
         @Override
         public void update(){
+            life++;
+
             pos.add(vel.set(speed, 0).rot(rotation));
 
             world.ships.raycast(pos.x, pos.y, size + maxEntitySize, rotation, speed, (s, pos) -> {
                 if(s.team != this.team && !collided.contains(s) && dst(s, pos) < s.size() + size){
                     collided.add(s);
-                    s.apply(Tmp.v1.set(vel).scl(knockback * rules.bulletKnockback(team)));
-                    s.damage(damage * rules.bulletDamage(team));
+                    s.apply(Tmp.v1.set(vel).scl(knockback()));
+                    s.damage(damage());
                 }
             });
+
+            if(trailDuration > 0){
+                if(pPos == null) pPos = new Vec2();
+                else Effects.trail.at(pos.x, pos.y, e -> e.color(0, origin.color()).set(3, pPos.x).set(4, pPos.y).set(5, trailSize).lifetime(trailDuration));
+                pPos.set(pos);
+            }
         }
 
         @Override
@@ -87,12 +121,18 @@ public class Bullet extends Type{
 
         @Override
         public void remove(){
-            if(world.bounds.contains(pos)) Effects.explosion.at(pos.x, pos.y, e -> e.scale(size));
+            if(splashRadius() > 0){
+                world.ships.query(pos.x, pos.y, splashRadius() + maxEntitySize, e -> {
+                    if(e.team != team && dst(e, pos) < e.size() + splashRadius()) e.damage(splashDamage() * dst(e, pos) / (e.size() + splashRadius()));
+                });
+
+                Effects.shockwave.at(pos.x, pos.y, e -> e.color(0, origin.color()).set(3, splashRadius() / 2).lifetime(rt2(splashRadius()) * 1.5f));
+            }
         }
 
         @Override
         public boolean keep(){
-            return world.bounds.contains(pos) && collided.size < pierce;
+            return world.bounds.contains(pos) && collided.size < pierce && (life < lifetime || lifetime <= 0);
         }
 
         @Override

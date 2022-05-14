@@ -34,18 +34,13 @@ public class Player extends Ship{
         team = Team.player;
         hull = Gear.normal.create();
         shield = Gear.shield.create();
-        weapon = Gear.salvo.create();
+        weapon = Gear.blaster.create();
         life = hull.type().health;
-    }
-
-    /** Returns the ratio of current hp to max health. */
-    public float fin(){
-        return life / hull.type().health;
     }
 
     @Override
     public float mass(){
-        return hull.type().mass * rules.shipMass(team);
+        return hull.type().mass * rules.shipMassMult(team);
     }
 
     @Override
@@ -55,12 +50,12 @@ public class Player extends Ship{
 
     @Override
     public float accel(){
-        return hull.type().accel * rules.engineAcceleration(team);
+        return hull.type().accel * rules.engineAccelerationMult(team);
     }
 
     @Override
     public float rotate(){
-        return hull.type().rotate * rules.rotateSpeed(team);
+        return hull.type().rotate * rules.rotateSpeedMult(team);
     }
 
     @Override
@@ -123,7 +118,7 @@ public class Player extends Ship{
             pos.y = mod(pos.y, world.bounds.h);
         }
 
-        for(ModEntry m : modifiers) m.update();
+//        for(ModEntry m : modifiers) m.update();
     }
 
     @Override

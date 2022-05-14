@@ -4,6 +4,7 @@ import project.*;
 import project.content.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
+import project.world.bullets.*;
 import project.world.enemies.DroneOrbitEnemy.OrbitDrone.*;
 
 import java.awt.*;
@@ -20,7 +21,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
     public float kiteDistance = 100;
     public boolean spacedShooting = false;
 
-    public EnemyPart drone = new OrbitDrone();
+    public EnemyPart drone;
 
     public DroneOrbitEnemy(){
         super();

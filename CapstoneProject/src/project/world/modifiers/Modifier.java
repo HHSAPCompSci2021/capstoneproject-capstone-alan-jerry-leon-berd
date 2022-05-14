@@ -8,10 +8,16 @@ import project.world.*;
 public class Modifier extends Type{
     public boolean recursive = false;
 
-    public float[] multiplier = new float[Rule.all.length];
+    public float[] mult = new float[Rule.all.length];
+    public float[] add = new float[Rule.all.length];
 
-    public Modifier set(Rule rule, float value){
-        multiplier[rule.id()] = value;
+    public Modifier mult(Rule rule, float value){
+        mult[rule.id()] = value;
+        return this;
+    }
+
+    public Modifier add(Rule rule, float value){
+        add[rule.id()] = value;
         return this;
     }
 
@@ -29,16 +35,6 @@ public class Modifier extends Type{
     public class ModEntry extends Instance{
         public ModEntry(Modifier type){
             super(type);
-        }
-
-        //TODO: Implement/remove?
-        public void apply(){
-        }
-
-        public void shoot(){
-        }
-
-        public void update(){
         }
 
         @Override

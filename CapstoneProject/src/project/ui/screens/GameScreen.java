@@ -6,6 +6,7 @@ import project.core.Input.*;
 import project.core.UI.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
+import project.ui.*;
 import project.ui.bars.*;
 
 import static gameutils.util.Mathf.*;
@@ -14,17 +15,17 @@ import static project.graphics.Pal.*;
 
 /** Contains all the UI of a game screen. */
 public class GameScreen extends Screen{
-    public ProgressBar playerHealth;
-    public ProgressBar playerShield;
-    public ProgressBar playerExp;
+    public Table playerHealth, playerShield, playerAmmo, playerExp;
 
     public Sprite background = new Sprite(SpritePath.backgrounds, "space2");
     public float rot = random(0, 360), trackx, tracky;
 
     @Override
     public void init(){
-        playerHealth = (SmoothBar)new SmoothBar(width / 2f, 10).progress(() -> world.player.fin()).color(healthRed).alignX(AlignX.center).x(width / 2f).y(height - 55);
-        playerShield = (SegmentedBar)new SegmentedBar(width / 2.5f, 8, 5, 5).progress(() -> world.player.shield.fin()).color(shieldBlue).alignX(AlignX.center).x(width / 2f).y(height - 70);
+        playerHealth = new SmoothBar(width / 2f, 10).progress(() -> world.player.hull.fin()).color(healthRed).alignX(AlignX.center).x(width / 2f).y(height - 55);
+        playerShield = new SmoothBar(width / 2.5f, 8).progress(() -> world.player.shield.fin()).color(shieldBlue).alignX(AlignX.center).x(width / 2f).y(height - 70);
+        playerAmmo = new SegmentedBar(width / 3f, 5, 3).segments(() -> world.player.weapon.charges()).progress(() -> world.player.weapon.fin()).color(expGray).alignX(AlignX.center).x(width / 2f).y(height - 80);
+
         playerExp = (SmoothBar)new SmoothBar(width - 100, 5).progress(() -> world.player.exp / pow(expScaling, world.player.level) / baseLevelExp).color(expGray).alignX(AlignX.center).x(width / 2f).y(10);
     }
 
@@ -60,6 +61,7 @@ public class GameScreen extends Screen{
 
         playerHealth.process();
         playerShield.process();
+        if(world.player.weapon.charges() > 1) playerAmmo.process();
         playerExp.process();
     }
 }

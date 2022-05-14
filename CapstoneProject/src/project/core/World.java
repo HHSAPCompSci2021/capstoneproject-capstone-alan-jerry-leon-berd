@@ -23,6 +23,8 @@ public class World{
     public Player player;
     public Waves waves;
 
+    public Ship lastHit;
+
     public Range2 bounds;
 
     public World(){
@@ -37,10 +39,12 @@ public class World{
         effects = new Entities<>();
 
         player = new Player();
-        player.weapon = Gear.blaster.create();
+        player.weapon = Gear.salvo.create();
         player.pos.set(bounds.center());
 //        player.addMod(Modifiers.shotgunShells);
 //        player.addMod(Modifiers.doubleShot);
+        player.addMod(Modifiers.deadlyCartridges);
+        player.addMod(Modifiers.largerExplosives);
         player.init();
         ships.add(player);
 

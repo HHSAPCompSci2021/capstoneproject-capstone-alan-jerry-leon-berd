@@ -8,7 +8,6 @@ import project.world.*;
 public class Content{
     /** Stores all content classes to be loaded. */
     public ContentList[] lists = new ContentList[]{
-    new Bullets(),
     new Modifiers(),
     new Gear(),
     new Enemies()

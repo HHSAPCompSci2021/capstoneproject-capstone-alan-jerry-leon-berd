@@ -28,7 +28,7 @@ public class Shield extends Type{
     /** Represents an instance of a shield. */
     public class ShieldInstance extends Instance{
         /** Stores the current health in the shield. */
-        public float value;
+        public float value, hue;
 
         public ShieldInstance(Shield type){
             super(type);
@@ -43,6 +43,9 @@ public class Shield extends Type{
         /** Updates this shield. */
         public void update(){
             value = min(max, value + regen);
+
+            color = Color.getHSBColor(hue, 1f, 1f); //RGB PLAYER RGB PLAYER
+            hue += 0.01f;
         }
 
         @Override

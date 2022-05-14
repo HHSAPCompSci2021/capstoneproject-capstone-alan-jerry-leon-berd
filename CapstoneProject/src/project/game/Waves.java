@@ -4,6 +4,7 @@ import gameutils.struct.*;
 import project.*;
 import project.content.*;
 import project.core.Content.*;
+import project.core.Rules.*;
 import project.world.*;
 import project.world.enemies.*;
 import project.world.enemies.Enemy.*;
@@ -17,6 +18,10 @@ public class Waves{
     public int wave = 0;
 
     public void spawnWave(){
+        //Ridiculous scaling
+//        rules.rules[Team.enemy.id()][Rule.weaponReload.ordinal()] += 0.1f;
+//        rules.rules[Team.enemy.id()][Rule.bulletDamage.ordinal()] += 0.5f;
+
         wave++;
 
         Seq<Enemy> possible = new Seq<>();

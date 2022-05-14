@@ -15,10 +15,9 @@ public class ThrusterWeapon extends Weapon{
         shots = 10;
         spread = 0;
         reload = 1;
-        velRand = 0.3f;
+        velRand = 0.6f;
         inaccuracy = 30;
         recoil = 10;
-        bullet = Bullets.mine;
     }
 
     @Override

@@ -2,8 +2,11 @@ package project.game;
 
 import project.*;
 import project.core.Events.*;
+import project.core.Events.*;
 import project.graphics.*;
 import project.world.*;
+
+import java.awt.Color;
 
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
@@ -48,7 +51,7 @@ public class Experience extends Entity{
 
     @Override
     public void remove(){
-        Effects.fragment3.at(pos.x, pos.y, e -> e.scale(4f));
+        Effects.fragment.at(pos.x, pos.y, e -> e.color(0, Color.white).set(3, size()));
     }
 
     @Override

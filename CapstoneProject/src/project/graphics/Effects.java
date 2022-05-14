@@ -18,55 +18,41 @@ public class Effects{
 
     public static Effect
     explosion,
-    shockwave1,
-    shockwave3,
-    fragment3,
-    fragment5,
-    fragment10,
+    shockwave,
+    fragment,
     laserLine,
     gunfire,
     thrust,
-    upgrade;
+    upgrade,
+    trail;
 
     public void init(){
         glow = new GlowSprite(SpritePath.effects, "glow");
         blur = new GlowSprite(SpritePath.effects, "blur");
         thruster = new Sprite(SpritePath.effects, "thruster");
 
-        explosion = new Effect(10, e -> {
-            canvas.fill(255, 255, 255, 100 * e.fout());
-            canvas.ellipse(0, 0, 10 * e.fin(), 10 * e.fin());
-        });
-        shockwave1 = new Effect(20, e -> {
+//        explosion = new Effect(5, e -> e.create(3), e -> {
+//            e.fill(0, 100 * e.fout());
+//            canvas.ellipse(0, 0, 10 * e.fin(), 10 * e.fin());
+//            canvas.fill(255, 255, 255, 100 * e.fout());
+//            canvas.ellipse(0, 0, 10 * e.fin(), 10 * e.fin());
+//        });
+        shockwave = new Effect(20, e -> e.create(5).set(3, 1).set(4, 1), e -> {
             canvas.noFill();
-            canvas.stroke(255, 255, 255, 255 * e.fout());
-            canvas.strokeWeight(e.fout() / 4f);
-            canvas.ellipse(0, 0, e.fin() * 10, e.fin() * 10);
-        });
-        shockwave3 = new Effect(20, e -> {
-            canvas.noFill();
-            for(int i = 1;i < 4;i++){
-                canvas.stroke(255, 255, 255, 255 * e.fout() / i);
-                canvas.strokeWeight(e.fout() / 2f / i);
-                canvas.ellipse(0, 0, e.fin() * 2 * (0.5f + i * 1.5f), e.fin() * 2 * (0.5f + i * 1.5f));
+            for(int i = 1;i < e.data[4] + 1;i++){
+                e.stroke(0, 255 * e.fout() / i);
+                canvas.strokeWeight(e.fout() / 2f / i * e.data[3]);
+                canvas.ellipse(0, 0, e.fin() * 2 * (0.5f + i * 1.5f) * e.data[3], e.fin() * 2 * (0.5f + i * 1.5f) * e.data[3]);
             }
         });
-        fragment3 = new Effect(25, e -> e.create(3 * 2).rand(0, 3 * 2), e -> {
+        fragment = new Effect(25, e -> e.create(10 * 2 + 2).rand(0, 10 * 2).set(20, 1).set(21, 1), e -> {
             canvas.fill(255, 255, 255, 255 * e.fout());
-            for(int i = 0;i < 3;i++) canvas.rectc(e.fin() * 10 * e.data[i + 3], 0, 0, 0, e.fout(), 0.4f, e.data[i] * 360);
+            for(int i = 0;i < e.data[21];i++) canvas.rectc(e.fin() * 10 * e.data[i + 10] * e.data[20], 0, 0, 0, e.fout() * e.data[20], 0.4f * e.data[20], e.data[i] * 360);
         });
-        fragment5 = new Effect(25, e -> e.create(5 * 2).rand(0, 5 * 2), e -> {
+        laserLine = new Effect(10, e -> e.create(2), e -> {
             canvas.fill(255, 255, 255, 255 * e.fout());
-            for(int i = 0;i < 5;i++) canvas.rectc(e.fin() * 10 * e.data[i + 5], 0, 0, 0, e.fout(), 0.4f, e.data[i] * 360);
-        });
-        fragment10 = new Effect(25, e -> e.create(10 * 2).rand(0, 10 * 2), e -> {
-            canvas.fill(255, 255, 255, 255 * e.fout());
-            for(int i = 0;i < 10;i++) canvas.rectc(e.fin() * 10 * e.data[i + 10], 0, 0, 0, e.fout(), 0.4f, e.data[i] * 360);
-        });
-        laserLine = new Effect(10, e -> e.create(1), e -> {
-            canvas.fill(255, 255, 255, 255 * e.fout());
-            canvas.rectc(maxLineLen / 2, 0, 0, 0, maxLineLen, e.fout() * 2, e.data[0]);
-        }).essential(true);
+            canvas.rectc(maxLineLen / 2, 0, 0, 0, maxLineLen, e.fout() * 2 * e.data[1], e.data[0]);
+        }).essential(true).follow(true);
         gunfire = new Effect(8, e -> e.create(3), e -> {
             e.fill(0);
             canvas.ellipse(0, 0, 10 * e.fout(), 10 * e.fout());
@@ -89,6 +75,14 @@ public class Effects{
                 world.player.sprite().drawc(0, 0, e.data[0] * 20 * e.fin() * i, e.data[0] * 20 * e.fin() * i, world.player.rotation + 90);
             }
         }).follow(true);
+        trail = new Effect(5, e -> e.create(6), e -> {
+            e.stroke(0, 255 * e.fout());
+            canvas.strokeWeight(e.data[5]);
+            canvas.line(0, 0, e.data[3] - e.pos.x, e.data[4] - e.pos.y);
+            canvas.stroke(255, 255, 255, 100 * e.fout());
+            canvas.strokeWeight(e.data[5]);
+            canvas.line(0, 0, e.data[3] - e.pos.x, e.data[4] - e.pos.y);
+        });
     }
 
     /** Represents a sprite that is only drawn when glowEnabled is on. */
@@ -157,7 +151,7 @@ public class Effects{
         public class EffectEntity extends Entity{
             public Effect effect;
 
-            public float scale;
+            public float lifetime;
             public float[] data;
 
             public Pos2 parent;
@@ -165,7 +159,7 @@ public class Effects{
             public EffectEntity(Effect effect){
                 super(null);
                 this.effect = effect;
-                this.scale = 1;
+                this.lifetime = effect.lifetime;
                 if(init != null) init.get(this);
             }
 
@@ -195,15 +189,14 @@ public class Effects{
                 return this;
             }
 
-            /** Sets the scale of this effect. */
-            public EffectEntity scale(float scale){
-                this.scale = scale;
-                return this;
-            }
-
             /** Sets the parent of this effect. */
             public EffectEntity parent(Pos2 parent){
                 this.parent = parent;
+                return this;
+            }
+
+            public EffectEntity lifetime(float lifetime){
+                this.lifetime = lifetime;
                 return this;
             }
 
@@ -227,6 +220,14 @@ public class Effects{
                 canvas.fill(data[i], data[i + 1], data[i + 2], alpha);
             }
 
+            public void stroke(int i){
+                canvas.stroke(data[i], data[i + 1], data[i + 2]);
+            }
+
+            public void stroke(int i, float alpha){
+                canvas.stroke(data[i], data[i + 1], data[i + 2], alpha);
+            }
+
             /** Call the tint method of canvas with arguments data[i], data[i+1], and data[i+2], the rgb, respectively. */
             public void tint(int i){
                 canvas.tint(data[i], data[i + 1], data[i + 2]);
@@ -247,7 +248,6 @@ public class Effects{
                 canvas.pushMatrix();
                 canvas.translate(pos.x, pos.y);
                 if(follow) canvas.translate(parent.x(), parent.y());
-                canvas.scale(scale);
                 drawer.get(this);
                 canvas.popMatrix();
             }

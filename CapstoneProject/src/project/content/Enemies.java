@@ -13,7 +13,13 @@ public class Enemies implements ContentList{
     @Override
     public void load(){
         host = new EnemyVersions(){{
-            common = new DroneOrbitEnemy();
+            common = new DroneOrbitEnemy(){{
+                drone = new OrbitDrone(){{
+                    bullet = new Bullet(){{
+                        damage = 5f;
+                    }};
+                }};
+            }};
             elite = new DroneOrbitEnemy(){{
                 spacedShooting = true;
                 drone = new OrbitDrone(){{
@@ -24,12 +30,12 @@ public class Enemies implements ContentList{
             }};
             champion = new DroneOrbitEnemy(){{
                 drone = new OrbitDrone(){{
-                    reload = 0.3f;
+                    reload = 0.25f;
                     spacedShooting = true;
                     sprite = new Sprite(SpritePath.enemies, "host-drone-3");
-                    bullet = new LaserBullet(){{  //TODO: This is completely broken
-                        rotate = 0.75f;
-                        damage = 10;
+                    bullet = new LaserBullet(){{
+                        rotate = 2f;
+                        damage = 5;
                     }};
                 }};
                 size = 17;
@@ -47,6 +53,8 @@ public class Enemies implements ContentList{
             champion = new SprayerEnemy(){{
                 bullets = 8;
                 reload = 0.5f;
+                shootRotation = 0.6f;
+                shootInterval = 5;
                 sprite = new Sprite(SpritePath.enemies, "gyrogun-3");
                 size = 12;
             }};
