@@ -10,78 +10,100 @@ import static project.core.Rules.Rule.*;
 
 /** Stores the multipliers for each rule in the game. */
 public class Rules{
-    public float[][] rules;
+    public float[][][] rules;
 
     public Rules(){
     }
 
     public void init(){
-        rules = new float[Team.all.length][Rule.all.length];
+        rules = new float[Team.all.length][Rule.all.length][2];
 
-        for(int i = 0;i < Team.all.length;i++) Structf.fill(rules[i], 1);
+        reset();
 
         events.on(Event.modChange, e -> {
-            for(int i = 0;i < Team.all.length;i++) Structf.fill(rules[i], 1);
+            reset();
 
-            for(ModEntry m : world.player.modifiers){
+            for(ModInstance m : world.player.modifiers){
                 for(int i = 0;i < all.length;i++){
-                    rules[world.player.team.id()][i] += m.type().multiplier[i];
+                    rules[world.player.team.id()][i][0] += m.type().mult[i];
+                    rules[world.player.team.id()][i][1] += m.type().add[i];
                 }
             }
         });
     }
 
+    public void reset(){
+        for(int i = 0;i < Team.all.length;i++){
+            for(int j = 0;j < Rule.all.length;j++){
+                rules[i][j][0] = 1;
+                rules[i][j][1] = 0;
+            }
+        }
+    }
+
     /** Returns the respective multipliers based on the team given. */
-    public float bulletDamage(Team team){
-        return rules[team.id()][bulletDamage.id()] * globalDamage(team);
+    public float globalDamageMult(Team team){
+        return rules[team.id()][globalDamage.id()][0];
     }
 
-    public float ramDamage(Team team){
-        return rules[team.id()][ramDamage.id()] * globalDamage(team);
+    public float bulletDamageMult(Team team){
+        return rules[team.id()][bulletDamage.id()][0] * globalDamageMult(team);
     }
 
-    public float globalDamage(Team team){
-        return rules[team.id()][globalDamage.id()];
+    public float ramDamageMult(Team team){
+        return rules[team.id()][ramDamage.id()][0] * globalDamageMult(team);
     }
 
-    public int weaponCharges(Team team){
-        return (int)rules[team.id()][weaponCharges.id()];
+    public float splashDamageMult(Team team){
+        return rules[team.id()][splashDamage.id()][0] * bulletDamageMult(team);
     }
 
-    public int shotProjectiles(Team team){
-        return (int)rules[team.id()][shotProjectiles.id()];
+    public float splashDamageAdd(Team team){
+        return rules[team.id()][splashDamage.id()][1];
     }
 
-    public float bulletSpeed(Team team){
-        return rules[team.id()][bulletSpeed.id()];
+    public float splashRadiusMult(Team team){
+        return rules[team.id()][splashRadius.id()][0];
     }
 
-    public float bulletKnockback(Team team){
-        return rules[team.id()][bulletKnockback.id()];
+    public float splashRadiusAdd(Team team){
+        return rules[team.id()][splashRadius.id()][1];
     }
 
-    public float weaponReload(Team team){
-        return rules[team.id()][weaponReload.id()];
+    public int weaponChargesAdd(Team team){
+        return (int)rules[team.id()][weaponCharges.id()][1];
     }
 
-    public float weaponRecoil(Team team){
-        return rules[team.id()][weaponRecoil.id()];
+    public int shotProjectilesAdd(Team team){
+        return (int)rules[team.id()][shotProjectiles.id()][1];
     }
 
-    public float engineAcceleration(Team team){
-        return rules[team.id()][engineAcceleration.id()];
+    public float bulletSpeedMult(Team team){
+        return rules[team.id()][bulletSpeed.id()][0];
     }
 
-    public float rotateSpeed(Team team){
-        return rules[team.id()][rotateSpeed.id()];
+    public float bulletKnockbackMult(Team team){
+        return rules[team.id()][bulletKnockback.id()][0];
     }
 
-    public float shipMass(Team team){
-        return rules[team.id()][shipMass.id()];
+    public float weaponReloadMult(Team team){
+        return rules[team.id()][weaponReload.id()][0];
     }
 
-    public float collisionForce(Team team){
-        return rules[team.id()][collisionForce.id()];
+    public float weaponRecoilMult(Team team){
+        return rules[team.id()][weaponRecoil.id()][0];
+    }
+
+    public float engineAccelerationMult(Team team){
+        return rules[team.id()][engineAcceleration.id()][0];
+    }
+
+    public float rotateSpeedMult(Team team){
+        return rules[team.id()][rotateSpeed.id()][0];
+    }
+
+    public float shipMassMult(Team team){
+        return rules[team.id()][shipMass.id()][0];
     }
 
     /** Represents a specific rule. */
@@ -89,6 +111,8 @@ public class Rules{
         globalDamage,
         bulletDamage,
         ramDamage,
+        splashDamage,
+        splashRadius,
         weaponCharges,
         shotProjectiles,
         bulletSpeed,
@@ -97,8 +121,7 @@ public class Rules{
         weaponRecoil,
         engineAcceleration,
         rotateSpeed,
-        shipMass,
-        collisionForce;
+        shipMass;
 
         public static Rule[] all = values();
 
