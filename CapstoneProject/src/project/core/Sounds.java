@@ -3,6 +3,7 @@ package project.core;
 import gameutils.struct.*;
 import jay.jaysound.*;
 
+/**Stores all the sounds in the game.*/
 public class Sounds {
     public static JayLayer layer = new JayLayer("assets/audio/music/", "assets/audio/effects/", false);
     public Seq<Sound> effects = new Seq<>();
