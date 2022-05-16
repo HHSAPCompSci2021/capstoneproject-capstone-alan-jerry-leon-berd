@@ -26,6 +26,7 @@ public class MineBullet extends Bullet{
 
         @Override
         public void update(){
+            life++;
             drawRot += rotVel;
 
             super.update();

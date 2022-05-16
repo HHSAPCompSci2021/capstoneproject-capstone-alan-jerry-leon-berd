@@ -1,10 +1,11 @@
 package project.world.bullets;
 
-import gameutils.math.*;
 import gameutils.struct.*;
+import gameutils.util.*;
 import project.*;
 import project.core.Content.*;
 import project.graphics.*;
+import project.graphics.Sprite.*;
 import project.world.*;
 import project.world.ship.*;
 
@@ -22,13 +23,6 @@ public class Bullet extends Type{
     public float damage = 10;
     public float knockback = 0.05f;
     public int pierce = 1;
-    public float lifetime = -1;
-
-    public float splashRadius = -1;
-    public float splashDamage = 0;
-
-    public int trailDuration = -1;
-    public float trailSize = 3;
 
     @Override
     public ContentType type(){
@@ -42,8 +36,8 @@ public class Bullet extends Type{
     /** Represents and simulates a bullet. */
     public class BulletEntity extends Entity{
         public float rotation, speed = 1f;
-        public Vec2 pPos;
 
+        /** Calculates and returns the real height of this table. */
         public Ship origin;
 
         public Set<Entity> collided = new Set<>();
@@ -57,79 +51,48 @@ public class Bullet extends Type{
             return size;
         }
 
-        public float speed(){
-            return type().speed * rules.bulletSpeedMult(team);
-        }
-
-        public float knockback(){
-            return knockback * rules.bulletKnockbackMult(team);
-        }
-
-        public float damage(){
-            return damage * rules.bulletDamageMult(team);
-        }
-
-        public float splashRadius(){
-            return (rules.splashRadiusAdd(team) + splashRadius) * rules.splashRadiusMult(team);
-        }
-
-        public float splashDamage(){
-            return (rules.splashDamageAdd(team) + splashDamage) * rules.splashDamageMult(team);
-        }
-
-        public void hit(Ship s){
-            if(splashRadius() > 0){
-                canvas.shake(rt2(splashRadius()));
-
-                world.ships.query(pos.x, pos.y, splashRadius() + maxEntitySize, e -> {
-                    if(e.team != team && dst(e, pos) < e.size() + splashRadius()) e.damage(splashDamage() * (1f - dst(e, pos) / (e.size() + splashRadius())));
-                });
-
-                Effects.shockwave.at(pos.x, pos.y, e -> e.color(0, origin.color()).set(3, splashRadius() / 2).lifetime(rt2(splashRadius()) * 1.5f));
-            }else Effects.fragment.at(pos.x, pos.y, e -> e.color(20, origin.color()).set(23, size() * 2));
-
-            s.apply(Tmp.v1.set(vel).scl(knockback()));
-            s.damage(damage());
-        }
-
         @Override
         public void init(){
-            speed *= speed();
+            speed *= type().speed * rules.bulletSpeed(team);
         }
 
         @Override
         public void update(){
-            life += delta;
-
-            vel.set(speed, 0).rot(rotation);
-
-            super.update();
+            pos.add(vel.set(speed, 0).rot(rotation));
 
             world.ships.raycast(pos.x, pos.y, size + maxEntitySize, rotation, speed, (s, pos) -> {
                 if(s.team != this.team && !collided.contains(s) && dst(s, pos) < s.size() + size){
                     collided.add(s);
-                    hit(s);
+                    s.apply(Tmp.v1.set(vel).scl(knockback * rules.bulletKnockback(team)));
+                    s.damage(damage * rules.bulletDamage(team));
                 }
             });
-
-            if(trailDuration > 0){
-                if(pPos == null) pPos = new Vec2();
-                else Effects.trail.at(pos.x, pos.y, e -> e.color(0, origin.color()).set(3, pPos.x).set(4, pPos.y).set(5, trailSize).lifetime(trailDuration));
-                pPos.set(pos);
-            }
         }
 
         @Override
         public void draw(){
             Effects.glow.drawc(pos.x, pos.y, size() * 15, size() * 15, origin.color(), 30);
 
-            sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, origin.color());
-            sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, Color.white, 200);
+            if(sprite == null){
+                //TODO: Sprites for everything
+                canvas.fill(origin.color());
+                canvas.ellipse(pos.x, pos.y, size());
+                canvas.fill(255, 255, 255, 200);
+                canvas.ellipse(pos.x, pos.y, size());
+            }else{
+                sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, origin.color());
+                sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, Color.white, 200);
+            }
+        }
+
+        @Override
+        public void remove(){
+            if(world.bounds.contains(pos)) Effects.explosion.at(pos.x, pos.y, e -> e.scale(size));
         }
 
         @Override
         public boolean keep(){
-            return world.bounds.contains(pos) && collided.size < pierce && (life < lifetime || lifetime <= 0);
+            return world.bounds.contains(pos) && collided.size < pierce;
         }
 
         @Override
