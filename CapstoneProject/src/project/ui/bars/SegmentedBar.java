@@ -33,10 +33,10 @@ public class SegmentedBar extends ProgressBar{
     public void draw(){
         float real = (width - padding * (segments() - 1)) / segments(), inc = real + padding;
 
-        canvas.fill(color());
+        canvas.fill(color(), alpha());
         int solid = (int)(segments() * progress.get() - 0.01f);
         for(int i = 0;i < solid;i++) canvas.rect(0 + inc * i, 0, real, height);
-        canvas.fill(color(), (segments() * progress.get() - solid) * color().getAlpha());
+        canvas.fill(color(), (segments() * progress.get() - solid) * color().getAlpha() * alpha() / 255f);
         canvas.rect(0 + inc * solid, 0, real, height);
     }
 }

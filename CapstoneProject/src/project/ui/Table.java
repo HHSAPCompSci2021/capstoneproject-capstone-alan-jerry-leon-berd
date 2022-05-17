@@ -1,6 +1,7 @@
 package project.ui;
 
 import gameutils.func.*;
+import gameutils.func.prim.*;
 import gameutils.math.*;
 import gameutils.struct.*;
 import project.*;
@@ -24,6 +25,7 @@ public class Table{
     public Seq<Table> contents;
     /** Returns the color the table should be, given the table. */
     public Func<Table, Color> color;
+    public Floatf<Table> alpha;
     public AlignX alignX = AlignX.left;
     public AlignY alignY = AlignY.top;
     /** The runnable called every frame this piece of UI is updated. */
@@ -86,6 +88,10 @@ public class Table{
         return color == null ? Color.white : color.get(this);
     }
 
+    public float alpha(){
+        return alpha == null ? 255 : alpha.get(this);
+    }
+
     /** Sets the color of this table. */
     public Table color(Color color){
         return color(t -> color);
@@ -94,6 +100,11 @@ public class Table{
     /** Sets the color of this table with a runnable which takes the table as the parameter and returns the color. */
     public Table color(Func<Table, Color> color){
         this.color = color;
+        return this;
+    }
+
+    public Table alpha(Floatf<Table> alpha){
+        this.alpha = alpha;
         return this;
     }
 

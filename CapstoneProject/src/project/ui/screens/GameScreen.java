@@ -67,9 +67,11 @@ public class GameScreen extends Screen{
         world.draw();
         canvas.pop();
 
-        playerHealth.process();
-        playerShield.process();
-        if(world.player.weapon.charges() > 1) playerAmmo.process();
-        playerExp.process();
+        if(world.player.keep()){
+            playerHealth.process();
+            playerShield.process();
+            if(world.player.weapon.charges() > 1) playerAmmo.process();
+            playerExp.process();
+        }
     }
 }
