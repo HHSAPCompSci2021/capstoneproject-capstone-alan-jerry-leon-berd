@@ -1,47 +1,112 @@
 package project.core;
 
-import sound.jaysound.*;
+import gameutils.struct.*;
+import jay.jaysound.*;
 
-import java.util.*;
+public class Sounds {
+    public static JayLayer layer = new JayLayer("assets/audio/music/", "assets/audio/effects/", false);
+    public Seq<Sound> effects = new Seq<>();
+    public Seq<Sound> songs = new Seq<>();
 
-public class Sounds{
-    private static final HashMap<String, Integer> songMap = new HashMap<>();
-    private static final HashSet<String> soundSet = new HashSet<>();
-    private static int currentSong = 0;
-    private static JayLayer songs;
+    public static SoundEffect shockwave, fuel_explosion, field_explosion, car_explosion, fire_explosion, laser_impact;
+    public static Song Neverend, Slowburn, Blueshift, Rubidium, Near_Miss, Collider, Superlumen, Freefall, Zeroed, Singular, Terminus, Ares, Seraphim, Parsec, Rainseed, Low_Orbit, Neverend_Waves, Slowburn_Nova, Rubidium_Core, Collider_Synced, Superlumen_Warped, Blueshift_Centered, Recursor, Nograv, Parallelism, Parallelism_Freed, Centerless, Infinitum_Genesis, Infinitum, Eclipsed;
 
-    public static void playSong(String name){
-        if(songMap.get(name) == null){
-            return;
+    public void init() {
+        {
+            shockwave = new SoundEffect("shockwave");
+            fuel_explosion = new SoundEffect("fuel_explosion");
+            field_explosion = new SoundEffect("field_explosion");
+            car_explosion = new SoundEffect("car_explosion");
+            fire_explosion = new SoundEffect("fire_explosion");
+            laser_impact = new SoundEffect("laser_impact");
+        }
+        layer.addSoundEffects(list(effects));
+
+        {
+            Neverend = new Song("Neverend");
+            Slowburn = new Song("Slowburn");
+            Blueshift = new Song("Blueshift");
+            Rubidium = new Song("Rubidium");
+            Near_Miss = new Song("Near_Miss");
+            Collider = new Song("Collider");
+            Superlumen = new Song("Superlumen");
+            Freefall = new Song("Freefall");
+            Zeroed = new Song("Zeroed");
+            Singular = new Song("Singular");
+            Terminus = new Song("Terminus");
+            Ares = new Song("Ares");
+            Seraphim = new Song("Seraphim");
+            Parsec = new Song("Parsec");
+            Rainseed = new Song("Rainseed");
+            Low_Orbit = new Song("Low_Orbit");
+            Neverend_Waves = new Song("Neverend_Waves");
+            Slowburn_Nova = new Song("Slowburn_Nova");
+            Rubidium_Core = new Song("Rubidium_Core");
+            Collider_Synced = new Song("Collider_Synced");
+            Superlumen_Warped = new Song("Superlumen_Warped");
+            Blueshift_Centered = new Song("Blueshift_Centered");
+            Recursor = new Song("Recursor");
+            Nograv = new Song("Nograv");
+            Parallelism = new Song("Parallelism");
+            Parallelism_Freed = new Song("Parallelism_Freed");
+            Centerless = new Song("Centerless");
+            Infinitum_Genesis = new Song("Infinitum_Genesis");
+            Infinitum = new Song("Infinitum");
+            Eclipsed = new Song("Eclipsed");
+        }
+        layer.addPlayList();
+        layer.addSongs(0, list(songs));
+        layer.changePlayList(0);
+        layer.nextSong();
+
+        shockwave.play();
+    }
+
+    public String[] list(Seq<Sound> seq) {
+        String[] all = new String[seq.size];
+        for (int i = 0; i < seq.size; i++) all[i] = seq.get(i).name;
+        return all;
+    }
+
+    public static class Sound {
+        public String name;
+        public int id;
+
+        public Sound(String name) {
+            this.name = name + ".mp3";
+            id = seq().size;
+            seq().add(this);
         }
 
-        int idx = songMap.get(name);
-        while(currentSong != idx){
-            songs.nextSong();
-            currentSong = (currentSong + 1) % songMap.size();
+        public Seq<Sound> seq() {
+            return null;
         }
     }
 
-    public static void playSound(String name){
-        if(!soundSet.contains(name)) return;
+    public class SoundEffect extends Sound {
+        public SoundEffect(String name) {
+            super(name);
+        }
 
-        JayLayer tmp = new JayLayer("assets/audio/music/", "assets/audio/effects/", false);
-        tmp.addSoundEffects(new String[]{name});
-        tmp.playSoundEffect(0);
+        @Override
+        public Seq<Sound> seq() {
+            return effects;
+        }
+
+        public void play() {
+            layer.playSoundEffect(id);
+        }
     }
 
-    public void init(){
-        songs = new JayLayer("assets/audio/music/", "assets/audio/effects/", false);
-        songs.addPlayList();
-        String[] songList = new String[]{"Neverend.mp3", "Slowburn.mp3", "Blueshift.mp3", "Rubidium.mp3", "Near_Miss.mp3", "Collider.mp3", "Superlumen.mp3", "Freefall.mp3", "Zeroed.mp3", "Singular.mp3", "Terminus.mp3", "Ares.mp3", "Seraphim.mp3", "Parsec.mp3", "Rainseed.mp3", "Low_Orbit.mp3", "Neverend_Waves.mp3", "Slowburn_Nova.mp3", "Rubidium_Core.mp3", "Collider_Synced.mp3", "Superlumen_Warped.mp3", "Blueshift_Centered.mp3", "Recursor.mp3", "Nograv.mp3", "Parallelism.mp3", "Parallelism_Freed.mp3", "Centerless.mp3", "Infinitum_Genesis.mp3", "Infinitum.mp3", "Eclipsed.mp3"};
-        for(String song : songList){
-            songMap.put(song, songMap.size());
+    public class Song extends Sound {
+        public Song(String name) {
+            super(name);
+            id = songs.size;
         }
-        songs.addSongs(0, songList);
-        songs.changePlayList(0);
-        songs.nextSong();
-        playSong("Slowburn.mp3");
 
-        soundSet.addAll(Arrays.asList("shockwave.mp3", "fuel_explosion.mp3", "field_explosion.mp3", "car_explosion.mp3", "fire_explosion.mp3", "laser_impact.mp3"));
+        @Override
+        public Seq<Sound> seq() {
+            return songs;
+        }
     }
 }

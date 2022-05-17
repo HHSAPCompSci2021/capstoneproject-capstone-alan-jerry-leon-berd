@@ -9,15 +9,16 @@ import static project.Vars.*;
 
 /** Stores stats for a weapon which propels the player forward and drops mines behind it. */
 public class ThrusterWeapon extends Weapon{
-    public ThrusterWeapon(String name){
-        super(name);
+    public ThrusterWeapon(){
+        super();
 
         shots = 10;
         spread = 0;
         reload = 1;
-        velRand = 0.6f;
+        velRand = 0.3f;
         inaccuracy = 30;
         recoil = 10;
+        bullet = Bullets.mine;
     }
 
     @Override

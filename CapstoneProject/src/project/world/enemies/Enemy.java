@@ -30,14 +30,7 @@ public class Enemy extends Type{
     public float health = 100;
     public float reload = 1;
 
-    public Bullet bullet;
-
-    @Override
-    public void init(){
-        if(bullet == null) bullet = new Bullet();
-
-        super.init();
-    }
+    public Bullet bullet = Bullets.normal;
 
     @Override
     public ContentType type(){
@@ -77,17 +70,17 @@ public class Enemy extends Type{
 
         @Override
         public float accel(){
-            return accel * rules.engineAccelerationMult(team) * delta;
+            return accel * rules.engineAcceleration(team);
         }
 
         @Override
         public float rotate(){
-            return rotate * rules.rotateSpeedMult(team) * delta;
+            return rotate * rules.rotateSpeed(team);
         }
 
         /** Returns the real reload speed of this enemy. */
         public float reload(){
-            return reload * rules.weaponReloadMult(team) * delta;
+            return reload * rules.weaponReload(team);
         }
 
         @Override
@@ -101,8 +94,6 @@ public class Enemy extends Type{
         }
 
         public void shoot(float offset){
-            if(!world.bounds.contains(pos)) return;
-
             BulletEntity b = bullet.create();
             b.pos.set(pos);
             b.team = team;

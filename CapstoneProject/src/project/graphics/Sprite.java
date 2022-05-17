@@ -74,11 +74,11 @@ public class Sprite{
     }
 
     public void drawc(float x, float y, float r, Color tint){
-        draw(x - image.width / 2f, y - image.height / 2f, image.width, image.height, r, tint);
+        draw(x - image.width / 2, y - image.height / 2, image.width, image.height, r, tint);
     }
 
     public void drawc(float x, float y, float r, Color tint, float alpha){
-        draw(x - image.width / 2f, y - image.height / 2f, image.width, image.height, r, tint, alpha);
+        draw(x - image.width / 2, y - image.height / 2, image.width, image.height, r, tint, alpha);
     }
 
     public void drawc(float x, float y, float w, float h){
@@ -113,10 +113,9 @@ public class Sprite{
         backgrounds("assets/sprites/backgrounds/"),
         effects("assets/sprites/effects/"),
         enemies("assets/sprites/enemies/"),
-        ships("assets/sprites/ships/"),
-        upgrades("assets/sprites/upgrades/");
+        ships("assets/sprites/ships/");
 
-        public final String path;
+        public String path;
 
         SpritePath(String path){
             this.path = path;

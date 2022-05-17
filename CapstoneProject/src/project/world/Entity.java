@@ -1,7 +1,6 @@
 package project.world;
 
 import gameutils.math.*;
-import project.*;
 import project.game.*;
 
 import static project.Vars.*;
@@ -34,7 +33,7 @@ public class Entity extends Instance implements Pos2{
     public void update(){
         if(vel.len() > universalSpeedLimit) vel.nor().scl(universalSpeedLimit);
 
-        pos.add(Tmp.v1.set(vel).scl(delta));
+        pos.add(vel);
     }
 
     /** Draws this entity. */
