@@ -25,7 +25,7 @@ public class Hexagon extends Table{
     }
 
     public float len(){
-        return width / rt2(3f) - 0.5f;
+        return width / rt2(3f) - 0.2f;
     }
 
     public Hexagon left(){
