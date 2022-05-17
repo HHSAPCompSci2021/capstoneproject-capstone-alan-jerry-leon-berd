@@ -24,28 +24,23 @@ public class Player extends Ship{
     public ShieldInstance shield;
     public WeaponInstance weapon;
 
-    public int level;
+    public int level, spent;
     public float exp;
 
-    public Seq<ModEntry> modifiers = new Seq<>();
+    public Seq<ModInstance> modifiers = new Seq<>();
 
     public Player(){
         super(null);
         team = Team.player;
-        hull = Gear.normal.create();
-        shield = Gear.shield.create();
-        weapon = Gear.bullet.create();
+        hull = Hulls.standard.create();
+        shield = Shields.standard.create();
+        weapon = Weapons.blaster.create();
         life = hull.type().health;
-    }
-
-    /** Returns the ratio of current hp to max health. */
-    public float fin(){
-        return life / hull.type().health;
     }
 
     @Override
     public float mass(){
-        return hull.type().mass * rules.shipMass(team);
+        return hull.type().mass * rules.shipMassMult(team);
     }
 
     @Override
@@ -55,12 +50,12 @@ public class Player extends Ship{
 
     @Override
     public float accel(){
-        return hull.type().accel * rules.engineAcceleration(team);
+        return hull.type().accel * rules.engineAccelerationMult(team);
     }
 
     @Override
     public float rotate(){
-        return hull.type().rotate * rules.rotateSpeed(team);
+        return hull.type().rotate * rules.rotateSpeedMult(team);
     }
 
     @Override
@@ -70,7 +65,7 @@ public class Player extends Ship{
 
     @Override
     public Sprite sprite(){
-        return hull.type().sprite;
+        return hull.type().ship;
     }
 
     /** Add a modifier to this player. */
@@ -81,7 +76,7 @@ public class Player extends Ship{
 
     @Override
     public void damage(float damage){
-        events.call(Event.playerDamage);
+        events.call(Event.playerDamaged);
         if(shield.value > 0){
             if(shield.value > damage) shield.value -= damage;
             else{
@@ -123,7 +118,7 @@ public class Player extends Ship{
             pos.y = mod(pos.y, world.bounds.h);
         }
 
-        for(ModEntry m : modifiers) m.update();
+//        for(ModEntry m : modifiers) m.update();
     }
 
     @Override
@@ -143,6 +138,11 @@ public class Player extends Ship{
         canvas.ellipse(pos.x, pos.y, size() * 5, size() * 5);
 
         super.draw();
+    }
+
+    @Override
+    public void remove(){
+        events.call(Event.playerKilled);
     }
 
     @Override

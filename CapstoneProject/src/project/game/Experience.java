@@ -1,9 +1,11 @@
 package project.game;
 
 import project.*;
-import project.core.Events.*;
+import project.core.Events.Event;
 import project.graphics.*;
 import project.world.*;
+
+import java.awt.*;
 
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
@@ -30,7 +32,7 @@ public class Experience extends Entity{
     @Override
     public void update(){
         super.update();
-        life++;
+        life += delta;
         if(dst(pos, world.player) < expRange) vel.add(Tmp.v1.set(world.player.pos).sub(pos).nor().scl(0.5f));
         if(dst(pos, world.player) < world.player.size() + 5){
             world.player.exp += amount;
@@ -48,7 +50,7 @@ public class Experience extends Entity{
 
     @Override
     public void remove(){
-        Effects.fragment3.at(pos.x, pos.y, e -> e.scale(4f));
+        Effects.fragment.at(pos.x, pos.y, e -> e.color(20, Color.white).set(23, size()));
     }
 
     @Override

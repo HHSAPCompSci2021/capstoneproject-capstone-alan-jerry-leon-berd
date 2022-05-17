@@ -61,12 +61,12 @@ public class Input{
         thrust("THRUST", input.right),
         shoot("SHOOT", input.left),
 
-        pause("PAUSE", KeyEvent.VK_SPACE);
+        upgrade("UPGRADE", KeyEvent.VK_SPACE);
 
         public static KeyBind[] all = values();
 
-        public String name;
-        public int value;
+        public final String name;
+        public final int value;
 
         KeyBind(String name, int value){
             this.name = name;

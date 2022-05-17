@@ -1,27 +1,43 @@
 package project.world.ship.weapons;
 
 import project.*;
-import project.content.*;
 import project.core.Content.*;
 import project.core.Input.*;
 import project.graphics.*;
+import project.graphics.Sprite.*;
 import project.world.*;
 import project.world.bullets.*;
 import project.world.bullets.Bullet.*;
+import project.world.modifiers.*;
 
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 /** Stores stats for a weapon. */
-public class Weapon extends Type{
+public class Weapon extends Modifier{
+    public int charges = 1;
     public int shots = 1;
     public float spread = 10;
     public float reload = 10;
-    public float velRand = 1;
+    public float velRand = 0;
     public float inaccuracy = 0;
     public float recoil = 0.1f;
+    public float lifeRand = 0;
 
-    public Bullet bullet = new MissileBullet();;
+    public boolean manual;
+
+    public Bullet bullet;
+
+    public Weapon(String name){
+        super(name);
+    }
+
+    @Override
+    public void init(){
+        if(sprite == null) sprite = new Sprite(SpritePath.upgrades, "weapon-" + name);
+
+        super.init();
+    }
 
     @Override
     public ContentType type(){
@@ -34,7 +50,7 @@ public class Weapon extends Type{
     }
 
     /** Represents an instance of a weapon. */
-    public class WeaponInstance extends Instance{
+    public class WeaponInstance extends ModInstance{
         /** Stores the reloadTimer, which is incremented every frame and stores when the enemy should shoot. */
         public float reloadt;
 
@@ -42,26 +58,36 @@ public class Weapon extends Type{
             super(type);
         }
 
+        /** Returns the ratio of current reload to max reload. */
+        public float fin(){
+            return reloadt / 60 / charges();
+        }
+
         /** Returns the charges this weapon can store. */
         public int charges(){
-            return rules.weaponCharges(world.player.team);
+            return charges + rules.weaponChargesAdd(world.player.team);
         }
 
         /** Returns the amount of projectiles this weapon shoots. */
         public int projectiles(){
-            return shots + rules.shotProjectiles(world.player.team) - 1;
+            return shots + rules.shotProjectilesAdd(world.player.team);
         }
 
         /** Returns the recoil this weapon has. */
         public float recoil(){
-            return recoil * rules.weaponRecoil(world.player.team);
+            return recoil * rules.weaponRecoilMult(world.player.team);
+        }
+
+        public float reload(){
+            return reload * rules.weaponReloadMult(world.player.team) * delta;
         }
 
         /** Updates this weapon. */
         public void update(){
-            reloadt = min(reloadt + reload * rules.weaponReload(world.player.team), 60 * charges());
+            reloadt = min(reloadt + reload(), 60 * charges());
 
             if(input.pressed(KeyBind.shoot) && reloadt >= 60){
+                if(manual) input.consume(KeyBind.shoot);
                 reloadt -= 60;
                 shoot();
             }
@@ -72,7 +98,8 @@ public class Weapon extends Type{
             b.pos.set(world.player.hull.shootPos());
             b.team = world.player.team;
             b.rotation = world.player.rotation + random(-inaccuracy, inaccuracy);
-            b.speed *= random(velRand, 1f);
+            b.speed *= random(1f - velRand, 1f);
+            b.life = b.type().lifetime * random(0, lifeRand);
             b.origin = world.player;
             return b;
         }
@@ -84,10 +111,9 @@ public class Weapon extends Type{
                 b.rotation += spread * (i - (shots - 1) / 2f);
                 world.bullets.add(b);
                 Tmp.v1.set(world.player.hull.shootPos()).sub(world.player.pos);
-                Effects.gunfire.at(Tmp.v1.x, Tmp.v1.y, e -> e.color(0, world.player.color()).scale(1.2f).parent(world.player));
+                Effects.gunfire.at(Tmp.v1.x, Tmp.v1.y, e -> e.color(0, world.player.color()).parent(world.player));
+                world.player.apply(Tmp.v1.set(-recoil(), 0).rot(world.player.rotation));
             }
-
-            world.player.apply(Tmp.v1.set(-recoil(), 0).rot(world.player.rotation));
         }
 
         @Override

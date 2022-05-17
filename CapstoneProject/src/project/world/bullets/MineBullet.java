@@ -17,7 +17,7 @@ public class MineBullet extends Bullet{
 
     /** Represents and simulates a mine bullet. */
     public class MineBulletEntity extends BulletEntity{
-        public float drawRot, rotVel = 0;
+        public float drawRot, rotVel;
 
         public MineBulletEntity(MineBullet type){
             super(type);
@@ -26,7 +26,6 @@ public class MineBullet extends Bullet{
 
         @Override
         public void update(){
-            life++;
             drawRot += rotVel;
 
             super.update();

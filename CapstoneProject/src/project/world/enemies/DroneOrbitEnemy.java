@@ -4,6 +4,7 @@ import project.*;
 import project.content.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
+import project.world.bullets.*;
 import project.world.enemies.DroneOrbitEnemy.OrbitDrone.*;
 
 import java.awt.*;
@@ -14,19 +15,19 @@ import static project.Vars.*;
 /** Stores stats for an enemy with drones orbiting around it. */
 public class DroneOrbitEnemy extends MultiEnemy{
     public int drones = 8;
-    public float droneSpace = 35;
+    public float droneSpace = 30;
     public float orbitSpeed = 2;
 
     public float kiteDistance = 100;
     public boolean spacedShooting = false;
 
-    public EnemyPart drone = new OrbitDrone();
+    public EnemyPart drone;
 
     public DroneOrbitEnemy(){
         super();
 
         color = new Color(80, 170, 255);
-        size = 15;
+        size = 13;
     }
 
     @Override
@@ -67,7 +68,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
         @Override
         public void update(){
             super.update();
-            orbit += orbitSpeed;
+            orbit += orbitSpeed * delta;
 
             for(int i = 0;i < drones;i++){
                 OrbitDroneEntity drone = (OrbitDroneEntity)parts.get(i);
@@ -83,7 +84,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
     }
 
     /** Stores stats for the drones that rotate around the enemy. */
-    public class OrbitDrone extends EnemyPart{
+    public static class OrbitDrone extends EnemyPart{
         public OrbitDrone(){
             super();
 
