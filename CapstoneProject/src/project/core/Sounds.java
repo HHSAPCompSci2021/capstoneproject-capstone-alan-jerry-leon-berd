@@ -40,7 +40,7 @@ public class Sounds{
         songs.addSongs(0, songList);
         songs.changePlayList(0);
         songs.nextSong();
-        playSong("Slowburn.mp3");
+        playSong("Neverend.mp3");
 
         soundSet.addAll(Arrays.asList("shockwave.mp3", "fuel_explosion.mp3", "field_explosion.mp3", "car_explosion.mp3", "fire_explosion.mp3", "laser_impact.mp3"));
     }
