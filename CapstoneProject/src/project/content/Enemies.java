@@ -8,7 +8,7 @@ import project.world.enemies.*;
 
 /** Contains and loads all the enemy types in the game. */
 public class Enemies implements ContentList{
-    public static EnemyVersions host, gyrogun;
+    public static EnemyVersions host, gyrogun, rammer;
 
     @Override
     public void load(){
@@ -67,6 +67,24 @@ public class Enemies implements ContentList{
                 shootInterval = 5;
                 sprite = new Sprite(SpritePath.enemies, "gyrogun-3");
                 size = 12;
+            }};
+        }};
+
+        rammer = new EnemyVersions(){{
+            common = new RammingEnemy();
+            elite = new RammingEnemy(){{
+                reload = 0.5f;
+                ramInterval = 2;
+                ramDuration = 180;
+                size = 13;
+                health = 125;
+            }};
+            champion = new RammingEnemy(){{
+                reload = 0.75f;
+                ramInterval = 1;
+                ramDuration = 210;
+                size = 15;
+                health = 150;
             }};
         }};
     }
