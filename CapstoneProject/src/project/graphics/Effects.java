@@ -13,7 +13,7 @@ import static project.Vars.*;
 
 /** Contains a list of all effects in the game. */
 public class Effects{
-    public static Sprite glow, blur, thruster, frame, slant;
+    public static Sprite glow, blur, thruster, frame, slant, blur2;
 
     public static Effect
     explosion,
@@ -31,6 +31,7 @@ public class Effects{
         thruster = new Sprite(SpritePath.effects, "thruster");
         frame = new Sprite(SpritePath.effects, "frame");
         slant = new Sprite(SpritePath.effects, "slant");
+        slant = new Sprite(SpritePath.effects, "blur2");
 
         shockwave = new Effect(25, e -> e.create(5).set(3, 1).set(4, 1), e -> {
             canvas.noFill();
