@@ -1,44 +1,40 @@
 package project.content;
 
 import project.core.Content.*;
+import project.core.Rules.*;
 import project.world.modifiers.*;
 
 import static project.core.Rules.Rule.*;
 
 /** Contains and loads all modifiers in the game. */
 public class Modifiers implements ContentList{
-    public static Modifier overdrive, bluntedBullets, piercingHull, shotgunShells, doubleShot, deadlyCartridges, largerExplosives;
+    public static Modifier
+    theVoid,
+    hullStrength, regeneration,
+    shieldDurability,
+    blastRadius;
 
     @Override
     public void load(){
-//        overdrive = new Modifier(){{
-//            mult(weaponReload, 1f);
-//            mult(bulletDamage, -0.5f);
-//            mult(bulletSpeed, -0.1f);
+        theVoid = new Modifier("the-void"){{
+            addPro("You stare into the void...");
+            addPro("...And the void stares into you");
+        }};
+//        hullStrength = new Modifier("hull-strength"){{
+//            mult(maxHull, 0.2f);
 //        }};
-//        bluntedBullets = new Modifier(){{
-//            mult(bulletKnockback, 10f);
-//            mult(weaponReload, -0.5f);
-//        }};
-//        piercingHull = new Modifier(){{
-//            mult(ramDamage, 10f);
-//        }};
-//        shotgunShells = new Modifier(){{
-//            mult(bulletDamage, -0.2f);
-//            mult(weaponReload, -0.5f);
-//            add(shotProjectiles, 2);
-//        }};
-//        doubleShot = new Modifier(){{
-//            add(weaponCharges, 1);
-//        }};
-//        deadlyCartridges = new Modifier(){{
-//            add(splashRadius, 100);
-//            add(splashDamage, 100);
-//        }};
-//        largerExplosives = new Modifier(){{
-//            mult(splashRadius, 2f);
-//            mult(bulletDamage, -0.8f);
-//            mult(splashDamage, 3f);
-//        }};
+        regeneration = new Modifier("regeneration"){{
+            addPro("Hull regenerates at a rate proportional to maximum hull");
+            mult(hullRegen, 0.4f);
+        }};
+        shieldDurability = new Modifier("shield-durability"){{
+            mult(maxShields, 0.2f);
+        }};
+        blastRadius = new Modifier("blast-radius"){{
+            addPro("Non-explosive projectiles deal 15% damage as blast damage to other targets");
+            addPro("Triggers when the projectile is destroyed on impact");
+            add(Rule.blastRadius, 50);
+            add(Rule.blastDamage, 15);
+        }};
     }
 }

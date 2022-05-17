@@ -1,6 +1,7 @@
 package project.world.ship;
 
 import project.core.Content.*;
+import project.game.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
 import project.world.*;
@@ -9,6 +10,8 @@ import project.world.modifiers.*;
 import java.awt.*;
 
 import static gameutils.util.Mathf.*;
+import static project.Vars.*;
+import static project.core.Rules.Rule.*;
 
 /** Stores stats for a shield. */
 public class Shield extends Modifier{
@@ -16,10 +19,12 @@ public class Shield extends Modifier{
 //    public Color color = new Color(255, 120, 120);
 
     public float max = 100;
-    public float regen = 0.25f;
+    public float regen = 15;
 
     public Shield(String name){
         super(name);
+
+        tag = "SHIELD";
     }
 
     @Override
@@ -42,24 +47,29 @@ public class Shield extends Modifier{
     /** Represents an instance of a shield. */
     public class ShieldInstance extends ModInstance{
         /** Stores the current health in the shield. */
-        public float value, hue;
+        public float value;
 
         public ShieldInstance(Shield type){
             super(type);
-            value = max;
+            value = shields();
+        }
+
+        public float shields(){
+            return (max + rules.add(maxShields, Team.player)) * rules.mult(maxShields, Team.player);
+        }
+
+        public float regen(){
+            return (regen + rules.add(shieldRegen, Team.player)) * rules.mult(shieldRegen, Team.player) / 100f / 60f;
         }
 
         /** Returns ratio of the shields current value to it's maximum value. */
         public float fin(){
-            return value / type().max;
+            return value / shields();
         }
 
         /** Updates this shield. */
         public void update(){
-            value = min(max, value + regen);
-
-            color = Color.getHSBColor(hue, 1f, 1f); //RGB PLAYER RGB PLAYER
-            hue += 0.01f;
+            value = min(shields(), value + shields() * regen());
         }
 
         @Override

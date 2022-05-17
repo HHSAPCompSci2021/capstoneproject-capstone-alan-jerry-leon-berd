@@ -1,33 +1,34 @@
 package project.world.ship.weapons;
 
 import project.core.Input.*;
+import project.game.*;
 
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
+import static project.core.Rules.Rule.*;
 
-public class ChargeWeapon extends Weapon{
-    public float chargeBonus = 0.01f;
+public class SalvoWeapon extends Weapon{
+    public float chargeBonus = 0.0005f;
 
-    public ChargeWeapon(String name){
+    public SalvoWeapon(String name){
         super(name);
+        shots = 4;
+        reload = 1.5f;
+        inaccuracy = 20;
+        charges = 25;
     }
 
     @Override
-    public ChargeWeaponInstance create(){
-        return new ChargeWeaponInstance(this);
+    public SalvoWeaponInstance create(){
+        return new SalvoWeaponInstance(this);
     }
 
     /** Represents an instance of a weapon which propels the player forward and drops mines behind it. */
-    public class ChargeWeaponInstance extends WeaponInstance{
+    public class SalvoWeaponInstance extends WeaponInstance{
         public boolean shooting;
 
-        public ChargeWeaponInstance(ChargeWeapon type){
+        public SalvoWeaponInstance(SalvoWeapon type){
             super(type);
-        }
-
-        @Override
-        public int charges(){
-            return charges + rules.weaponChargesAdd(world.player.team) + super.projectiles() - 1;
         }
 
         @Override
@@ -37,7 +38,7 @@ public class ChargeWeapon extends Weapon{
 
         @Override
         public float reload(){
-            return (reload + reloadt * chargeBonus) * rules.weaponReloadMult(world.player.team) * delta;
+            return (reload + rules.add(weaponReload, Team.player) + reloadt * chargeBonus) * rules.mult(weaponReload, Team.player) * delta * super.projectiles();
         }
 
         public void update(){

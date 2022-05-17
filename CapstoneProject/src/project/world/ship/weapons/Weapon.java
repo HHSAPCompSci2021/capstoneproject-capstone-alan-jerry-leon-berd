@@ -3,6 +3,7 @@ package project.world.ship.weapons;
 import project.*;
 import project.core.Content.*;
 import project.core.Input.*;
+import project.game.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
 import project.world.*;
@@ -12,6 +13,7 @@ import project.world.modifiers.*;
 
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
+import static project.core.Rules.Rule.*;
 
 /** Stores stats for a weapon. */
 public class Weapon extends Modifier{
@@ -30,6 +32,8 @@ public class Weapon extends Modifier{
 
     public Weapon(String name){
         super(name);
+
+        tag = "WEAPON";
     }
 
     @Override
@@ -65,21 +69,21 @@ public class Weapon extends Modifier{
 
         /** Returns the charges this weapon can store. */
         public int charges(){
-            return charges + rules.weaponChargesAdd(world.player.team);
+            return (int)((charges + rules.add(weaponCharges, Team.player)) * rules.mult(weaponCharges, Team.player));
         }
 
         /** Returns the amount of projectiles this weapon shoots. */
         public int projectiles(){
-            return shots + rules.shotProjectilesAdd(world.player.team);
+            return (int)((shots + rules.add(shotProjectiles, Team.player)) * rules.mult(shotProjectiles, Team.player));
         }
 
         /** Returns the recoil this weapon has. */
         public float recoil(){
-            return recoil * rules.weaponRecoilMult(world.player.team);
+            return (recoil + rules.add(weaponRecoil, Team.player)) * rules.mult(weaponRecoil, Team.player);
         }
 
         public float reload(){
-            return reload * rules.weaponReloadMult(world.player.team) * delta;
+            return (reload + rules.add(weaponReload, Team.player)) * rules.mult(weaponReload, Team.player);
         }
 
         /** Updates this weapon. */
@@ -96,7 +100,7 @@ public class Weapon extends Modifier{
         /** Sets the defaults of the specified bullet shot by this weapon. */
         public BulletEntity def(BulletEntity b){
             b.pos.set(world.player.hull.shootPos());
-            b.team = world.player.team;
+            b.team = Team.player;
             b.rotation = world.player.rotation + random(-inaccuracy, inaccuracy);
             b.speed *= random(1f - velRand, 1f);
             b.life = b.type().lifetime * random(0, lifeRand);

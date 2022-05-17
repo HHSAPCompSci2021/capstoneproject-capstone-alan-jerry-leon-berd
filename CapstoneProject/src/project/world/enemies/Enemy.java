@@ -1,12 +1,11 @@
 package project.world.enemies;
 
 import project.*;
-import project.content.*;
 import project.core.Content.*;
-import project.core.Events.*;
 import project.core.Events.*;
 import project.game.*;
 import project.graphics.*;
+import project.graphics.Sprite.*;
 import project.world.*;
 import project.world.bullets.*;
 import project.world.bullets.Bullet.*;
@@ -16,18 +15,20 @@ import java.awt.Color;
 
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
+import static project.core.Rules.Rule.*;
 
 /** Stores stats for an enemy. */
-public class Enemy extends Type{
+public class Enemy extends Type implements ShipType{
     public Sprite sprite;
     public Color color = Color.white;
 
-    public float accel = 0.1f;
-    public float rotate = 5;
-
+    public float health = 100;
+    public float accel = 0.2f;
+    public float rotate = 10;
     public float mass = 1;
     public float size = 10;
-    public float health = 100;
+    public float ram = 1;
+
     public float reload = 1;
 
     public Bullet bullet;
@@ -49,6 +50,36 @@ public class Enemy extends Type{
         return new EnemyEntity(this);
     }
 
+    @Override
+    public float accel(){
+        return accel;
+    }
+
+    @Override
+    public float rotate(){
+        return rotate;
+    }
+
+    @Override
+    public float mass(){
+        return mass;
+    }
+
+    @Override
+    public float size(){
+        return size;
+    }
+
+    @Override
+    public float health(){
+        return health;
+    }
+
+    @Override
+    public float ram(){
+        return ram;
+    }
+
     /** Represents and simulates an enemy. */
     public class EnemyEntity extends Ship{
         /** Stores the reloadTimer, which is incremented every frame and stores when the enemy should shoot. */
@@ -60,34 +91,9 @@ public class Enemy extends Type{
             super(type);
         }
 
-        @Override
-        public void init(){
-            life = health;
-        }
-
-        @Override
-        public float mass(){
-            return mass;
-        }
-
-        @Override
-        public float size(){
-            return size;
-        }
-
-        @Override
-        public float accel(){
-            return accel * rules.engineAccelerationMult(team) * delta;
-        }
-
-        @Override
-        public float rotate(){
-            return rotate * rules.rotateSpeedMult(team) * delta;
-        }
-
         /** Returns the real reload speed of this enemy. */
         public float reload(){
-            return reload * rules.weaponReloadMult(team) * delta;
+            return (reload + rules.add(weaponReload, team)) * rules.mult(weaponReload, team) * delta;
         }
 
         @Override

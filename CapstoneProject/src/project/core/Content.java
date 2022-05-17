@@ -39,6 +39,10 @@ public class Content{
         map[content.type().id()].add(content);
     }
 
+    public Seq<Type> list(ContentType type){
+        return map[type.id()];
+    }
+
     /** Represents a type of content. Used to organize the lists in Content. */
     public enum ContentType{
         hull,

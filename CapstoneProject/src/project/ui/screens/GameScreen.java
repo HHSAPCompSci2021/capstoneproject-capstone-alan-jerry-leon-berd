@@ -24,7 +24,7 @@ public class GameScreen extends Screen{
 
     @Override
     public void init(){
-        playerHealth = new SmoothBar(width / 2f, 10).progress(() -> world.player.hull.fin()).color(healthRed).alignX(AlignX.center).x(width / 2f).y(height - 55);
+        playerHealth = new SmoothBar(width / 2f, 10).progress(() -> world.player.fin()).color(healthRed).alignX(AlignX.center).x(width / 2f).y(height - 55);
         playerShield = new SmoothBar(width / 2.5f, 8).progress(() -> world.player.shield.fin()).color(shieldBlue).alignX(AlignX.center).x(width / 2f).y(height - 70);
         playerAmmo = new SegmentedBar(width / 3f, 5, 3).segments(() -> world.player.weapon.charges()).progress(() -> world.player.weapon.fin()).color(expGray).alignX(AlignX.center).x(width / 2f).y(height - 80);
 
@@ -38,7 +38,7 @@ public class GameScreen extends Screen{
 
     @Override
     public void update(){
-        rot += 0.025f * delta;
+        rot += 0.025f;
 
         pan.add(Tmp.v1.set(world.player.pos).sub(pan).scl(0.1f));
 

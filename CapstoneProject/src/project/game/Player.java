@@ -30,36 +30,24 @@ public class Player extends Ship{
     public Seq<ModInstance> modifiers = new Seq<>();
 
     public Player(){
-        super(null);
+        super(Hulls.standard);
         team = Team.player;
         hull = Hulls.standard.create();
         shield = Shields.standard.create();
         weapon = Weapons.blaster.create();
-        life = hull.type().health;
+        life = health();
     }
 
-    @Override
-    public float mass(){
-        return hull.type().mass * rules.shipMassMult(team);
+    /** Returns the ratio of current hp to max health. */
+    public float fin(){
+        return life / health();
     }
 
-    @Override
-    public float size(){
-        return hull.type().size;
-    }
 
-    @Override
-    public float accel(){
-        return hull.type().accel * rules.engineAccelerationMult(team);
-    }
-
-    @Override
-    public float rotate(){
-        return hull.type().rotate * rules.rotateSpeedMult(team);
-    }
 
     @Override
     public Color color(){
+        if(debug) return Color.getHSBColor(canvas.frameCount / 100f, 1f, 1f); //RGB PLAYER RGB PLAYER
         return shield.type().color;
     }
 
@@ -71,7 +59,6 @@ public class Player extends Ship{
     /** Add a modifier to this player. */
     public void addMod(Modifier mod){
         modifiers.add(mod.create());
-        events.call(Event.modChange);
     }
 
     @Override
@@ -114,8 +101,8 @@ public class Player extends Ship{
         }
 
         if(!world.bounds.contains(pos)){
-            pos.x = mod(pos.x, world.bounds.w);
-            pos.y = mod(pos.y, world.bounds.h);
+            pos.x = mod(pos.x - world.bounds.x, world.bounds.w) + world.bounds.x;
+            pos.y = mod(pos.y - world.bounds.y, world.bounds.h) + world.bounds.y;
         }
 
 //        for(ModEntry m : modifiers) m.update();

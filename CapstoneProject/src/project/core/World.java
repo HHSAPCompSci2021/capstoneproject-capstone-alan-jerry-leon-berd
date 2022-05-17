@@ -6,10 +6,8 @@ import project.core.Events.*;
 import project.game.*;
 import project.graphics.Effects.Effect.*;
 import project.world.bullets.Bullet.*;
-import project.world.enemies.Enemy.*;
 import project.world.ship.*;
 
-import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 /** Stores all entities and simulates the game. */
@@ -39,12 +37,13 @@ public class World{
         effects = new Entities<>();
 
         player = new Player();
-//        player.weapon = Gear.salvo.create();
+        player.weapon = Weapons.salvo.create();
         player.pos.set(bounds.center());
 //        player.addMod(Modifiers.shotgunShells);
 //        player.addMod(Modifiers.doubleShot);
 //        player.addMod(Modifiers.deadlyCartridges);
 //        player.addMod(Modifiers.largerExplosives);
+        events.call(Event.modChange);
         player.init();
         ships.add(player);
 
@@ -54,7 +53,7 @@ public class World{
         events.on(Event.enemyDestroyed, event -> {
             boolean spawnNext = true;
             for(Ship ship : ships.entities){
-                if(ship.keep() && ship.team != world.player.team){
+                if(ship.keep() && ship.team != Team.player){
                     spawnNext = false;
                     break;
                 }

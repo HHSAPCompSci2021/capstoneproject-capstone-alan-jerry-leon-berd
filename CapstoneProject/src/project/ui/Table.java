@@ -8,6 +8,7 @@ import project.core.UI.*;
 import project.ui.drawables.*;
 import project.ui.interactables.Button;
 import project.ui.interactables.*;
+import project.ui.screens.*;
 
 import java.awt.*;
 
@@ -102,6 +103,15 @@ public class Table{
         return this;
     }
 
+    /** Adds a table to the contents of this table. */
+    public Table table(Cons<Table> cons){
+        Table table = new Table().parent(this);
+        cons.get(table);
+        add(table);
+        return this;
+    }
+
+
     /** Adds a drawable to the contents of this table. */
     public Table drawable(Cons<Drawable> cons){
         Drawable drawable = (Drawable)new Drawable().parent(this);
@@ -149,6 +159,11 @@ public class Table{
         return this;
     }
 
+    public Table clear(){
+        contents.clear();
+        return this;
+    }
+
     /** Calculates and returns the real x of this table. */
     public float x(){
         return x + (parent == null ? 0 : parent.x());
@@ -190,7 +205,7 @@ public class Table{
 
     /** Calculates and returns the bounds of this table. */
     public Range2 bounds(){
-        return Tmp.r1.set(x(), y(), width(), height());
+        return Tmp.r1.set(x() + tx(), y() + ty(), width(), height());
     }
 
     /** Simulates this table, and it's contents. */

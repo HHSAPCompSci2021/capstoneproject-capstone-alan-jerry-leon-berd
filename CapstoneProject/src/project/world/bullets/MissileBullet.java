@@ -1,6 +1,5 @@
 package project.world.bullets;
 
-import gameutils.struct.prim.*;
 import gameutils.util.*;
 import project.*;
 import project.graphics.*;
@@ -32,9 +31,9 @@ public class MissileBullet extends Bullet{
 
     @Override
     public void init(){
-        super.init();
-
         if(sprite == null) sprite = new Sprite(SpritePath.bullets, "salvo");
+
+        super.init();
     }
 
     @Override
@@ -68,7 +67,7 @@ public class MissileBullet extends Bullet{
                 });
             }else{
                 float wanted = Tmp.v1.set(target.pos).sub(pos).ang();
-                rotation = Mathf.turn(rotation, wanted, homingPower * speed * speed);
+                rotation = turn(rotation, wanted, homingPower * speed * speed);
             }
         }
 

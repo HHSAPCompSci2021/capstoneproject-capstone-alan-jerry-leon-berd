@@ -4,29 +4,67 @@ import gameutils.math.*;
 import gameutils.struct.*;
 import project.*;
 import project.core.Content.*;
+import project.core.Rules.*;
+import project.game.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
 import project.world.*;
 import project.world.modifiers.*;
 
+import static gameutils.util.Mathf.*;
 import static project.Vars.*;
+import static project.core.Rules.Rule.*;
 
 /** Stores stats for a hull. */
-public class Hull extends Modifier{
+public class Hull extends Modifier implements ShipType{
     public Sprite ship;
 
     public float health = 100;
 
-    public float accel = 0.2f; //Engine acceleration
-    public float rotate = 10; //Rotate speed
-    public float mass = 1; //Ship mass
-    public float size = 10; //Hitbox size
+    public float accel = 0.2f;
+    public float rotate = 10;
+    public float mass = 1;
+    public float size = 10;
+    public float ram = 1;
+    public float regen = 2;
 
     public Vec2 shootPos = new Vec2(10, 0);
     public Seq<Thruster> thrusters = new Seq<>();
 
     public Hull(String name){
         super(name);
+
+        tag = "HULL";
+    }
+
+    @Override
+    public float accel(){
+        return accel;
+    }
+
+    @Override
+    public float rotate(){
+        return rotate;
+    }
+
+    @Override
+    public float mass(){
+        return mass;
+    }
+
+    @Override
+    public float size(){
+        return size;
+    }
+
+    @Override
+    public float health(){
+        return health;
+    }
+
+    @Override
+    public float ram(){
+        return ram;
     }
 
     @Override
@@ -54,18 +92,18 @@ public class Hull extends Modifier{
             super(type);
         }
 
-        /** Returns the ratio of current hp to max health. */
-        public float fin(){
-            return world.player.life / health;
-        }
-
         /** Returns the position to create bullets, taking the player's rotation into account. */
         public Vec2 shootPos(){
             return Tmp.v1.set(world.player.hull.type().shootPos).rot(world.player.rotation).add(world.player.pos);
         }
 
+        public float regen(){
+            return (regen + rules.add(hullRegen, Team.player)) * rules.mult(hullRegen, Team.player) / 100f / 60f;
+        }
+
         /** Updates this hull. */
         public void update(){
+            world.player.life = min(world.player.life + world.player.health() * regen(), world.player.health());
         }
 
         /** Creates the thrust effects of this ship. */

@@ -34,4 +34,11 @@ public class List extends Table{
         super.add(table);
         return this;
     }
+
+    @Override
+    public List clear(){
+        bottom = 0;
+        super.clear();
+        return this;
+    }
 }

@@ -15,7 +15,7 @@ import static project.Vars.*;
 
 /** Stores and simulates all waves in the game. */
 public class Waves{
-    public int wave = 50;
+    public int wave = 0;
 
     public void spawnWave(){
         //Ridiculous scaling
@@ -25,7 +25,7 @@ public class Waves{
         wave++;
 
         Seq<Enemy> possible = new Seq<>();
-        for(Type e : content.map[ContentType.enemy.id()]){
+        for(Type e : content.list(ContentType.enemy)){
             if(!(e instanceof EnemyPart)) possible.add((Enemy)e);
         }
         int enemies = randInt(wave / 10, wave / 10 + 3) + 1;

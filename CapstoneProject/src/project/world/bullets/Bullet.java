@@ -5,6 +5,7 @@ import gameutils.struct.*;
 import project.*;
 import project.core.Content.*;
 import project.graphics.*;
+import project.graphics.Sprite.*;
 import project.world.*;
 import project.world.ship.*;
 
@@ -12,6 +13,7 @@ import java.awt.*;
 
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
+import static project.core.Rules.Rule.*;
 
 /** Contains stats for a bullet. */
 public class Bullet extends Type{
@@ -23,12 +25,16 @@ public class Bullet extends Type{
     public float knockback = 0.05f;
     public int pierce = 1;
     public float lifetime = -1;
-
-    public float splashRadius = -1;
+    public float splashRadius = 0;
     public float splashDamage = 0;
 
     public int trailDuration = -1;
     public float trailSize = 3;
+
+    @Override
+    public void init(){
+        if(sprite == null) sprite = sprite = new Sprite(SpritePath.bullets, "blast");
+    }
 
     @Override
     public ContentType type(){
@@ -58,34 +64,34 @@ public class Bullet extends Type{
         }
 
         public float speed(){
-            return type().speed * rules.bulletSpeedMult(team);
+            return (type().speed + rules.add(bulletSpeed, origin.team)) * rules.mult(bulletSpeed, origin.team);
         }
 
         public float knockback(){
-            return knockback * rules.bulletKnockbackMult(team);
+            return (knockback + rules.add(bulletKnockback, origin.team)) * rules.mult(bulletKnockback, origin.team);
         }
 
         public float damage(){
-            return damage * rules.bulletDamageMult(team);
+            return (damage + rules.add(bulletDamage, origin.team)) * rules.mult(bulletDamage, origin.team);
         }
 
-        public float splashRadius(){
-            return (rules.splashRadiusAdd(team) + splashRadius) * rules.splashRadiusMult(team);
+        public float blastRadius(){
+            return (splashRadius + rules.add(blastRadius, origin.team)) * rules.mult(blastRadius, origin.team);
         }
 
-        public float splashDamage(){
-            return (rules.splashDamageAdd(team) + splashDamage) * rules.splashDamageMult(team);
+        public float blastDamage(){
+            return damage() * (splashDamage + rules.add(blastDamage, origin.team)) * rules.mult(blastDamage, origin.team) / 10f;
         }
 
         public void hit(Ship s){
-            if(splashRadius() > 0){
-                canvas.shake(rt2(splashRadius()));
+            if(blastRadius() > 0){
+                canvas.shake(rt2(blastRadius()));
 
-                world.ships.query(pos.x, pos.y, splashRadius() + maxEntitySize, e -> {
-                    if(e.team != team && dst(e, pos) < e.size() + splashRadius()) e.damage(splashDamage() * (1f - dst(e, pos) / (e.size() + splashRadius())));
+                world.ships.query(pos.x, pos.y, blastRadius() + maxEntitySize, e -> {
+                    if(e.team != team && dst(e, pos) < e.size() + blastRadius()) e.damage(blastDamage() * (1f - dst(e, pos) / (e.size() + blastRadius())));
                 });
 
-                Effects.shockwave.at(pos.x, pos.y, e -> e.color(0, origin.color()).set(3, splashRadius() / 2).lifetime(rt2(splashRadius()) * 1.5f));
+                Effects.shockwave.at(pos.x, pos.y, e -> e.color(0, origin.color()).set(3, blastRadius() / 2).lifetime(rt2(blastRadius()) * 1.5f));
             }else Effects.fragment.at(pos.x, pos.y, e -> e.color(20, origin.color()).set(23, size() * 2));
 
             s.apply(Tmp.v1.set(vel).scl(knockback()));

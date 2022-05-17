@@ -13,7 +13,7 @@ public class Sprite{
     public static Seq<Sprite> all = new Seq<>();
 
     public String path;
-    public PImage image; //TODO: normalize all sprites (Processing sucks at scaling images)
+    public PImage image;
 
     public Sprite(String path){
         this.path = path;

@@ -17,7 +17,6 @@ public class Enemies implements ContentList{
                 drone = new OrbitDrone(){{
                     bullet = new Bullet(){{
                         damage = 5f;
-                        sprite = new Sprite(SpritePath.bullets, "blast");
                         size = 2;
                     }};
                 }};
@@ -30,7 +29,6 @@ public class Enemies implements ContentList{
                     bullet = new Bullet(){{
                         damage = 10f;
                         speed = 10;
-                        sprite = new Sprite(SpritePath.bullets, "blast");
                         size = 3;
                     }};
                 }};

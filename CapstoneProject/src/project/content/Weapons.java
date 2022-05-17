@@ -15,10 +15,7 @@ public class Weapons implements ContentList{
         blaster = new VolleyWeapon("blaster"){{
             bullet = new VolleyBullet();
         }};
-        salvo = new ChargeWeapon("salvo"){{
-            reload = 2;
-            inaccuracy = 20;
-            charges = 25;
+        salvo = new SalvoWeapon("salvo"){{
             bullet = new MissileBullet();
         }};
         flak = new Weapon("flak"){{
