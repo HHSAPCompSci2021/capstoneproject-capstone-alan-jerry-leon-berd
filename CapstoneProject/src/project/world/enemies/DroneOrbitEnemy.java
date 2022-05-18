@@ -93,7 +93,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
     }
 
     /** Stores stats for the drones that rotate around the enemy. */
-    public static class OrbitDrone extends EnemyPart{
+    public class OrbitDrone extends EnemyPart{
         public OrbitDrone(){
             super();
 

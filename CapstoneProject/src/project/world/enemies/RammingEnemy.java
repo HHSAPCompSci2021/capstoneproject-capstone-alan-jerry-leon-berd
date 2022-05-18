@@ -26,9 +26,8 @@ public class RammingEnemy extends MultiEnemy{
         accel = 0.5f;
         rotate = 0.5f;
         color = new Color(255, 0, 120);
-        health = 1000;
+        health = 750;
         size = 50;
-        ram = 2;
     }
 
     public void init(){
@@ -120,16 +119,23 @@ public class RammingEnemy extends MultiEnemy{
 
         public int charges = 5;
         public float barrel = 240;
-        public float inacurracy = 30;
+        public float inaccuracy = 60;
 
         public float velRand = 0f;
 
         public RammingSide(){
             super();
 
-            reload = 1.5f;
+            reload = 1.7f;
 
             size = 15;
+
+            bullet = new MissileBullet(){{
+                speed = 4;
+                accel = 0.1f;
+                homingPower = 0.05f;
+                lifetime = 4 * 60f;
+            }};
         }
 
         @Override
@@ -162,7 +168,7 @@ public class RammingEnemy extends MultiEnemy{
 
                 if(shooting){
                     reloadt -= 60;
-                    BulletEntity b = shoot(barrel + random(-inacurracy, inacurracy));
+                    BulletEntity b = shoot(barrel + random(-inaccuracy, inaccuracy));
                     if(b != null) b.speed *= random(velRand, 1f);
                     if(reloadt < 60) shooting = false;
                 }
@@ -187,7 +193,7 @@ public class RammingEnemy extends MultiEnemy{
     public class RammingThruster extends EnemyPart{
         public Vec2 offset = new Vec2(0, 50);
 
-        public float ramPower = 100;
+        public float ramPower = 200;
 
         public RammingThruster(){
             super();
@@ -240,9 +246,5 @@ public class RammingEnemy extends MultiEnemy{
                 return life > 0;
             }
         }
-    }
-
-    public class RammingProtector extends Enemy{
-
     }
 }

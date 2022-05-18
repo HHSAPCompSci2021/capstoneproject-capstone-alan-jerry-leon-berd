@@ -103,7 +103,7 @@ public class Weapon extends Modifier{
             b.team = Team.player;
             b.rotation = player().rotation + random(-inaccuracy, inaccuracy);
             b.speed *= random(1f - velRand, 1f);
-            b.life = b.type().lifetime * random(0, lifeRand);
+            b.life = b.bullet.lifetime * random(0, lifeRand);
             b.origin = player();
             return b;
         }

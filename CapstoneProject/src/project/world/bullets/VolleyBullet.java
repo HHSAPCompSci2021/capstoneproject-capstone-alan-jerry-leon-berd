@@ -17,16 +17,11 @@ public class VolleyBullet extends Bullet{
 
     public VolleyBullet(){
         super();
+
+        sprite = new BulletSprite("blaster-1");
+        sprite2 = new BulletSprite("blaster-2");
         speed = 15;
         size = 3;
-    }
-
-    @Override
-    public void init(){
-        if(sprite == null) sprite = new Sprite(SpritePath.bullets, "blaster-1");
-        if(sprite2 == null) sprite2 = new Sprite(SpritePath.bullets, "blaster-2");
-
-        super.init();
     }
 
     @Override

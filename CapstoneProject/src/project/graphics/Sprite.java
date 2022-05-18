@@ -15,19 +15,20 @@ public class Sprite{
     public String path;
     public PImage image;
 
-    public Sprite(String path){
-        this.path = path;
-        all.add(this);
-    }
-
     /** Creates a sprite with the source png at the specified path and name. */
     public Sprite(SpritePath path, String name){
-        this(path.path + name + ".png");
+        this.path = path.path + name + ".png";
+        all.add(this);
     }
 
     /** Loads this sprite. */
     public void load(){
         image = canvas.loadImage(path);
+    }
+
+    public static void loadAll(){
+        for(Sprite s : Sprite.all) s.load();
+        Sprite.all.clear();
     }
 
     public void draw(float x, float y){

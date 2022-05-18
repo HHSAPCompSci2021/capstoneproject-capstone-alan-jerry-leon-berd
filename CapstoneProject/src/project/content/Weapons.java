@@ -13,14 +13,14 @@ public class Weapons implements ContentList{
     @Override
     public void load(){
         blaster = new VolleyWeapon("blaster"){{
-            bullet = Bullets.volley;
+            bullet = new Bullet();
         }};
         salvo = new SalvoWeapon("salvo"){{
-            bullet = Bullets.missile;
+            bullet = new MissileBullet();
         }};
         flak = new ShotgunWeapon("flak"){{
             bullet = new Bullet(){{
-                sprite = new Sprite(SpritePath.bullets, "flak");
+                sprite = new BulletSprite("flak");
                 trailDuration = 10;
                 trailSize = 2;
                 speed = 30;

@@ -47,13 +47,13 @@ public class World{
         ships.add(player);
 
         waves = new Waves();
-        waves.spawnWave();
+//        waves.spawnWave();
 
-//        EnemyEntity e = Enemies.rammer.common.create();
-//        e.team = Team.enemy;
-//        e.justSpawned = true;
-//        e.pos.set(Tmp.v1.set(random(0, width), random(0, height)).sub(world.bounds.center()).nor().scl(width).add(world.bounds.center()));
-//        world.ships.add(e);
+        EnemyEntity e = Enemies.rammer.common.create();
+        e.team = Team.enemy;
+        e.justSpawned = true;
+        e.pos.set(Tmp.v1.set(random(0, width), random(0, height)).sub(world.bounds.center()).nor().scl(width).add(world.bounds.center()));
+        world.ships.add(e);
 
         events.on(Event.enemyDestroyed, event -> {
             boolean spawnNext = true;

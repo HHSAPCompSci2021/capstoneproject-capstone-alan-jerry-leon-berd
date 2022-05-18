@@ -82,7 +82,7 @@ public class Effects{
     }
 
     /** Represents a sprite that is only drawn when glowEnabled is on. */
-    public static class GlowSprite extends Sprite{
+    public class GlowSprite extends Sprite{
         public GlowSprite(SpritePath path, String name){
             super(path, name);
         }
@@ -99,7 +99,7 @@ public class Effects{
     }
 
     /** Represents a type of effect. Stores the effect renderer and initialization runnables. */
-    public static class Effect{
+    public class Effect{
         public Cons<EffectEntity> init;
         public Cons<EffectEntity> drawer;
 

@@ -74,7 +74,7 @@ public class Modifier extends Type{
     }
 
     /** Represents and simulates an instance of a modifier. */
-    public static class ModInstance extends Instance{
+    public class ModInstance extends Instance{
         public ModInstance(Modifier type){
             super(type);
         }

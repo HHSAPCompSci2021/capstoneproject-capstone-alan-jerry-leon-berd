@@ -25,9 +25,9 @@ public class Sounds{
     public static void playSound(String name){
         if(!soundSet.contains(name)) return;
 
-        JayLayer tmp = new JayLayer("assets/audio/music/", "assets/audio/effects/", false);
-        tmp.addSoundEffects(new String[]{name});
-        tmp.playSoundEffect(0);
+//        JayLayer tmp = new JayLayer("assets/audio/music/", "assets/audio/effects/", false);
+//        tmp.addSoundEffects(new String[]{name});
+//        tmp.playSoundEffect(0);
     }
 
     public void init(){

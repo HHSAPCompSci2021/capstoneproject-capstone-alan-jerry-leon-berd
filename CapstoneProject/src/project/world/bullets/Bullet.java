@@ -17,8 +17,8 @@ import static project.Vars.*;
 import static project.core.Rules.Rule.*;
 
 /** Contains stats for a bullet. */
-public class Bullet extends Type{
-    public Sprite sprite;
+public class Bullet{
+    public Sprite sprite = new BulletSprite("blast");
 
     public float speed = 10;
     public float size = 5;
@@ -32,22 +32,14 @@ public class Bullet extends Type{
     public int trailDuration = -1;
     public float trailSize = 3;
 
-    @Override
-    public void init(){
-        if(sprite == null) sprite = sprite = new Sprite(SpritePath.bullets, "blast");
-    }
-
-    @Override
-    public ContentType type(){
-        return ContentType.bullet;
-    }
-
     public BulletEntity create(){
         return new BulletEntity(this);
     }
 
     /** Represents and simulates a bullet. */
     public class BulletEntity extends Entity{
+        public Bullet bullet;
+
         public float rotation, speed = 1f;
         public Vec2 pPos;
 
@@ -56,7 +48,8 @@ public class Bullet extends Type{
         public Set<Entity> collided = new Set<>();
 
         public BulletEntity(Bullet type){
-            super(type);
+            super(null);
+            this.bullet = type;
         }
 
         @Override
@@ -70,7 +63,7 @@ public class Bullet extends Type{
         }
 
         public float speed(){
-            return (type().speed + rules.add(bulletSpeed, origin.team)) * rules.mult(bulletSpeed, origin.team);
+            return (bullet.speed + rules.add(bulletSpeed, origin.team)) * rules.mult(bulletSpeed, origin.team);
         }
 
         public float knockback(){
@@ -143,10 +136,11 @@ public class Bullet extends Type{
         public boolean keep(){
             return world.bounds.contains(pos) && collided.size < pierce && (life < lifetime || lifetime <= 0);
         }
+    }
 
-        @Override
-        public Bullet type(){
-            return (Bullet)type;
+    public class BulletSprite extends Sprite{
+        public BulletSprite(String name){
+            super(SpritePath.bullets, name);
         }
     }
 }

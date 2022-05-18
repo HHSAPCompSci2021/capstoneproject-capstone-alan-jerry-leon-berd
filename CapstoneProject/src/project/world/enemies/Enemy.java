@@ -32,7 +32,7 @@ public class Enemy extends Type implements ShipType{
 
     public float reload = 1;
 
-    public Bullet bullet = Bullets.bullet;
+    public Bullet bullet = new Bullet();
 
     @Override
     public void init(){

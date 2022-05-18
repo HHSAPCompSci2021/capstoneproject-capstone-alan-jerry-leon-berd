@@ -21,19 +21,14 @@ public class MissileBullet extends Bullet{
 
     public MissileBullet(){
         super();
+
+        sprite = new BulletSprite("salvo");
         damage = 10;
         speed = 1f;
         size = 4;
         knockback = 0.01f;
         lifetime = 2f * 60;
         trailDuration = 5;
-    }
-
-    @Override
-    public void init(){
-        if(sprite == null) sprite = new Sprite(SpritePath.bullets, "salvo");
-
-        super.init();
     }
 
     @Override
