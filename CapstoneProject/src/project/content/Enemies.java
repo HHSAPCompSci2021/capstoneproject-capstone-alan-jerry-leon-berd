@@ -1,13 +1,12 @@
 package project.content;
 
-import gameutils.math.*;
 import project.core.Content.*;
 import project.world.bullets.*;
 import project.world.enemies.*;
 
 /** Contains and loads all the enemy types in the game. */
 public class Enemies implements ContentList{
-    public static EnemyVersions host, gyrogun, juggernaut, tracer;
+    public static EnemyVersions host, gyrogun, juggernaut, dodger, tracer;
 
     @Override
     public void load(){
@@ -101,6 +100,10 @@ public class Enemies implements ContentList{
         
         tracer = new EnemyVersions() {{
         	common = new BomberEnemy();
+        }};
+        
+        dodger = new EnemyVersions(){{
+            common = new TeleportingEnemy();
         }};
     }
 }
