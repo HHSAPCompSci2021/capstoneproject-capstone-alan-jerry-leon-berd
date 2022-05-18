@@ -3,6 +3,9 @@ package project.world;
 import gameutils.math.*;
 import project.*;
 import project.game.*;
+import project.graphics.*;
+
+import java.awt.*;
 
 import static project.Vars.*;
 
@@ -26,6 +29,11 @@ public class Entity extends Instance implements Pos2{
         return 1;
     }
 
+    /** Returns the color of this entity. */
+    public Color color(){
+        return null;
+    }
+
     /** Initializes this entity. */
     public void init(){
     }
@@ -35,6 +43,11 @@ public class Entity extends Instance implements Pos2{
         if(vel.len() > universalSpeedLimit) vel.nor().scl(universalSpeedLimit);
 
         pos.add(Tmp.v1.set(vel).scl(delta));
+    }
+
+    /** Draws the glow of this entity. */
+    public void glow(){
+        if(color() != null) Effects.glow.drawc(pos.x, pos.y, size() * 20, size() * 20, color(), 50);
     }
 
     /** Draws this entity. */

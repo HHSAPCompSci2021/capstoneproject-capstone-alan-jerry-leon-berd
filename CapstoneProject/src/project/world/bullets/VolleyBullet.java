@@ -23,10 +23,10 @@ public class VolleyBullet extends Bullet{
 
     @Override
     public void init(){
-        super.init();
-
         if(sprite == null) sprite = new Sprite(SpritePath.bullets, "blaster-1");
         if(sprite2 == null) sprite2 = new Sprite(SpritePath.bullets, "blaster-2");
+
+        super.init();
     }
 
     @Override

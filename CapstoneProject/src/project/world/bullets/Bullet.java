@@ -4,6 +4,7 @@ import gameutils.math.*;
 import gameutils.struct.*;
 import project.*;
 import project.core.Content.*;
+import project.game.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
 import project.world.*;
@@ -63,6 +64,11 @@ public class Bullet extends Type{
             return size;
         }
 
+        @Override
+        public Color color(){
+            return origin.color();
+        }
+
         public float speed(){
             return (type().speed + rules.add(bulletSpeed, origin.team)) * rules.mult(bulletSpeed, origin.team);
         }
@@ -84,6 +90,8 @@ public class Bullet extends Type{
         }
 
         public void hit(Ship s){
+            if(s.team != Team.player) world.player.lastHit = s;
+
             if(blastRadius() > 0){
                 canvas.shake(rt2(blastRadius()));
 
@@ -91,8 +99,8 @@ public class Bullet extends Type{
                     if(e.team != team && dst(e, pos) < e.size() + blastRadius()) e.damage(blastDamage() * (1f - dst(e, pos) / (e.size() + blastRadius())));
                 });
 
-                Effects.shockwave.at(pos.x, pos.y, e -> e.color(0, origin.color()).set(3, blastRadius() / 2).lifetime(rt2(blastRadius()) * 1.5f));
-            }else Effects.fragment.at(pos.x, pos.y, e -> e.color(20, origin.color()).set(23, size() * 2));
+                Effects.shockwave.at(pos.x, pos.y, e -> e.color(0, color()).set(3, blastRadius() / 2).lifetime(rt2(blastRadius()) * 1.5f));
+            }else Effects.fragment.at(pos.x, pos.y, e -> e.color(20, color()).set(23, size() * 2));
 
             s.apply(Tmp.v1.set(vel).scl(knockback()));
             s.damage(damage());
@@ -120,16 +128,14 @@ public class Bullet extends Type{
 
             if(trailDuration > 0){
                 if(pPos == null) pPos = new Vec2();
-                else Effects.trail.at(pos.x, pos.y, e -> e.color(0, origin.color()).set(3, pPos.x).set(4, pPos.y).set(5, trailSize).lifetime(trailDuration));
+                else Effects.trail.at(pos.x, pos.y, e -> e.color(0, color()).set(3, pPos.x).set(4, pPos.y).set(5, trailSize).lifetime(trailDuration));
                 pPos.set(pos);
             }
         }
 
         @Override
         public void draw(){
-            Effects.glow.drawc(pos.x, pos.y, size() * 15, size() * 15, origin.color(), 30);
-
-            sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, origin.color());
+            sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, color());
             sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, Color.white, 200);
         }
 

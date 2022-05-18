@@ -38,10 +38,6 @@ public class Sprite{
         draw(x, y, image.width, image.height, r, tint);
     }
 
-    public void drawh(float x, float y, float h){
-        draw(x, y, image.width * (h / image.height), h);
-    }
-
     public void draw(float x, float y, float w, float h){
         canvas.image(image, x, y, w, h);
     }
@@ -51,8 +47,9 @@ public class Sprite{
     }
 
     public void draw(float x, float y, float w, float h, Color tint, float alpha){
-        canvas.tint(tint.getRGB(), alpha);
+        canvas.tint(tint, alpha);
         draw(x, y, w, h);
+        canvas.tint(255, 255, 255);
     }
 
     public void draw(float x, float y, float w, float h, float r){
@@ -69,8 +66,9 @@ public class Sprite{
 
     /** Draw an image with top left corner at (x, y), a width w, a height h, a rotation r, the specified tint and alpha. All other draw methods are overloaded variants of this method. */
     public void draw(float x, float y, float w, float h, float r, Color tint, float alpha){
-        canvas.tint(tint.getRGB(), alpha);
+        canvas.tint(tint, alpha);
         draw(x, y, w, h, r);
+        canvas.tint(255, 255, 255);
     }
 
     public void drawc(float x, float y, float r, Color tint){

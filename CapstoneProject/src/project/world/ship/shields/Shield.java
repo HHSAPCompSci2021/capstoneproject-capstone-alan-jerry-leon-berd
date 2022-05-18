@@ -1,10 +1,9 @@
-package project.world.ship;
+package project.world.ship.shields;
 
 import project.core.Content.*;
 import project.game.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
-import project.world.*;
 import project.world.modifiers.*;
 
 import java.awt.*;

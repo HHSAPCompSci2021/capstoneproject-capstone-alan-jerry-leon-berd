@@ -15,7 +15,8 @@ import project.world.*;
 import project.world.modifiers.*;
 import project.world.ship.*;
 import project.world.ship.Hull.*;
-import project.world.ship.Shield.*;
+import project.world.ship.shields.*;
+import project.world.ship.shields.Shield.*;
 import project.world.ship.weapons.*;
 import project.world.ship.weapons.Weapon.*;
 

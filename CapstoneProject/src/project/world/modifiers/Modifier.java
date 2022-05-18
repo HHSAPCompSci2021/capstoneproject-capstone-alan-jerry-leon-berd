@@ -3,9 +3,12 @@ package project.world.modifiers;
 import gameutils.struct.*;
 import project.core.Content.*;
 import project.core.Rules.*;
+import project.game.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
 import project.world.*;
+
+import static project.Vars.*;
 
 /** Stores stats for a modifier. */
 public class Modifier extends Type{
@@ -76,7 +79,9 @@ public class Modifier extends Type{
             super(type);
         }
 
-        //TODO: Method that returns the player
+        public Player player(){
+            return world.player;
+        }
 
         @Override
         public Modifier type(){

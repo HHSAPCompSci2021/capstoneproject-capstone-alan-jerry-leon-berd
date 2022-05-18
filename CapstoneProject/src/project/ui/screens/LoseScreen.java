@@ -38,7 +38,7 @@ public class LoseScreen extends Screen{
         time++;
 
         world.update();
-        delta = max(1f - time / 60, 0);
+        delta = max(1f - time / 600, 0);
     }
 
     @Override

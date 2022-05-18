@@ -2,6 +2,7 @@ package project.world.enemies;
 
 import project.*;
 import project.content.*;
+import project.core.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
 import project.world.bullets.*;
@@ -18,7 +19,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
     public float droneSpace = 30;
     public float orbitSpeed = 2;
 
-    public float kiteDistance = 100;
+    public float kiteDistance = 200;
     public boolean spacedShooting = false;
 
     public EnemyPart drone;
@@ -26,6 +27,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
     public DroneOrbitEnemy(){
         super();
 
+        accel = 0.2f;
         color = new Color(80, 170, 255);
         size = 13;
     }
@@ -81,6 +83,13 @@ public class DroneOrbitEnemy extends MultiEnemy{
             rotate(Tmp.v1.set(world.player.pos).sub(pos).ang());
             if(dst(world.player.pos, pos) > kiteDistance) thrust();
         }
+
+        @Override
+        public void remove(){
+            super.remove();
+
+            Sounds.playSound("fuel_explosion.mp3");
+        }
     }
 
     /** Stores stats for the drones that rotate around the enemy. */
@@ -113,9 +122,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
             }
 
             @Override
-            public void draw(){
-                canvas.tint(255, 255, 255);
-                sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation);
+            public void glow(){
             }
 
             @Override
@@ -127,6 +134,13 @@ public class DroneOrbitEnemy extends MultiEnemy{
                     reloadt = 0;
                     shoot(0);
                 }
+            }
+
+            @Override
+            public void remove(){
+                super.remove();
+
+                Sounds.playSound("fuel_explosion.mp3");
             }
         }
     }

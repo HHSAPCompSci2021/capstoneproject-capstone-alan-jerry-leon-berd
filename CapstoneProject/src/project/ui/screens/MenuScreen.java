@@ -155,8 +155,7 @@ public class MenuScreen extends Screen{
     public void draw(){
         canvas.pushMatrix();
         canvas.translate(-canvas.mouseX / 50f, -canvas.mouseY / 50f);
-        canvas.tint(255, 255, 255);
-        background.drawh(-125, 0, height);
+        background.draw(-125, 0, (float)background.image.width * height / background.image.height, height, Color.white);
         canvas.popMatrix();
 
         Effects.blur.draw(sidex - 300, 0, 300, height, Color.black);

@@ -35,12 +35,12 @@ public class ThrusterWeapon extends Weapon{
         public void shoot(){
             for(int i = 0;i < projectiles();i++){
                 BulletEntity b = def(bullet.create());
-                b.pos.set(world.player.pos);
+                b.pos.set(player().pos);
                 b.rotation += spread * (i - (shots - 1) / 2f) + 180;
                 world.bullets.add(b);
             }
 
-            world.player.apply(Tmp.v1.set(recoil(), 0).rot(world.player.rotation));
+            player().apply(Tmp.v1.set(recoil(), 0).rot(player().rotation));
         }
     }
 }

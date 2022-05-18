@@ -9,6 +9,7 @@ public class Content{
     /** Stores all content classes to be loaded. */
     public ContentList[] lists = new ContentList[]{
     new Modifiers(),
+    new Bullets(),
     new Hulls(),
     new Shields(),
     new Weapons(),

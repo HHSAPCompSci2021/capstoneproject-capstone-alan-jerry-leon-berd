@@ -42,11 +42,12 @@ public class Enemies implements ContentList{
                     sprite = new Sprite(SpritePath.enemies, "host-drone-3");
                     bullet = new LaserBullet(){{
                         rotate = 2f;
-                        damage = 5;
+                        damage = 10;
                     }};
                 }};
                 size = 17;
                 droneSpace = 40;
+                kiteDistance = 300;
             }};
         }};
 
@@ -70,20 +71,16 @@ public class Enemies implements ContentList{
 
         rammer = new EnemyVersions(){{
             common = new RammingEnemy();
-            elite = new RammingEnemy(){{
-                reload = 0.5f;
-                ramInterval = 2;
-                ramDuration = 180;
-                size = 13;
-                health = 125;
-            }};
-            champion = new RammingEnemy(){{
-                reload = 0.75f;
-                ramInterval = 1;
-                ramDuration = 210;
-                size = 15;
-                health = 150;
-            }};
+//            elite = new RammingEnemy(){{
+//                reload = 0.5f;
+//                size = 13;
+//                health = 125;
+//            }};
+//            champion = new RammingEnemy(){{
+//                reload = 0.75f;
+//                size = 15;
+//                health = 150;
+//            }};
         }};
     }
 }

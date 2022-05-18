@@ -25,7 +25,7 @@ public class MissileBullet extends Bullet{
         speed = 1f;
         size = 4;
         knockback = 0.01f;
-        lifetime = 5 * 60 * 1.5f;
+        lifetime = 2f * 60;
         trailDuration = 5;
     }
 
@@ -42,6 +42,7 @@ public class MissileBullet extends Bullet{
     }
 
     public class MissileBulletEntity extends BulletEntity{
+        public byte dir;
         public Ship target;
 
         public MissileBulletEntity(MissileBullet type){
@@ -50,18 +51,19 @@ public class MissileBullet extends Bullet{
 
         @Override
         public void init(){
-            life = random(-180, 0);
+            life = random(-180 / waveFrequency, 0);
+            dir = (byte)(randInt(0, 1) == 0 ? -1 : 1);
         }
 
         @Override
         public void update(){
-            life += random(0, 10);
-            speed += accel;
+            life += random(0, 2) * dir;
+            speed += accel * delta;
 
             super.update();
 
             if(target == null || !target.keep()){
-                rotation += sin(life * waveFrequency) * waveAmplitude;
+                rotation += sin(life * waveFrequency) * waveAmplitude * delta;
                 world.ships.query(pos.x, pos.y, homingRange, e -> {
                     if(e.team != team) target = e;
                 });

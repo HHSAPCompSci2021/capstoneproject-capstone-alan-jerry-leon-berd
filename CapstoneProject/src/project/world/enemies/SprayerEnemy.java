@@ -13,6 +13,12 @@ import static project.Vars.*;
 
 /** An enemy which rotates and spams bullets around itself. */
 public class SprayerEnemy extends Enemy{
+    public static Sprite defSprite = new Sprite(SpritePath.enemies, "gyrogun-1");
+    public static Bullet defBullet = new VolleyBullet(){{
+        size = 2;
+        speed = 5;
+    }};
+
     public float shootDuration = 120;
     public float shootInterval = 3;
 
@@ -23,6 +29,8 @@ public class SprayerEnemy extends Enemy{
     public SprayerEnemy(){
         super();
 
+        bullet = defBullet;
+        sprite = defSprite;
         accel = 0.5f;
         color = new Color(255, 110, 50);
         health = 50;
@@ -33,12 +41,6 @@ public class SprayerEnemy extends Enemy{
 
     @Override
     public void init(){
-        if(sprite == null) sprite = new Sprite(SpritePath.enemies, "gyrogun-1");
-        if(bullet == null) bullet = new VolleyBullet(){{
-            size = 2;
-            speed = 5;
-        }};
-
         super.init();
     }
 
@@ -66,13 +68,6 @@ public class SprayerEnemy extends Enemy{
                 }
             }
             if(reloadt >= 60 + shootDuration * reload()) reloadt = 0;
-        }
-
-        @Override
-        public void remove() {
-            super.remove();
-
-            Sounds.playSound("laser_impact.mp3");
         }
     }
 }

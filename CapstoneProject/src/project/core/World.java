@@ -1,13 +1,16 @@
 package project.core;
 
 import gameutils.math.*;
+import project.*;
 import project.content.*;
 import project.core.Events.*;
 import project.game.*;
 import project.graphics.Effects.Effect.*;
 import project.world.bullets.Bullet.*;
+import project.world.enemies.Enemy.*;
 import project.world.ship.*;
 
+import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 /** Stores all entities and simulates the game. */
@@ -39,16 +42,18 @@ public class World{
         player = new Player();
         player.weapon = Weapons.salvo.create();
         player.pos.set(bounds.center());
-//        player.addMod(Modifiers.shotgunShells);
-//        player.addMod(Modifiers.doubleShot);
-//        player.addMod(Modifiers.deadlyCartridges);
-//        player.addMod(Modifiers.largerExplosives);
         events.call(Event.modChange);
         player.init();
         ships.add(player);
 
         waves = new Waves();
         waves.spawnWave();
+
+//        EnemyEntity e = Enemies.rammer.common.create();
+//        e.team = Team.enemy;
+//        e.justSpawned = true;
+//        e.pos.set(Tmp.v1.set(random(0, width), random(0, height)).sub(world.bounds.center()).nor().scl(width).add(world.bounds.center()));
+//        world.ships.add(e);
 
         events.on(Event.enemyDestroyed, event -> {
             boolean spawnNext = true;
@@ -73,6 +78,9 @@ public class World{
 
     /** Draws the world. */
     public void draw(){
+        bullets.glow();
+        ships.glow();
+
         experience.draw();
         effects.draw();
         bullets.draw();
