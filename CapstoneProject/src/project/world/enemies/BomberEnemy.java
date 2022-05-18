@@ -28,7 +28,7 @@ public class BomberEnemy extends Enemy{
 	
 	@Override
 	public void init(){
-		if (sprite == null) sprite = new Sprite(SpritePath.enemies, "tracer");
+		sprite.set("tracer");
 		if (bullet == null) bullet = new Bullet() {{
 			size = 2;
 			speed = 5;
