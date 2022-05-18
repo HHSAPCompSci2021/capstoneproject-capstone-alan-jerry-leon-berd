@@ -8,7 +8,7 @@ import project.world.enemies.*;
 
 /** Contains and loads all the enemy types in the game. */
 public class Enemies implements ContentList{
-    public static EnemyVersions host, gyrogun, rammer;
+    public static EnemyVersions host, gyrogun, rammer, tracer;
 
     @Override
     public void load(){
@@ -84,6 +84,10 @@ public class Enemies implements ContentList{
                 size = 15;
                 health = 150;
             }};
+        }};
+        
+        tracer = new EnemyVersions() {{
+        	common = new BomberEnemy();
         }};
     }
 }
