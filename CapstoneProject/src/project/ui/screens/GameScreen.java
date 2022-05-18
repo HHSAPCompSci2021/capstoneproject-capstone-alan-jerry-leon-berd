@@ -1,6 +1,7 @@
 package project.ui.screens;
 
 import gameutils.math.*;
+import processing.core.*;
 import project.*;
 import project.core.Events.*;
 import project.core.Events.*;
@@ -54,6 +55,8 @@ public class GameScreen extends Screen{
             if(world.player.level > world.player.spent) canvas.screen(ui.upgradeScreen);
             else canvas.screen(ui.pauseScreen);
         }
+
+        canvas.cursor(PConstants.CROSS);
     }
 
     @Override
