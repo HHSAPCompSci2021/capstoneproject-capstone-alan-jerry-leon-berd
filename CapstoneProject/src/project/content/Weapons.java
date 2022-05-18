@@ -1,8 +1,6 @@
 package project.content;
 
 import project.core.Content.*;
-import project.graphics.*;
-import project.graphics.Sprite.*;
 import project.world.bullets.*;
 import project.world.ship.weapons.*;
 
@@ -20,7 +18,7 @@ public class Weapons implements ContentList{
         }};
         flak = new ShotgunWeapon("flak"){{
             bullet = new Bullet(){{
-                sprite = new BulletSprite("flak");
+                sprite = new BulletSprite().set("flak");
                 trailDuration = 10;
                 trailSize = 2;
                 speed = 30;

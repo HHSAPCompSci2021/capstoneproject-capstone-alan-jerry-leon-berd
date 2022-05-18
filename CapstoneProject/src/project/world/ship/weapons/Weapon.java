@@ -5,8 +5,6 @@ import project.core.Content.*;
 import project.core.Input.*;
 import project.game.*;
 import project.graphics.*;
-import project.graphics.Sprite.*;
-import project.world.*;
 import project.world.bullets.*;
 import project.world.bullets.Bullet.*;
 import project.world.modifiers.*;
@@ -34,13 +32,8 @@ public class Weapon extends Modifier{
         super(name);
 
         tag = "WEAPON";
-    }
 
-    @Override
-    public void init(){
-        if(sprite == null) sprite = new Sprite(SpritePath.upgrades, "weapon-" + name);
-
-        super.init();
+        sprite.set("weapon-" + name);
     }
 
     @Override

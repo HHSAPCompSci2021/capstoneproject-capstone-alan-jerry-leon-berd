@@ -2,13 +2,10 @@ package project.game;
 
 import gameutils.struct.*;
 import project.*;
-import project.content.*;
 import project.core.Content.*;
-import project.core.Rules.*;
 import project.world.*;
 import project.world.enemies.*;
 import project.world.enemies.Enemy.*;
-import project.world.enemies.EnemyPart.*;
 
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;

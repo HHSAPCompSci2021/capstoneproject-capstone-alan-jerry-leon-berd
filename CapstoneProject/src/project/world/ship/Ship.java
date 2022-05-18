@@ -3,7 +3,6 @@ package project.world.ship;
 import gameutils.math.*;
 import gameutils.struct.*;
 import project.*;
-import project.core.*;
 import project.graphics.*;
 import project.world.*;
 import project.world.ship.StatusEffect.*;

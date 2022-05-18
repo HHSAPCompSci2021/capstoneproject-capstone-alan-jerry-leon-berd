@@ -9,8 +9,8 @@ import project.graphics.*;
 import project.world.modifiers.*;
 import project.world.modifiers.Modifier.*;
 import project.world.ship.Hull.*;
-import project.world.ship.shields.Shield.*;
 import project.world.ship.*;
+import project.world.ship.shields.Shield.*;
 import project.world.ship.weapons.Weapon.*;
 
 import java.awt.*;

@@ -1,14 +1,13 @@
 package project.content;
 
+import gameutils.math.*;
 import project.core.Content.*;
-import project.graphics.*;
-import project.graphics.Sprite.*;
 import project.world.bullets.*;
 import project.world.enemies.*;
 
 /** Contains and loads all the enemy types in the game. */
 public class Enemies implements ContentList{
-    public static EnemyVersions host, gyrogun, rammer;
+    public static EnemyVersions host, gyrogun, juggernaut;
 
     @Override
     public void load(){
@@ -25,7 +24,7 @@ public class Enemies implements ContentList{
                 spacedShooting = true;
                 drone = new OrbitDrone(){{
                     reload = 1;
-                    sprite = new Sprite(SpritePath.enemies, "host-drone-2");
+                    sprite.set("host-drone-2");
                     bullet = new Bullet(){{
                         damage = 10f;
                         speed = 10;
@@ -39,7 +38,7 @@ public class Enemies implements ContentList{
                 drone = new OrbitDrone(){{
                     reload = 0.5f;
                     spacedShooting = true;
-                    sprite = new Sprite(SpritePath.enemies, "host-drone-3");
+                    sprite.set("host-drone-3");
                     bullet = new LaserBullet(){{
                         rotate = 2f;
                         damage = 10;
@@ -56,7 +55,7 @@ public class Enemies implements ContentList{
             elite = new SprayerEnemy(){{
                 bullets = 4;
                 reload = 0.3f;
-                sprite = new Sprite(SpritePath.enemies, "gyrogun-2");
+                sprite.set("gyrogun-2");
                 size = 10;
             }};
             champion = new SprayerEnemy(){{
@@ -64,23 +63,40 @@ public class Enemies implements ContentList{
                 reload = 0.5f;
                 rotate = 0.6f;
                 shootInterval = 5;
-                sprite = new Sprite(SpritePath.enemies, "gyrogun-3");
+                sprite.set("gyrogun-3");
                 size = 12;
             }};
         }};
 
-        rammer = new EnemyVersions(){{
-            common = new RammingEnemy();
-//            elite = new RammingEnemy(){{
-//                reload = 0.5f;
-//                size = 13;
-//                health = 125;
-//            }};
-//            champion = new RammingEnemy(){{
-//                reload = 0.75f;
-//                size = 15;
-//                health = 150;
-//            }};
+        juggernaut = new EnemyVersions(){{
+            common = new RammingEnemy(){{
+                sprite.set("juggernaut-1");
+                size = 25;
+                accel = 0.2f;
+                rotate = 0.8f;
+                health = 250;
+                side = new RammingSide(){{
+                    offset.set(-21, 33);
+                    size = 13;
+                    shootDuration = 10;
+                    shootInterval = 2;
+                    bullet = new MissileBullet(){{
+                        damage = 2;
+                        size = 3;
+                        speed = 3;
+                        accel = 0.07f;
+                        homingPower = 0.1f;
+                        homingRange = 2000;
+                        lifetime = 3 * 60f;
+                    }};
+                }};
+                thruster = new RammingThruster(){{
+                    offset.set(0, 39);
+                    size = 18;
+                    ramPower = 40;
+                }};
+            }};
+            elite = new RammingEnemy();
         }};
     }
 }

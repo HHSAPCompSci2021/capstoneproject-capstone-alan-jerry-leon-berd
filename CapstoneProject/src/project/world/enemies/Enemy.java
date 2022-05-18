@@ -1,18 +1,16 @@
 package project.world.enemies;
 
 import project.*;
-import project.content.*;
 import project.core.Content.*;
-import project.core.Events.*;
+import project.core.Events.Event;
 import project.game.*;
 import project.graphics.*;
-import project.graphics.Sprite.*;
 import project.world.*;
 import project.world.bullets.*;
 import project.world.bullets.Bullet.*;
 import project.world.ship.*;
 
-import java.awt.Color;
+import java.awt.*;
 
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
@@ -20,7 +18,7 @@ import static project.core.Rules.Rule.*;
 
 /** Stores stats for an enemy. */
 public class Enemy extends Type implements ShipType{
-    public Sprite sprite;
+    public EnemySprite sprite = new EnemySprite();
     public Color color = Color.white;
 
     public float health = 100;
@@ -168,4 +166,10 @@ public class Enemy extends Type implements ShipType{
         }
     }
 
+    public class EnemySprite extends Sprite{
+        public EnemySprite set(String name){
+            super.set(SpritePath.enemies, name);
+            return this;
+        }
+    }
 }

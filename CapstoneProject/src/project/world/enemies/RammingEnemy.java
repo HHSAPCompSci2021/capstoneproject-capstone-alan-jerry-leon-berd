@@ -3,10 +3,8 @@ package project.world.enemies;
 import gameutils.math.*;
 import project.*;
 import project.core.*;
-import project.graphics.*;
-import project.graphics.Sprite.*;
-import project.world.bullets.*;
 import project.world.bullets.Bullet.*;
+import project.world.bullets.*;
 import project.world.enemies.EnemyPart.*;
 import project.world.enemies.RammingEnemy.RammingSide.*;
 import project.world.enemies.RammingEnemy.RammingThruster.*;
@@ -17,30 +15,26 @@ import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 public class RammingEnemy extends MultiEnemy{
-    public RammingSide side1, side2;
+    public RammingSide side;
     public RammingThruster thruster;
 
     public RammingEnemy(){
         super();
 
+        sprite.set("juggernaut-3");
+
         accel = 0.5f;
         rotate = 0.5f;
         color = new Color(255, 0, 120);
         health = 750;
-        size = 50;
+        size = 25;
     }
 
     public void init(){
-        if(sprite == null) sprite = new Sprite(SpritePath.enemies, "juggernaut");
-        if(side1 == null) side1 = new RammingSide();
-        if(side2 == null) side2 = new RammingSide(){{
-            sprite = new Sprite(SpritePath.enemies, "juggernaut-side-2");
-            offset = offset.scl(-1f, 1);
-            barrel = 120;
-        }};
+        if(side == null) side = new RammingSide();
         if(thruster == null) thruster = new RammingThruster();
 
-        pieces.addAll(side1, side2, thruster);
+        pieces.addAll(side, side, thruster);
 
         super.init();
     }
@@ -57,10 +51,11 @@ public class RammingEnemy extends MultiEnemy{
 
         @Override
         public void damage(float damage){
-            for(EnemyPartEntity p : parts) if(p.keep()){
-                super.damage(damage / 5);
-                return;
-            }
+            for(EnemyPartEntity p : parts)
+                if(p.keep()){
+                    super.damage(damage / 5);
+                    return;
+                }
             super.damage(damage);
         }
 
@@ -78,13 +73,18 @@ public class RammingEnemy extends MultiEnemy{
 
         public void positions(){
             side1().pos.set(Tmp.v1.set(side1().type().offset).rot(rotation + 90).add(pos));
-            side2().pos.set(Tmp.v1.set(side2().type().offset).rot(rotation + 90).add(pos));
+            side2().pos.set(Tmp.v1.set(side2().type().offset).scl(-1, 1).rot(rotation + 90).add(pos));
             thruster().pos.set(Tmp.v1.set(thruster().type().offset).rot(rotation + 90).add(pos));
         }
 
         @Override
         public void init(){
             super.init();
+
+            side2().flip = true;
+
+            side1().reloadt = side2().reloadt = random(0, 60);
+            thruster().reloadt = random(0, 60);
 
             positions();
         }
@@ -115,33 +115,37 @@ public class RammingEnemy extends MultiEnemy{
     }
 
     public class RammingSide extends EnemyPart{
+        public EnemySprite flipSprite = new EnemySprite();
+
         public Vec2 offset = new Vec2(-22, 42);
 
-        public int charges = 5;
+        public int shootDuration = 30;
+        public int shootInterval = 3;
         public float barrel = 240;
-        public float inaccuracy = 60;
+        public float inaccuracy = 20;
 
-        public float velRand = 0f;
+        public float velRand = 0.7f;
 
         public RammingSide(){
             super();
 
-            reload = 1.7f;
+            sprite.set("juggernaut-side-1");
+            flipSprite.set("juggernaut-side-2");
+            reload = 0.5f;
 
             size = 15;
 
             bullet = new MissileBullet(){{
-                speed = 4;
+                speed = 5;
                 accel = 0.1f;
-                homingPower = 0.05f;
+                homingPower = 0.03f;
+                homingRange = 2000;
                 lifetime = 4 * 60f;
             }};
         }
 
         @Override
         public void init(){
-            if(sprite == null) sprite = new Sprite(SpritePath.enemies, "juggernaut-side-1");
-
             super.init();
         }
 
@@ -151,7 +155,7 @@ public class RammingEnemy extends MultiEnemy{
         }
 
         public class RammingSideEntity extends EnemyPartEntity{
-            public boolean shooting;
+            public boolean flip;
 
             public RammingSideEntity(RammingSide type){
                 super(type);
@@ -164,18 +168,21 @@ public class RammingEnemy extends MultiEnemy{
                 rotation = parent.rotation;
 
                 reloadt += reload();
-                if(reloadt >= 60 * charges) shooting = true;
-
-                if(shooting){
-                    reloadt -= 60;
-                    BulletEntity b = shoot(barrel + random(-inaccuracy, inaccuracy));
+                if(reloadt >= 60 && (reloadt - 60) % shootInterval < reload()){
+                    BulletEntity b = shoot((flip ? 360 - barrel : barrel) + random(-inaccuracy, inaccuracy));
                     if(b != null) b.speed *= random(velRand, 1f);
-                    if(reloadt < 60) shooting = false;
                 }
+                if(reloadt >= 60 + shootDuration * reload()) reloadt = 0;
             }
 
             @Override
             public void glow(){
+            }
+
+            @Override
+            public void draw(){
+                if(flip) flipSprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation, Color.white);
+                else super.draw();
             }
 
             @Override
@@ -198,15 +205,10 @@ public class RammingEnemy extends MultiEnemy{
         public RammingThruster(){
             super();
 
+            sprite.set("juggernaut-thruster");
+
             reload = 0.1f;
-            size = 17;
-        }
-
-        @Override
-        public void init(){
-            if(sprite == null) sprite = new Sprite(SpritePath.enemies, "juggernaut-thruster");
-
-            super.init();
+            size = 18;
         }
 
         @Override

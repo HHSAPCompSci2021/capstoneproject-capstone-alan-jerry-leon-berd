@@ -3,17 +3,15 @@ package project.ui.screens;
 import gameutils.math.*;
 import processing.core.*;
 import project.*;
-import project.core.Events.*;
-import project.core.Events.*;
+import project.core.Events.Event;
 import project.core.Input.*;
 import project.core.UI.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
 import project.ui.*;
 import project.ui.bars.*;
-import project.world.ship.*;
 
-import java.awt.Color;
+import java.awt.*;
 
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
@@ -23,7 +21,7 @@ import static project.graphics.Pal.*;
 public class GameScreen extends Screen{
     public Table playerHealth, playerShield, playerAmmo, playerExp, enemyHealth;
 
-    public Sprite background = new Sprite(SpritePath.backgrounds, "space2");
+    public Sprite background = new Sprite().set(SpritePath.backgrounds, "space2");
     public float rot = random(0, 360);
     public Vec2 pan = new Vec2();
 

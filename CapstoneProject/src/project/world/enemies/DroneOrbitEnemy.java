@@ -1,11 +1,7 @@
 package project.world.enemies;
 
 import project.*;
-import project.content.*;
 import project.core.*;
-import project.graphics.*;
-import project.graphics.Sprite.*;
-import project.world.bullets.*;
 import project.world.enemies.DroneOrbitEnemy.OrbitDrone.*;
 
 import java.awt.*;
@@ -27,6 +23,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
     public DroneOrbitEnemy(){
         super();
 
+        sprite.set("host-body");
         accel = 0.2f;
         color = new Color(80, 170, 255);
         size = 13;
@@ -35,8 +32,6 @@ public class DroneOrbitEnemy extends MultiEnemy{
     @Override
     public void init(){
         for(int i = 0;i < drones;i++) pieces.add(drone);
-
-        if(sprite == null) sprite = new Sprite(SpritePath.enemies, "host-body");
 
         super.init();
     }
@@ -97,17 +92,11 @@ public class DroneOrbitEnemy extends MultiEnemy{
         public OrbitDrone(){
             super();
 
+            sprite.set("host-drone-1");
             health = 5;
             size = 6;
             mass = 0.1f;
             reload = 0.5f;
-        }
-
-        @Override
-        public void init(){
-            super.init();
-
-            if(sprite == null) sprite = new Sprite(SpritePath.enemies, "host-drone-1");
         }
 
         @Override

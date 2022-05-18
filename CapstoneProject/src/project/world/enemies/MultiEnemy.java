@@ -1,7 +1,6 @@
 package project.world.enemies;
 
 import gameutils.struct.*;
-import project.core.*;
 import project.world.enemies.EnemyPart.*;
 
 import static project.Vars.*;
@@ -16,7 +15,7 @@ public class MultiEnemy extends Enemy{
         super.init();
 
         for(EnemyPart part : pieces){
-            part.init();
+            if(!part.initialized) part.init();
             mass += part.mass;
         }
     }

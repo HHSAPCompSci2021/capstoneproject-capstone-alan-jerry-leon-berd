@@ -16,9 +16,13 @@ public class Sprite{
     public PImage image;
 
     /** Creates a sprite with the source png at the specified path and name. */
-    public Sprite(SpritePath path, String name){
-        this.path = path.path + name + ".png";
+    public Sprite(){
         all.add(this);
+    }
+
+    public Sprite set(SpritePath path, String name){
+        this.path = path.path + name + ".png";
+        return this;
     }
 
     /** Loads this sprite. */
@@ -28,7 +32,6 @@ public class Sprite{
 
     public static void loadAll(){
         for(Sprite s : Sprite.all) s.load();
-        Sprite.all.clear();
     }
 
     public void draw(float x, float y){

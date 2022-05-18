@@ -1,9 +1,7 @@
 package project.world.ship.weapons;
 
 import project.*;
-import project.content.*;
 import project.graphics.*;
-import project.world.bullets.*;
 import project.world.bullets.Bullet.*;
 import project.world.bullets.VolleyBullet.*;
 

@@ -1,15 +1,8 @@
 package project.world.enemies;
 
-import project.content.*;
-import project.core.*;
-import project.graphics.*;
-import project.graphics.Sprite.*;
 import project.world.bullets.*;
-import project.world.bullets.Bullet.*;
 
 import java.awt.*;
-
-import static project.Vars.*;
 
 /** An enemy which rotates and spams bullets around itself. */
 public class SprayerEnemy extends Enemy{
@@ -27,20 +20,13 @@ public class SprayerEnemy extends Enemy{
             size = 2;
             speed = 5;
         }};
-        sprite = new Sprite(SpritePath.enemies, "gyrogun-1");
+        sprite.set("gyrogun-1");
         accel = 0.5f;
         color = new Color(255, 110, 50);
         health = 50;
         reload = 0.25f;
         rotate = 1f;
         size = 10;
-    }
-
-    @Override
-    public void init(){
-        if(sprite == null) sprite = new Sprite(SpritePath.enemies, "gyrogun-1");
-
-        super.init();
     }
 
     @Override
@@ -61,10 +47,8 @@ public class SprayerEnemy extends Enemy{
             reloadt += reload();
             rotation += rotate();
 
-            if(reloadt >= 60){
-                if((reloadt - 60) % shootInterval < reload()){
-                    for(int i = 0;i < bullets;i++) shoot(offset + 360f * i / bullets);
-                }
+            if(reloadt >= 60 && (reloadt - 60) % shootInterval < reload()){
+                for(int i = 0;i < bullets;i++) shoot(offset + 360f * i / bullets);
             }
             if(reloadt >= 60 + shootDuration * reload()) reloadt = 0;
         }

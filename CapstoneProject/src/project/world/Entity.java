@@ -47,7 +47,7 @@ public class Entity extends Instance implements Pos2{
 
     /** Draws the glow of this entity. */
     public void glow(){
-        if(color() != null) Effects.glow.drawc(pos.x, pos.y, size() * 20, size() * 20, color(), 50);
+        if(color() != null) Effects.glow.drawc(pos.x, pos.y, size() * 20, size() * 20, color(), 20);
     }
 
     /** Draws this entity. */

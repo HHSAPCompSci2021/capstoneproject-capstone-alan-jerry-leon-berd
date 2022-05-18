@@ -3,10 +3,8 @@ package project.world.bullets;
 import gameutils.math.*;
 import gameutils.struct.*;
 import project.*;
-import project.core.Content.*;
 import project.game.*;
 import project.graphics.*;
-import project.graphics.Sprite.*;
 import project.world.*;
 import project.world.ship.*;
 
@@ -18,7 +16,7 @@ import static project.core.Rules.Rule.*;
 
 /** Contains stats for a bullet. */
 public class Bullet{
-    public Sprite sprite = new BulletSprite("blast");
+    public BulletSprite sprite = new BulletSprite().set("blast");
 
     public float speed = 10;
     public float size = 5;
@@ -139,8 +137,9 @@ public class Bullet{
     }
 
     public class BulletSprite extends Sprite{
-        public BulletSprite(String name){
-            super(SpritePath.bullets, name);
+        public BulletSprite set(String name){
+            super.set(SpritePath.bullets, name);
+            return this;
         }
     }
 }

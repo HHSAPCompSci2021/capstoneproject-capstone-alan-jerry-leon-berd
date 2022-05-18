@@ -4,11 +4,8 @@ import gameutils.math.*;
 import gameutils.struct.*;
 import project.*;
 import project.core.Content.*;
-import project.core.Rules.*;
 import project.game.*;
 import project.graphics.*;
-import project.graphics.Sprite.*;
-import project.world.*;
 import project.world.modifiers.*;
 
 import static gameutils.util.Mathf.*;
@@ -17,7 +14,7 @@ import static project.core.Rules.Rule.*;
 
 /** Stores stats for a hull. */
 public class Hull extends Modifier implements ShipType{
-    public Sprite ship;
+    public ShipSprite ship = new ShipSprite();
 
     public float health = 100;
 
@@ -35,6 +32,10 @@ public class Hull extends Modifier implements ShipType{
         super(name);
 
         tag = "HULL";
+
+        sprite.set("hull-" + name);
+        ship.set(name);
+        thrusters.add(new Thruster(0, 8, 6f, 25f, 0));
     }
 
     @Override
@@ -65,15 +66,6 @@ public class Hull extends Modifier implements ShipType{
     @Override
     public float ram(){
         return ram;
-    }
-
-    @Override
-    public void init(){
-        if(sprite == null) sprite = new Sprite(SpritePath.upgrades, "hull-" + name);
-        if(ship == null) ship = new Sprite(SpritePath.ships, name);
-        if(thrusters.size == 0) thrusters.add(new Thruster(0, 8, 6f, 25f, 0));
-
-        super.init();
     }
 
     @Override
@@ -118,4 +110,10 @@ public class Hull extends Modifier implements ShipType{
         }
     }
 
+    public class ShipSprite extends Sprite{
+        public ShipSprite set(String name){
+            super.set(SpritePath.ships, name);
+            return this;
+        }
+    }
 }

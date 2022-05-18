@@ -1,9 +1,6 @@
 package project.world.bullets;
 
-import gameutils.util.*;
 import project.*;
-import project.graphics.*;
-import project.graphics.Sprite.*;
 import project.world.ship.*;
 
 import static gameutils.util.Mathf.*;
@@ -22,7 +19,7 @@ public class MissileBullet extends Bullet{
     public MissileBullet(){
         super();
 
-        sprite = new BulletSprite("salvo");
+        sprite.set("salvo");
         damage = 10;
         speed = 1f;
         size = 4;

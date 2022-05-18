@@ -1,10 +1,8 @@
 package project.world.ship.weapons;
 
 import project.*;
-import project.content.*;
 import project.world.bullets.Bullet.*;
 
-import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 /** Stores stats for a weapon which propels the player forward and drops mines behind it. */

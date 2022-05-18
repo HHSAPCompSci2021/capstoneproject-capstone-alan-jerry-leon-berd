@@ -5,11 +5,7 @@ import processing.core.*;
 import project.core.UI.*;
 import project.graphics.*;
 import project.ui.*;
-import project.ui.List;
 import project.ui.interactables.*;
-import project.ui.interactables.Button;
-
-import java.awt.*;
 
 import static java.lang.Math.*;
 import static project.Vars.*;

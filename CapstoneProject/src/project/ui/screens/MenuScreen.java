@@ -19,7 +19,7 @@ import static project.Vars.*;
  */
 public class MenuScreen extends Screen{
     public Table side;
-    public Sprite background = new Sprite(SpritePath.backgrounds, "space3");
+    public Sprite background = new Sprite().set(SpritePath.backgrounds, "space3");
     public int menu = 0;
     public float sidex = 0;
     public Cons<Button> buttonHover = b -> Effects.blur.draw(-50, 0, 350, b.height(), Pal.opaqueWhite);

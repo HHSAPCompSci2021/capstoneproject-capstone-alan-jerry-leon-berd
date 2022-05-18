@@ -1,7 +1,6 @@
 package project.ui.drawables;
 
 import gameutils.func.*;
-import project.core.UI.*;
 import project.ui.*;
 
 import static gameutils.util.Mathf.*;

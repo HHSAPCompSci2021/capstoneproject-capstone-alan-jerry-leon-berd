@@ -1,9 +1,6 @@
 package project.core;
 
-import gameutils.func.prim.*;
 import gameutils.math.*;
-import gameutils.math.interp.*;
-import gameutils.util.*;
 import processing.core.*;
 import project.graphics.*;
 import project.ui.screens.*;
