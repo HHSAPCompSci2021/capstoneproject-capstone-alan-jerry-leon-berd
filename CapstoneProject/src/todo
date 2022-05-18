@@ -1,8 +1,7 @@
 modifiers?
-teleport enemy
-snipe enemy??
-shields
-hulls
+weapons
+enemies (snipe, teleport)
+shields + hulls
 bosses
 background (astroid, shooting stars, black hole)
 

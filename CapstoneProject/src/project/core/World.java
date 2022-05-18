@@ -49,7 +49,7 @@ public class World{
         waves = new Waves();
 //        waves.spawnWave();
 
-        EnemyEntity e = Enemies.juggernaut.common.create();
+        EnemyEntity e = Enemies.dodger.common.create();
         e.team = Team.enemy;
         e.justSpawned = true;
         e.pos.set(Tmp.v1.set(random(0, width), random(0, height)).sub(world.bounds.center()).nor().scl(width).add(world.bounds.center()));
