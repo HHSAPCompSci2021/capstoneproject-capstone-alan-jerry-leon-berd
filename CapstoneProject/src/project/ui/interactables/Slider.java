@@ -1,7 +1,6 @@
 package project.ui.interactables;
 
 import gameutils.func.prim.*;
-import gameutils.util.*;
 import project.ui.drawables.*;
 
 import static gameutils.util.Mathf.*;

@@ -1,9 +1,6 @@
 package project.core;
 
-import gameutils.func.prim.*;
 import gameutils.math.*;
-import gameutils.math.interp.*;
-import gameutils.util.*;
 import processing.core.*;
 import project.graphics.*;
 import project.ui.screens.*;
@@ -44,7 +41,7 @@ public class Canvas extends PApplet{
     public void setup(){
         super.setup();
         textFont(createFont("assets/fonts/brandbe/Brandbe Regular.otf", 100, true));
-        for(Sprite s : Sprite.all) s.load();
+        Sprite.loadAll();
         screen(ui.menuScreen);
     }
 

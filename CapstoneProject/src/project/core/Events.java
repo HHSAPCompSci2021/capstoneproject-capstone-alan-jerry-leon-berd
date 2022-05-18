@@ -40,7 +40,8 @@ public class Events{
 
         playerDamaged,
         playerKilled,
-        enemyDestroyed;
+        enemyDestroyed,
+        enemyHit;
 
         public static Event[] all = values();
 

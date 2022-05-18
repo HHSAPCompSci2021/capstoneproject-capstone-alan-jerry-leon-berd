@@ -1,8 +1,6 @@
 package project.content;
 
 import project.core.Content.*;
-import project.graphics.*;
-import project.graphics.Sprite.*;
 import project.world.bullets.*;
 import project.world.ship.weapons.*;
 
@@ -13,22 +11,14 @@ public class Weapons implements ContentList{
     @Override
     public void load(){
         blaster = new VolleyWeapon("blaster"){{
-            bullet = new VolleyBullet();
+            bullet = new Bullet();
         }};
         salvo = new SalvoWeapon("salvo"){{
             bullet = new MissileBullet();
         }};
-        flak = new Weapon("flak"){{
-            reload = 1.5f;
-            shots = 15;
-            spread = 4;
-            inaccuracy = 5;
-            velRand = 0.7f;
-            lifeRand = 0.3f;
-            manual = true;
-
+        flak = new ShotgunWeapon("flak"){{
             bullet = new Bullet(){{
-                sprite = new Sprite(SpritePath.bullets, "flak");
+                sprite = new BulletSprite().set("flak");
                 trailDuration = 10;
                 trailSize = 2;
                 speed = 30;

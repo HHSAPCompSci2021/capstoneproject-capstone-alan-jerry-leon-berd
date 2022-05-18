@@ -1,7 +1,6 @@
 package project.world.bullets;
 
 import gameutils.math.*;
-import gameutils.util.*;
 
 import static project.Vars.*;
 

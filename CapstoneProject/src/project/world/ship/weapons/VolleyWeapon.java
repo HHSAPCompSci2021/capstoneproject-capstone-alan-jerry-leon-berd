@@ -1,9 +1,7 @@
 package project.world.ship.weapons;
 
 import project.*;
-import project.content.*;
 import project.graphics.*;
-import project.world.bullets.*;
 import project.world.bullets.Bullet.*;
 import project.world.bullets.VolleyBullet.*;
 
@@ -36,12 +34,12 @@ public class VolleyWeapon extends Weapon{
                 BulletEntity b = def(bullet.create());
 //                float x = ((float)i / (actual - 1) - 0.5f) * spread;
                 float x = (i - projectiles() / 2f + 0.5f) * spread;
-                b.pos.set(world.player.hull.shootPos()).add(Tmp.v1.set(0, x).rot(world.player.rotation));
-                Effects.gunfire.at(Tmp.v1.x, Tmp.v1.y, e -> e.color(0, world.player.color()).parent(world.player));
+                b.pos.set(player().hull.shootPos()).add(Tmp.v1.set(0, x).rot(player().rotation));
+                Effects.gunfire.at(Tmp.v1.x, Tmp.v1.y, e -> e.color(0, player().color()).parent(player()));
                 world.bullets.add(b);
                 if(b instanceof VolleyBulletEntity && i >= projectiles() / 2) ((VolleyBulletEntity)b).flip = true;
 
-                world.player.apply(Tmp.v1.set(-recoil(), 0).rot(world.player.rotation));
+                player().apply(Tmp.v1.set(-recoil(), 0).rot(player().rotation));
             }
         }
     }

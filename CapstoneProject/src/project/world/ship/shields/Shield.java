@@ -1,10 +1,7 @@
-package project.world.ship;
+package project.world.ship.shields;
 
 import project.core.Content.*;
 import project.game.*;
-import project.graphics.*;
-import project.graphics.Sprite.*;
-import project.world.*;
 import project.world.modifiers.*;
 
 import java.awt.*;
@@ -25,13 +22,8 @@ public class Shield extends Modifier{
         super(name);
 
         tag = "SHIELD";
-    }
 
-    @Override
-    public void init(){
-        if(sprite == null) sprite = new Sprite(SpritePath.upgrades, "shield-" + name);
-
-        super.init();
+        sprite.set("shield-" + name);
     }
 
     @Override

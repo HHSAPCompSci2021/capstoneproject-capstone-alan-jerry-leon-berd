@@ -5,8 +5,6 @@ import project.core.Content.*;
 import project.core.Input.*;
 import project.game.*;
 import project.graphics.*;
-import project.graphics.Sprite.*;
-import project.world.*;
 import project.world.bullets.*;
 import project.world.bullets.Bullet.*;
 import project.world.modifiers.*;
@@ -34,13 +32,8 @@ public class Weapon extends Modifier{
         super(name);
 
         tag = "WEAPON";
-    }
 
-    @Override
-    public void init(){
-        if(sprite == null) sprite = new Sprite(SpritePath.upgrades, "weapon-" + name);
-
-        super.init();
+        sprite.set("weapon-" + name);
     }
 
     @Override
@@ -99,12 +92,12 @@ public class Weapon extends Modifier{
 
         /** Sets the defaults of the specified bullet shot by this weapon. */
         public BulletEntity def(BulletEntity b){
-            b.pos.set(world.player.hull.shootPos());
+            b.pos.set(player().hull.shootPos());
             b.team = Team.player;
-            b.rotation = world.player.rotation + random(-inaccuracy, inaccuracy);
+            b.rotation = player().rotation + random(-inaccuracy, inaccuracy);
             b.speed *= random(1f - velRand, 1f);
-            b.life = b.type().lifetime * random(0, lifeRand);
-            b.origin = world.player;
+            b.life = b.bullet.lifetime * random(0, lifeRand);
+            b.origin = player();
             return b;
         }
 
@@ -114,9 +107,9 @@ public class Weapon extends Modifier{
                 BulletEntity b = def(bullet.create());
                 b.rotation += spread * (i - (shots - 1) / 2f);
                 world.bullets.add(b);
-                Tmp.v1.set(world.player.hull.shootPos()).sub(world.player.pos);
-                Effects.gunfire.at(Tmp.v1.x, Tmp.v1.y, e -> e.color(0, world.player.color()).parent(world.player));
-                world.player.apply(Tmp.v1.set(-recoil(), 0).rot(world.player.rotation));
+                Tmp.v1.set(player().hull.shootPos()).sub(player().pos);
+                Effects.gunfire.at(Tmp.v1.x, Tmp.v1.y, e -> e.color(0, player().color()).parent(player()));
+                player().apply(Tmp.v1.set(-recoil(), 0).rot(player().rotation));
             }
         }
 

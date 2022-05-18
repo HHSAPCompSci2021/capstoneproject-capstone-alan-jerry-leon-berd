@@ -3,7 +3,6 @@ package project.graphics;
 import gameutils.func.*;
 import gameutils.math.*;
 import project.*;
-import project.graphics.Sprite.*;
 import project.world.*;
 
 import java.awt.*;
@@ -13,7 +12,7 @@ import static project.Vars.*;
 
 /** Contains a list of all effects in the game. */
 public class Effects{
-    public static Sprite glow, blur, thruster, frame, slant, blur2;
+    public static Sprite glow, blur, blur2, thruster, frame, slant;
 
     public static Effect
     explosion,
@@ -26,12 +25,12 @@ public class Effects{
     trail;
 
     public void init(){
-        glow = new GlowSprite(SpritePath.effects, "glow");
-        blur = new GlowSprite(SpritePath.effects, "blur");
-        thruster = new Sprite(SpritePath.effects, "thruster");
-        frame = new Sprite(SpritePath.effects, "frame");
-        slant = new Sprite(SpritePath.effects, "slant");
-        slant = new Sprite(SpritePath.effects, "blur2");
+        glow = new GlowSprite().set("glow");
+        blur = new GlowSprite().set("blur");
+        blur2 = new GlowSprite().set("blur2");
+        thruster = new EffectSprite().set("thruster");
+        frame = new EffectSprite().set("frame");
+        slant = new EffectSprite().set("slant");
 
         shockwave = new Effect(25, e -> e.create(5).set(3, 1).set(4, 1), e -> {
             canvas.noFill();
@@ -81,10 +80,18 @@ public class Effects{
         });
     }
 
+    public class EffectSprite extends Sprite{
+        public EffectSprite set(String name){
+            super.set(SpritePath.effects, name);
+            return this;
+        }
+    }
+
     /** Represents a sprite that is only drawn when glowEnabled is on. */
-    public static class GlowSprite extends Sprite{
-        public GlowSprite(SpritePath path, String name){
-            super(path, name);
+    public class GlowSprite extends EffectSprite{
+        public GlowSprite set(String name){
+            super.set(name);
+            return this;
         }
 
         @Override
@@ -99,7 +106,7 @@ public class Effects{
     }
 
     /** Represents a type of effect. Stores the effect renderer and initialization runnables. */
-    public static class Effect{
+    public class Effect{
         public Cons<EffectEntity> init;
         public Cons<EffectEntity> drawer;
 

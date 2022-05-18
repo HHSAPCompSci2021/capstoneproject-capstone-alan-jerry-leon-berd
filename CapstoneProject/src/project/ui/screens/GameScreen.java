@@ -1,8 +1,9 @@
 package project.ui.screens;
 
 import gameutils.math.*;
+import processing.core.*;
 import project.*;
-import project.core.Events.*;
+import project.core.Events.Event;
 import project.core.Input.*;
 import project.core.UI.*;
 import project.graphics.*;
@@ -10,15 +11,17 @@ import project.graphics.Sprite.*;
 import project.ui.*;
 import project.ui.bars.*;
 
+import java.awt.*;
+
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 import static project.graphics.Pal.*;
 
 /** Contains all the UI of a game screen. */
 public class GameScreen extends Screen{
-    public Table playerHealth, playerShield, playerAmmo, playerExp;
+    public Table playerHealth, playerShield, playerAmmo, playerExp, enemyHealth;
 
-    public Sprite background = new Sprite(SpritePath.backgrounds, "space2");
+    public Sprite background = new Sprite().set(SpritePath.backgrounds, "space2");
     public float rot = random(0, 360);
     public Vec2 pan = new Vec2();
 
@@ -29,6 +32,7 @@ public class GameScreen extends Screen{
         playerAmmo = new SegmentedBar(width / 3f, 5, 3).segments(() -> world.player.weapon.charges()).progress(() -> world.player.weapon.fin()).color(expGray).alignX(AlignX.center).x(width / 2f).y(height - 80);
 
         playerExp = new SmoothBar(width - 100, 5).progress(() -> world.player.exp / pow(expScaling, world.player.level) / baseLevelExp).color(expGray).alignX(AlignX.center).x(width / 2f).y(10);
+        enemyHealth = new SmoothBar(width / 4f, 3).progress(() -> world.player.lastHit.life / world.player.lastHit.health()).color(expGray).alignX(AlignX.center).x(width / 2f).y(18);
 
         events.on(Event.playerKilled, event -> {
             canvas.shake(100);
@@ -49,6 +53,8 @@ public class GameScreen extends Screen{
             if(world.player.level > world.player.spent) canvas.screen(ui.upgradeScreen);
             else canvas.screen(ui.pauseScreen);
         }
+
+        canvas.cursor(PConstants.CROSS);
     }
 
     @Override
@@ -56,7 +62,7 @@ public class GameScreen extends Screen{
         canvas.pushMatrix();
         canvas.translate(-pan.x / 50f, -pan.y / 50f);
         canvas.tint(255, 255, 255);
-        background.drawh(Tmp.v1.setr(rot, 1).x * 550 - 550, Tmp.v1.y * 100 - 100, height + 200);
+        background.draw(Tmp.v1.setr(rot, 1).x * 550 - 550, Tmp.v1.y * 100 - 100, (float)background.image.width * (height + 200) / background.image.height, height + 200, Color.white);
         canvas.popMatrix();
 
         canvas.fill(0, 0, 0, 150);
@@ -67,9 +73,12 @@ public class GameScreen extends Screen{
         world.draw();
         canvas.pop();
 
-        playerHealth.process();
-        playerShield.process();
-        if(world.player.weapon.charges() > 1) playerAmmo.process();
-        playerExp.process();
+        if(world.player.keep()){
+            playerHealth.process();
+            playerShield.process();
+            if(world.player.weapon.charges() > 1) playerAmmo.process();
+            playerExp.process();
+            if(world.player.lastHit != null && world.player.lastHit.keep()) enemyHealth.process();
+        }
     }
 }

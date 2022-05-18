@@ -2,16 +2,15 @@ package project.world.enemies;
 
 import project.*;
 import project.core.Content.*;
-import project.core.Events.*;
+import project.core.Events.Event;
 import project.game.*;
 import project.graphics.*;
-import project.graphics.Sprite.*;
 import project.world.*;
 import project.world.bullets.*;
 import project.world.bullets.Bullet.*;
 import project.world.ship.*;
 
-import java.awt.Color;
+import java.awt.*;
 
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
@@ -19,23 +18,23 @@ import static project.core.Rules.Rule.*;
 
 /** Stores stats for an enemy. */
 public class Enemy extends Type implements ShipType{
-    public Sprite sprite;
+    public EnemySprite sprite = new EnemySprite();
     public Color color = Color.white;
 
     public float health = 100;
     public float accel = 0.2f;
     public float rotate = 10;
-    public float mass = 1;
+    public float mass = 0;
     public float size = 10;
     public float ram = 1;
 
     public float reload = 1;
 
-    public Bullet bullet;
+    public Bullet bullet = new Bullet();
 
     @Override
     public void init(){
-        if(bullet == null) bullet = new Bullet();
+        if(mass == 0) mass = size * size / 100f;
 
         super.init();
     }
@@ -106,8 +105,8 @@ public class Enemy extends Type implements ShipType{
             return sprite;
         }
 
-        public void shoot(float offset){
-            if(!world.bounds.contains(pos)) return;
+        public BulletEntity shoot(float offset){
+            if(!world.bounds.contains(pos)) return null;
 
             BulletEntity b = bullet.create();
             b.pos.set(pos);
@@ -115,6 +114,12 @@ public class Enemy extends Type implements ShipType{
             b.rotation = rotation + offset;
             b.origin = this;
             world.bullets.add(b);
+            return b;
+        }
+
+        @Override
+        public void wrap(){
+            if(!justSpawned) super.wrap();
         }
 
         @Override
@@ -133,8 +138,7 @@ public class Enemy extends Type implements ShipType{
         public void draw(){
             super.draw();
 
-            canvas.tint(255, 255, 255);
-            sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation);
+            sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation, Color.white);
         }
 
         @Override
@@ -162,4 +166,10 @@ public class Enemy extends Type implements ShipType{
         }
     }
 
+    public class EnemySprite extends Sprite{
+        public EnemySprite set(String name){
+            super.set(SpritePath.enemies, name);
+            return this;
+        }
+    }
 }

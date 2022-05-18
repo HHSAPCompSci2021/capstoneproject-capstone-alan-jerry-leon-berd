@@ -83,6 +83,11 @@ public class Entities<T extends Entity>{
         entities.addAll(buffer);
     }
 
+    /** Draws the glow of every valid entity in this list. */
+    public void glow(){
+        for(T e : entities) if(e.keep()) e.glow();
+    }
+
     /** Draws every valid entity in this list. */
     public void draw(){
         for(T e : entities) if(e.keep()) e.draw();

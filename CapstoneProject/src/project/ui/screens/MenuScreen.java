@@ -19,7 +19,7 @@ import static project.Vars.*;
  */
 public class MenuScreen extends Screen{
     public Table side;
-    public Sprite background = new Sprite(SpritePath.backgrounds, "space3");
+    public Sprite background = new Sprite().set(SpritePath.backgrounds, "space3");
     public int menu = 0;
     public float sidex = 0;
     public Cons<Button> buttonHover = b -> Effects.blur.draw(-50, 0, 350, b.height(), Pal.opaqueWhite);
@@ -155,8 +155,7 @@ public class MenuScreen extends Screen{
     public void draw(){
         canvas.pushMatrix();
         canvas.translate(-canvas.mouseX / 50f, -canvas.mouseY / 50f);
-        canvas.tint(255, 255, 255);
-        background.drawh(-125, 0, height);
+        background.draw(-125, 0, (float)background.image.width * height / background.image.height, height, Color.white);
         canvas.popMatrix();
 
         Effects.blur.draw(sidex - 300, 0, 300, height, Color.black);

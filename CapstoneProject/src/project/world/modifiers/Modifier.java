@@ -3,13 +3,15 @@ package project.world.modifiers;
 import gameutils.struct.*;
 import project.core.Content.*;
 import project.core.Rules.*;
+import project.game.*;
 import project.graphics.*;
-import project.graphics.Sprite.*;
 import project.world.*;
+
+import static project.Vars.*;
 
 /** Stores stats for a modifier. */
 public class Modifier extends Type{
-    public Sprite sprite;
+    public UpgradeSprite sprite = new UpgradeSprite();
     public String name;
     public String tag;
     public Seq<String> pros, cons;
@@ -21,10 +23,14 @@ public class Modifier extends Type{
 
     public Modifier(String name){
         super();
+
         this.name = name;
+
         tag = "MOD";
         pros = new Seq<>();
         cons = new Seq<>();
+
+        sprite.set("mod-" + name);
     }
 
     public void addPro(String point){
@@ -37,8 +43,6 @@ public class Modifier extends Type{
 
     @Override
     public void init(){
-        if(sprite == null) sprite = new Sprite(SpritePath.upgrades, "mod-" + name);
-
         for(int i = 0;i < Rule.all.length;i++){
             if(mult[i] > 0) addPro("+" + (int)(mult[i] * 100) + "% " + Rule.all[i].name);
             if(mult[i] < 0) addCon("-" + (int)(-mult[i] * 100) + "% " + Rule.all[i].name);
@@ -71,16 +75,25 @@ public class Modifier extends Type{
     }
 
     /** Represents and simulates an instance of a modifier. */
-    public static class ModInstance extends Instance{
+    public class ModInstance extends Instance{
         public ModInstance(Modifier type){
             super(type);
         }
 
-        //TODO: Method that returns the player
+        public Player player(){
+            return world.player;
+        }
 
         @Override
         public Modifier type(){
             return (Modifier)type;
+        }
+    }
+
+    public class UpgradeSprite extends Sprite{
+        public UpgradeSprite set(String name){
+            super.set(SpritePath.upgrades, name);
+            return this;
         }
     }
 }

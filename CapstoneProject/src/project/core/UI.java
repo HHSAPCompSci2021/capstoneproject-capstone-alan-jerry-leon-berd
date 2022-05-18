@@ -2,8 +2,6 @@ package project.core;
 
 import project.ui.screens.*;
 
-import static project.Vars.*;
-
 /** Stores the screens and UI. */
 public class UI{
     public MenuScreen menuScreen;

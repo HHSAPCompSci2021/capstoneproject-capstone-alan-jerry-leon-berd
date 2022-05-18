@@ -3,9 +3,9 @@ package project.world.ship;
 import gameutils.math.*;
 import gameutils.struct.*;
 import project.*;
-import project.core.*;
 import project.graphics.*;
 import project.world.*;
+import project.world.ship.StatusEffect.*;
 
 import java.awt.*;
 
@@ -14,10 +14,11 @@ import static project.Vars.*;
 import static project.core.Rules.Rule.*;
 
 /** Represents a ship. */
-public abstract class Ship extends Entity{
+public class Ship extends Entity{
     /** Stores the rotation of this ship. */
     public float rotation = 0;
 
+    public Seq<StatusEntry> statuses = new Seq<>();
     public Set<Ship> collided = new Set<>();
 
     public Ship(ShipType type){
@@ -33,11 +34,10 @@ public abstract class Ship extends Entity{
         vel.add(x / mass(), y / mass());
     }
 
-    /** Returns the color of this ship. */
-    public abstract Color color();
-
     /** Returns the sprite of this ship. */
-    public abstract Sprite sprite();
+    public Sprite sprite(){
+        return null;
+    }
 
     public float mass(){
         return (ship().mass() + rules.add(shipMass, team)) * rules.mult(shipMass, team);
@@ -53,15 +53,20 @@ public abstract class Ship extends Entity{
     }
 
     public float accel(){
-        return (ship().accel() + rules.add(enginePower, team)) * rules.mult(enginePower, team);
+        return (ship().accel() + rules.add(enginePower, team)) * rules.mult(enginePower, team) * delta;
     }
 
     public float rotate(){
-        return (ship().rotate() + rules.add(rotateSpeed, team)) * rules.mult(rotateSpeed, team);
+        return (ship().rotate() + rules.add(rotateSpeed, team)) * rules.mult(rotateSpeed, team) * delta;
     }
 
     public float ram(){
         return (ship().ram() + rules.add(ramDamage, team)) * rules.mult(ramDamage, team);
+    }
+
+    public boolean spawned(){
+//        return statuses.contains(b -> b.type() == Statuses.spawned); //Note that since spawned is usually the first effect added, this isn't very inefficient
+        return false;
     }
 
     /** Deals the specified damage to this ship. */
@@ -79,6 +84,13 @@ public abstract class Ship extends Entity{
         rotation = turn(rotation, angle, rotate());
     }
 
+    public void wrap(){
+        if(!Tmp.r1.set(world.bounds).expand(size()).contains(pos)){
+            pos.x = mod(pos.x - Tmp.r1.x, Tmp.r1.w) + Tmp.r1.x;
+            pos.y = mod(pos.y - Tmp.r1.y, Tmp.r1.h) + Tmp.r1.y;
+        }
+    }
+
     @Override
     public void init(){
         life = health();
@@ -92,7 +104,7 @@ public abstract class Ship extends Entity{
 
         world.ships.raycast(x, y, size() + maxEntitySize, vel.ang(), vel.len(), (s, pos) -> {
             if(s != this && !collided.contains(s) && dst(s, pos) < s.size() + size()){
-                if(s.team != team) s.damage(vel.len() * mass() * ram());
+                if(s.team != team) s.damage(vel.len() * mass() * ram() * universalRamDamage);
                 s.apply(Tmp.v1.set(s.pos).sub(pos).nor().scl(universalDamping * (s.team != team ? 10 : 1)));
                 apply(Tmp.v1.inv());
                 collided.add(s);
@@ -104,8 +116,8 @@ public abstract class Ship extends Entity{
     }
 
     @Override
-    public void draw(){
-        Effects.glow.drawc(pos.x, pos.y, size() * 20, size() * 20, color(), 20);
+    public void glow(){
+        super.glow();
         Effects.glow.drawc(pos.x, pos.y, size() * 5, size() * 5, Color.white, 30);
     }
 

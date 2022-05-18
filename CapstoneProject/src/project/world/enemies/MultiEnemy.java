@@ -1,7 +1,6 @@
 package project.world.enemies;
 
 import gameutils.struct.*;
-import project.core.*;
 import project.world.enemies.EnemyPart.*;
 
 import static project.Vars.*;
@@ -13,8 +12,12 @@ public class MultiEnemy extends Enemy{
 
     @Override
     public void init(){
-        for(EnemyPart part : pieces) mass += part.mass;
         super.init();
+
+        for(EnemyPart part : pieces){
+            if(!part.initialized) part.init();
+            mass += part.mass;
+        }
     }
 
     @Override
@@ -47,13 +50,6 @@ public class MultiEnemy extends Enemy{
         public void update(){
             for(EnemyPartEntity part : parts) collided.add(part);
             super.update();
-        }
-
-        @Override
-        public void remove() {
-            super.remove();
-
-            Sounds.playSound("fuel_explosion.mp3");
         }
     }
 }

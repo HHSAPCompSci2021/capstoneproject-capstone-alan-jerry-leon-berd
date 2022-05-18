@@ -9,8 +9,8 @@ import project.graphics.*;
 import project.world.modifiers.*;
 import project.world.modifiers.Modifier.*;
 import project.world.ship.Hull.*;
-import project.world.ship.Shield.*;
 import project.world.ship.*;
+import project.world.ship.shields.Shield.*;
 import project.world.ship.weapons.Weapon.*;
 
 import java.awt.*;
@@ -20,6 +20,8 @@ import static project.Vars.*;
 
 /** Represents the player ship. */
 public class Player extends Ship{
+    public Ship lastHit;
+
     public HullInstance hull;
     public ShieldInstance shield;
     public WeaponInstance weapon;
@@ -42,8 +44,6 @@ public class Player extends Ship{
     public float fin(){
         return life / health();
     }
-
-
 
     @Override
     public Color color(){
@@ -100,10 +100,7 @@ public class Player extends Ship{
             thrust();
         }
 
-        if(!world.bounds.contains(pos)){
-            pos.x = mod(pos.x - world.bounds.x, world.bounds.w) + world.bounds.x;
-            pos.y = mod(pos.y - world.bounds.y, world.bounds.h) + world.bounds.y;
-        }
+        wrap();
 
 //        for(ModEntry m : modifiers) m.update();
     }

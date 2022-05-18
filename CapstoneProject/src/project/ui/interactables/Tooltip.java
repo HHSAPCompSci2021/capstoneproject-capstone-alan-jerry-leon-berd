@@ -3,7 +3,6 @@ package project.ui.interactables;
 import gameutils.func.*;
 import gameutils.func.prim.*;
 import project.ui.*;
-import project.ui.screens.*;
 
 import static project.Vars.*;
 

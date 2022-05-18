@@ -15,19 +15,23 @@ public class Sprite{
     public String path;
     public PImage image;
 
-    public Sprite(String path){
-        this.path = path;
+    /** Creates a sprite with the source png at the specified path and name. */
+    public Sprite(){
         all.add(this);
     }
 
-    /** Creates a sprite with the source png at the specified path and name. */
-    public Sprite(SpritePath path, String name){
-        this(path.path + name + ".png");
+    public Sprite set(SpritePath path, String name){
+        this.path = path.path + name + ".png";
+        return this;
     }
 
     /** Loads this sprite. */
     public void load(){
         image = canvas.loadImage(path);
+    }
+
+    public static void loadAll(){
+        for(Sprite s : Sprite.all) s.load();
     }
 
     public void draw(float x, float y){
@@ -36,10 +40,6 @@ public class Sprite{
 
     public void draw(float x, float y, float r, Color tint){
         draw(x, y, image.width, image.height, r, tint);
-    }
-
-    public void drawh(float x, float y, float h){
-        draw(x, y, image.width * (h / image.height), h);
     }
 
     public void draw(float x, float y, float w, float h){
@@ -51,8 +51,9 @@ public class Sprite{
     }
 
     public void draw(float x, float y, float w, float h, Color tint, float alpha){
-        canvas.tint(tint.getRGB(), alpha);
+        canvas.tint(tint, alpha);
         draw(x, y, w, h);
+        canvas.tint(255, 255, 255);
     }
 
     public void draw(float x, float y, float w, float h, float r){
@@ -69,8 +70,9 @@ public class Sprite{
 
     /** Draw an image with top left corner at (x, y), a width w, a height h, a rotation r, the specified tint and alpha. All other draw methods are overloaded variants of this method. */
     public void draw(float x, float y, float w, float h, float r, Color tint, float alpha){
-        canvas.tint(tint.getRGB(), alpha);
+        canvas.tint(tint, alpha);
         draw(x, y, w, h, r);
+        canvas.tint(255, 255, 255);
     }
 
     public void drawc(float x, float y, float r, Color tint){

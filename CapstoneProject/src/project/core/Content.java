@@ -28,7 +28,7 @@ public class Content{
 
         for(ContentList list : lists) list.load();
 
-        for(Type content : all) content.init();
+        for(Type content : all) if(!content.initialized) content.init();
     }
 
     /** Process the content specified (Add it to the content map and list). */
@@ -49,8 +49,7 @@ public class Content{
         shield,
         weapon,
         modifier,
-        enemy,
-        bullet;
+        enemy;
 
         public static ContentType[] all = values();
 

@@ -1,10 +1,7 @@
 package project.world.enemies;
 
 import project.*;
-import project.content.*;
-import project.graphics.*;
-import project.graphics.Sprite.*;
-import project.world.bullets.*;
+import project.core.*;
 import project.world.enemies.DroneOrbitEnemy.OrbitDrone.*;
 
 import java.awt.*;
@@ -18,7 +15,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
     public float droneSpace = 30;
     public float orbitSpeed = 2;
 
-    public float kiteDistance = 100;
+    public float kiteDistance = 200;
     public boolean spacedShooting = false;
 
     public EnemyPart drone;
@@ -26,6 +23,8 @@ public class DroneOrbitEnemy extends MultiEnemy{
     public DroneOrbitEnemy(){
         super();
 
+        sprite.set("host-body");
+        accel = 0.2f;
         color = new Color(80, 170, 255);
         size = 13;
     }
@@ -33,8 +32,6 @@ public class DroneOrbitEnemy extends MultiEnemy{
     @Override
     public void init(){
         for(int i = 0;i < drones;i++) pieces.add(drone);
-
-        if(sprite == null) sprite = new Sprite(SpritePath.enemies, "host-body");
 
         super.init();
     }
@@ -81,24 +78,25 @@ public class DroneOrbitEnemy extends MultiEnemy{
             rotate(Tmp.v1.set(world.player.pos).sub(pos).ang());
             if(dst(world.player.pos, pos) > kiteDistance) thrust();
         }
+
+        @Override
+        public void remove(){
+            super.remove();
+
+            Sounds.playSound("fuel_explosion.mp3");
+        }
     }
 
     /** Stores stats for the drones that rotate around the enemy. */
-    public static class OrbitDrone extends EnemyPart{
+    public class OrbitDrone extends EnemyPart{
         public OrbitDrone(){
             super();
 
+            sprite.set("host-drone-1");
             health = 5;
             size = 6;
             mass = 0.1f;
             reload = 0.5f;
-        }
-
-        @Override
-        public void init(){
-            super.init();
-
-            if(sprite == null) sprite = new Sprite(SpritePath.enemies, "host-drone-1");
         }
 
         @Override
@@ -113,9 +111,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
             }
 
             @Override
-            public void draw(){
-                canvas.tint(255, 255, 255);
-                sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation);
+            public void glow(){
             }
 
             @Override
@@ -127,6 +123,13 @@ public class DroneOrbitEnemy extends MultiEnemy{
                     reloadt = 0;
                     shoot(0);
                 }
+            }
+
+            @Override
+            public void remove(){
+                super.remove();
+
+                Sounds.playSound("fuel_explosion.mp3");
             }
         }
     }
