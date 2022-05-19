@@ -16,7 +16,7 @@ public class RailgunBullet extends Bullet{
 
         size = 10;
         speed = 75;
-        damage = 100;
+        damage = 150;
         trailDuration = 20;
         trailSize = 5;
     }

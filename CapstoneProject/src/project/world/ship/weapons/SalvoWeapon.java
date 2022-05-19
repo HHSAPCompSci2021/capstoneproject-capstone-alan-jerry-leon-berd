@@ -8,12 +8,12 @@ import static project.Vars.*;
 import static project.core.Rules.Rule.*;
 
 public class SalvoWeapon extends Weapon{
-    public float chargeBonus = 0.0005f;
+    public float chargeBonus = 0.001f;
 
     public SalvoWeapon(String name){
         super(name);
         shots = 4;
-        reload = 1.5f;
+        reload = 1.7f;
         inaccuracy = 20;
         charges = 25;
     }

@@ -64,13 +64,14 @@ public class Player extends Ship{
     @Override
     public void damage(float damage){
         events.call(Event.playerDamaged);
+        float real = damage * vulnerability();
         if(shield.value > 0){
-            if(shield.value > damage) shield.value -= damage;
+            if(shield.value > real) shield.value -= real;
             else{
                 shield.value = 0;
-                life -= damage - shield.value;
+                life -= real - shield.value;
             }
-        }else life -= damage;
+        }else life -= real;
     }
 
     @Override

@@ -44,7 +44,7 @@ public class Weapons implements ContentList{
             charges = 3;
             bullet = new GrenadeBullet();
         }};
-        lance = new Weapon("lance"){{
+        lance = new LanceWeapon("lance"){{
             bullet = new LanceBullet();
         }};
     }

@@ -39,7 +39,7 @@ public class Effects{
             canvas.ellipse(0, 0, e.data[3] * 3 * e.fin(), e.data[3] * 3 * e.fin());
 
             Effects.glow.drawc(0, 0, e.data[3] * 5 * e.fin(), e.data[3] * 5 * e.fin(), Color.white, 255 * e.fout());
-            canvas.fill(255, 255, 255, 255 * rt2(e.fout()));
+            canvas.fill(255, 255, 255, 150 * rt2(e.fout()));
             e.stroke(0, 100f * e.fout());
             canvas.strokeWeight(10);
             canvas.ellipse(0, 0, e.data[3] * 3 * e.fout() * e.fout(), e.data[3] * 3 * e.fout() * e.fout());
@@ -60,7 +60,7 @@ public class Effects{
             canvas.fill(255, 255, 255, 255 * e.fout());
             canvas.rectc(maxLineLen / 2, 0, 0, 0, maxLineLen, e.fout() * 2 * e.data[1], e.data[0]);
         }).essential(true).follow(true);
-        gunfire = new Effect(8, e -> e.create(3), e -> {
+        gunfire = new Effect(15, e -> e.create(3), e -> {
             e.fill(0);
             canvas.ellipse(0, 0, 10 * e.fout(), 10 * e.fout());
 
@@ -83,7 +83,7 @@ public class Effects{
             }
         }).follow(true);
         trail = new Effect(5, e -> e.create(6), e -> {
-            e.stroke(0, 255 * e.fout());
+            e.stroke(0);
             canvas.strokeWeight(e.data[5] * e.fout());
             canvas.line(0, 0, e.data[3] - e.pos.x, e.data[4] - e.pos.y);
             canvas.stroke(255, 255, 255, 100 * e.fout());
@@ -216,6 +216,7 @@ public class Effects{
             }
 
             /** Returns the ratio of life to lifetime. */
+            @Override
             public float fin(){
                 return life / lifetime;
             }

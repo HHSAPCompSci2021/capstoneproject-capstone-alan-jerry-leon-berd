@@ -29,6 +29,10 @@ public class Entity extends Instance implements Pos2{
         return 1;
     }
 
+    public float fin(){
+        return 1f;
+    }
+
     /** Returns the color of this entity. */
     public Color color(){
         return null;

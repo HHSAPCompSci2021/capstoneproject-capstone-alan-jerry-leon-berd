@@ -10,7 +10,8 @@ import static project.Vars.*;
 public class VolleyWeapon extends Weapon{
     public VolleyWeapon(String name){
         super(name);
-        spread = 10;
+        spread = 15;
+        inaccuracy = 2;
     }
 
     @Override

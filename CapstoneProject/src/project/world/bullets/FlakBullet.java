@@ -16,7 +16,7 @@ public class FlakBullet extends Bullet{
         trailSize = 2;
         speed = 30;
         lifetime = 8;
-        damage = 25;
+        damage = 30;
     }
 
     public FlakBulletEntity create(){
@@ -30,7 +30,7 @@ public class FlakBullet extends Bullet{
         }
 
         public float damage(){
-            return super.damage() * life / lifetime;
+            return super.damage() * fin();
         }
     }
 }

@@ -71,7 +71,10 @@ public class Rules{
         maxHull("maximum hull"),
         hullRegen("passive regeneration rate"),
         maxShields("shields"),
-        shieldRegen("shield");
+        shieldRegen("shield"),
+
+        vulnerability("vulnerability"),
+        armorStack("armor stack");
 
         public static Rule[] all = values();
 

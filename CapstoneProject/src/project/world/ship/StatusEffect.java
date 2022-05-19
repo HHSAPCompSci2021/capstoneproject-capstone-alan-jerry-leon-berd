@@ -1,10 +1,13 @@
 package project.world.ship;
 
 import project.core.Content.*;
+import project.core.Rules.*;
 import project.world.*;
 
 public class StatusEffect extends Type{
     public float damage;
+
+    public float[] mult = new float[Rule.all.length], add = new float[Rule.all.length];
 
     @Override
     public ContentType type(){
@@ -31,7 +34,7 @@ public class StatusEffect extends Type{
         }
 
         public void update(){
-            life ++;
+            life++;
             ship.damage(damage);
         }
 

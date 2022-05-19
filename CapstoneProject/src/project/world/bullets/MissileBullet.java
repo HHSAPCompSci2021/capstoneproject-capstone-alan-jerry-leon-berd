@@ -11,7 +11,7 @@ public class MissileBullet extends Bullet{
     public float accel = 0.4f;
 
     public float homingPower = 0.02f;
-    public float homingRange = 200;
+    public float homingRange = 500;
 
     public float waveFrequency = 1.5f;
     public float waveAmplitude = 2;
@@ -44,7 +44,7 @@ public class MissileBullet extends Bullet{
         @Override
         public void init(){
             super.init();
-            life = random(-180 / waveFrequency, 0);
+            life = random(-360 / waveFrequency, 0);
             dir = (byte)(randInt(0, 1) == 0 ? -1 : 1);
         }
 
@@ -55,8 +55,8 @@ public class MissileBullet extends Bullet{
 
             super.update();
 
+            rotation += sin(life * waveFrequency) * waveAmplitude * delta;
             if(target == null || !target.keep()){
-                rotation += sin(life * waveFrequency) * waveAmplitude * delta;
                 world.ships.query(pos.x, pos.y, homingRange, e -> {
                     if(e.team != team) target = e;
                 });

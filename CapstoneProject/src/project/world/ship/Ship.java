@@ -2,13 +2,17 @@ package project.world.ship;
 
 import gameutils.math.*;
 import gameutils.struct.*;
+import gameutils.struct.Set;
 import project.*;
 import project.content.*;
+import project.core.*;
+import project.core.Rules.*;
 import project.graphics.*;
 import project.world.*;
 import project.world.ship.StatusEffect.*;
 
 import java.awt.*;
+import java.util.*;
 
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
@@ -23,8 +27,13 @@ public class Ship extends Entity{
     public Seq<StatusEntry> statuses = new Seq<>();
     public Set<Ship> collided = new Set<>();
 
+    public float[] mult, add;
+
     public Ship(ShipType type){
         super((Type)type);
+        mult = new float[Rule.all.length];
+        add = new float[Rule.all.length];
+        recalc();
     }
 
     /** Applies the specified force on this ship. */
@@ -45,6 +54,33 @@ public class Ship extends Entity{
         entry.lifetime = duration;
         entry.ship(this);
         statuses.add(entry);
+        recalc();
+    }
+
+    public void recalc(){
+        for(int i = 0;i < Rule.all.length;i++){
+            mult[i] = 1;
+            add[i] = 0;
+        }
+
+        for(StatusEntry status : statuses){
+            for(int i = 0;i < Rule.all.length;i++){
+                mult[i] += status.type().mult[i];
+                add[i] += status.type().add[i];
+            }
+        }
+    }
+
+    public float add(Rule rule){
+        return add[rule.id()];
+    }
+
+    public float mult(Rule rule){
+        return mult[rule.id()];
+    }
+
+    public float calc(Rule rule, float base){
+        return (base + rules.add(rule, team) + add(rule)) * rules.mult(rule, team) * mult(rule);
     }
 
     /** Returns the sprite of this ship. */
@@ -52,12 +88,21 @@ public class Ship extends Entity{
         return null;
     }
 
+    @Override
+    public float fin(){
+        return life / health();
+    }
+
     public float mass(){
-        return (ship().mass() + rules.add(shipMass, team)) * rules.mult(shipMass, team);
+        return calc(shipMass, ship().mass());
     }
 
     public float health(){
-        return (ship().health() + rules.add(maxHull, team)) * rules.mult(maxHull, team);
+        return calc(maxHull, ship().health());
+    }
+
+    public float vulnerability(){
+        return calc(vulnerability, 1f);
     }
 
     @Override
@@ -66,15 +111,15 @@ public class Ship extends Entity{
     }
 
     public float accel(){
-        return (ship().accel() + rules.add(enginePower, team)) * rules.mult(enginePower, team) * delta;
+        return calc(enginePower, ship().accel());
     }
 
     public float rotate(){
-        return (ship().rotate() + rules.add(rotateSpeed, team)) * rules.mult(rotateSpeed, team) * delta;
+        return calc(rotateSpeed, ship().rotate());
     }
 
     public float ram(){
-        return (ship().ram() + rules.add(ramDamage, team)) * rules.mult(ramDamage, team);
+        return calc(ramDamage, ship().ram());
     }
 
     public boolean spawned(){
@@ -83,7 +128,7 @@ public class Ship extends Entity{
 
     /** Deals the specified damage to this ship. */
     public void damage(float damage){
-        life -= damage;
+        life -= damage * vulnerability();
     }
 
     /** Moves the ship forward. */
@@ -131,8 +176,10 @@ public class Ship extends Entity{
             status.update();
             if(status.keep()) buffer.add(status);
         }
+        int size = statuses.size;
         statuses.clear();
         statuses.addAll(buffer);
+        if(buffer.size != size) recalc();
     }
 
     @Override

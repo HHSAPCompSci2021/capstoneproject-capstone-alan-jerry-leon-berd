@@ -32,7 +32,7 @@ public class GameScreen extends Screen{
         playerAmmo = new SegmentedBar(width / 3f, 5, 3).segments(() -> world.player.weapon.charges()).progress(() -> world.player.weapon.fin()).color(expGray).alignX(AlignX.center).x(width / 2f).y(height - 80);
 
         playerExp = new SmoothBar(width - 100, 5).progress(() -> world.player.exp / pow(expScaling, world.player.level) / baseLevelExp).color(expGray).alignX(AlignX.center).x(width / 2f).y(8);
-        enemyHealth = new SmoothBar(width / 4f, 3).progress(() -> world.player.lastHit.life / world.player.lastHit.health()).color(expGray).alignX(AlignX.center).x(width / 2f).y(18);
+        enemyHealth = new SmoothBar(width / 4f, 3).progress(() -> world.player.lastHit.fin()).color(expGray).alignX(AlignX.center).x(width / 2f).y(18);
 
         events.on(Event.playerKilled, event -> {
             canvas.shake(100);

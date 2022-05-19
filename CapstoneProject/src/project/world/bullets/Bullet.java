@@ -28,6 +28,7 @@ public class Bullet{
 
     public int trailDuration = 4;
     public float trailSize = 8;
+    public float trailAlpha = 255;
 
     public BulletEntity create(){
         return new BulletEntity(this);
@@ -52,6 +53,11 @@ public class Bullet{
         @Override
         public float size(){
             return size;
+        }
+
+        @Override
+        public float fin(){
+            return life / lifetime;
         }
 
         @Override
@@ -93,8 +99,8 @@ public class Bullet{
                     if(e.team != team && dst(e, pos) < e.size() + blastRadius()) e.damage(blastDamage() * (1f - dst(e, pos) / (e.size() + blastRadius())));
                 });
 
-                Effects.shockwave.at(s.x(), s.y(), e -> e.color(0, color()).set(3, blastRadius() / 2).set(4, 3).lifetime(rt2(blastRadius()) * 2.5f));
-                Effects.explosion.at(s.x(), s.y(), e -> e.color(0, color()).set(3, blastRadius() / 2));
+                Effects.shockwave.at(pos.x, pos.y, e -> e.color(0, color()).set(3, blastRadius() / 2).set(4, 3).lifetime(rt2(blastRadius()) * 2.5f));
+                Effects.explosion.at(pos.x, pos.y, e -> e.color(0, color()).set(3, blastRadius() / 2));
             }else Effects.fragment.at(pos.x, pos.y, e -> e.color(20, color()).set(23, size() * 2));
 
             s.apply(Tmp.v1.set(vel).scl(knockback()));

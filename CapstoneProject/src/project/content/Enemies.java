@@ -39,11 +39,14 @@ public class Enemies implements ContentList{
                 drone = new OrbitDrone(){{
                     health = 50;
                     reload = 0.5f;
+                    rotate = 2f;
                     spacedShooting = true;
                     sprite.set("host-drone-3");
-                    bullet = new LaserBullet(){{
-                        rotate = 2f;
-                        damage = 10;
+                    bullet = new LanceBullet(){{
+                        size = 7;
+                        lifetime = 50;
+                        damage = 1;
+                        damageInterval = 10;
                     }};
                 }};
                 size = 17;
