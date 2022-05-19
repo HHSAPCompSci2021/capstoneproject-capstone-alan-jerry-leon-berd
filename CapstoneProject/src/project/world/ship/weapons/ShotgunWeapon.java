@@ -1,6 +1,8 @@
 package project.world.ship.weapons;
 
 public class ShotgunWeapon extends Weapon{
+    public int shotMult = 2;
+
     public ShotgunWeapon(String name){
         super(name);
 
@@ -25,7 +27,7 @@ public class ShotgunWeapon extends Weapon{
 
         @Override
         public int projectiles(){
-            return super.projectiles() * 2;
+            return super.projectiles() * shotMult;
         }
     }
 }

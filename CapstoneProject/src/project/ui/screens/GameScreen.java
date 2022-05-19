@@ -31,13 +31,18 @@ public class GameScreen extends Screen{
         playerShield = new SmoothBar(width / 2.5f, 8).progress(() -> world.player.shield.fin()).color(shieldBlue).alignX(AlignX.center).x(width / 2f).y(height - 70);
         playerAmmo = new SegmentedBar(width / 3f, 5, 3).segments(() -> world.player.weapon.charges()).progress(() -> world.player.weapon.fin()).color(expGray).alignX(AlignX.center).x(width / 2f).y(height - 80);
 
-        playerExp = new SmoothBar(width - 100, 5).progress(() -> world.player.exp / pow(expScaling, world.player.level) / baseLevelExp).color(expGray).alignX(AlignX.center).x(width / 2f).y(10);
+        playerExp = new SmoothBar(width - 100, 5).progress(() -> world.player.exp / pow(expScaling, world.player.level) / baseLevelExp).color(expGray).alignX(AlignX.center).x(width / 2f).y(8);
         enemyHealth = new SmoothBar(width / 4f, 3).progress(() -> world.player.lastHit.life / world.player.lastHit.health()).color(expGray).alignX(AlignX.center).x(width / 2f).y(18);
 
         events.on(Event.playerKilled, event -> {
             canvas.shake(100);
             canvas.screen(ui.loseScreen);
         });
+    }
+
+    @Override
+    public void rebuild(){
+        canvas.cursor(PConstants.CROSS);
     }
 
     @Override
@@ -53,8 +58,6 @@ public class GameScreen extends Screen{
             if(world.player.level > world.player.spent) canvas.screen(ui.upgradeScreen);
             else canvas.screen(ui.pauseScreen);
         }
-
-        canvas.cursor(PConstants.CROSS);
     }
 
     @Override
@@ -74,6 +77,11 @@ public class GameScreen extends Screen{
         canvas.pop();
 
         if(world.player.keep()){
+            canvas.fill(100, 100, 100, 100);
+            canvas.textSize(30);
+            canvas.textAlign(canvas.CENTER, canvas.TOP);
+            canvas.text("WAVE: " + world.waves.wave, width / 2f, 20);
+
             playerHealth.process();
             playerShield.process();
             if(world.player.weapon.charges() > 1) playerAmmo.process();

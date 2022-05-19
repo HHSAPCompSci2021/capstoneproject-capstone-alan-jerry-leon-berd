@@ -110,6 +110,7 @@ public class Sprite{
 
     /** Represents a path in the project. */
     public enum SpritePath{
+        none(""),
         sprites("assets/sprites/"),
         bullets("assets/sprites/bullets/"),
         backgrounds("assets/sprites/backgrounds/"),

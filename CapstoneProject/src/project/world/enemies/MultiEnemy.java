@@ -40,7 +40,6 @@ public class MultiEnemy extends Enemy{
 
             for(EnemyPart part : pieces){
                 EnemyPartEntity e = part.create().parent(this);
-                e.justSpawned = justSpawned;
                 parts.add(e);
                 world.ships.add(e);
             }

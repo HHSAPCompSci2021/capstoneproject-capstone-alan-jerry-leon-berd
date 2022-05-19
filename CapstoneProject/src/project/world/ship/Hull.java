@@ -22,7 +22,7 @@ public class Hull extends Modifier implements ShipType{
     public float rotate = 10;
     public float mass = 1;
     public float size = 10;
-    public float ram = 1;
+    public float ram = 10;
     public float regen = 2;
 
     public Vec2 shootPos = new Vec2(10, 0);
@@ -35,7 +35,7 @@ public class Hull extends Modifier implements ShipType{
 
         sprite.set("hull-" + name);
         ship.set(name);
-        thrusters.add(new Thruster(0, 8, 6f, 25f, 0));
+        thrusters.add(new Thruster(0, 7, 6f, 25f, 0));
     }
 
     @Override

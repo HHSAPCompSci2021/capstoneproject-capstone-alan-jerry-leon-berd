@@ -15,7 +15,7 @@ public class SmoothBar extends ProgressBar{
 
     @Override
     public void draw(){
-        canvas.fill(color(), alpha());
+        canvas.fill(color(), color().getAlpha() * alpha() / 255f);
         canvas.rect(0, 0, width * progress.get(), height);
     }
 }

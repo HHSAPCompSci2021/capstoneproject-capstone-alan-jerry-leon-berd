@@ -42,7 +42,7 @@ public class Text extends Table{
 
     @Override
     public void draw(){
-        canvas.fill(color(), alpha());
+        canvas.fill(color(), color().getAlpha() * alpha() / 255f);
         canvas.textSize(size());
         canvas.textAlign(canvas.LEFT, canvas.TOP);
 

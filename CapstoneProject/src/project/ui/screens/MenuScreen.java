@@ -1,6 +1,7 @@
 package project.ui.screens;
 
 import gameutils.func.*;
+import processing.core.*;
 import project.core.Input.*;
 import project.core.UI.*;
 import project.graphics.*;
@@ -35,6 +36,7 @@ public class MenuScreen extends Screen{
 
     @Override
     public void rebuild(){
+        canvas.cursor(PConstants.ARROW);
         side = new Table(table -> {
             table.add(new List(list -> {
                 list.text(text -> text.text("N O V A   S U B R I F T").size(60).color(Pal.opaqueWhite));

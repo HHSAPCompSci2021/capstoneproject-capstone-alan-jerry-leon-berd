@@ -3,6 +3,7 @@ package project.world.ship;
 import gameutils.math.*;
 import gameutils.struct.*;
 import project.*;
+import project.content.*;
 import project.graphics.*;
 import project.world.*;
 import project.world.ship.StatusEffect.*;
@@ -18,6 +19,7 @@ public class Ship extends Entity{
     /** Stores the rotation of this ship. */
     public float rotation = 0;
 
+    public Seq<StatusEntry> buffer = new Seq<>();
     public Seq<StatusEntry> statuses = new Seq<>();
     public Set<Ship> collided = new Set<>();
 
@@ -32,6 +34,17 @@ public class Ship extends Entity{
 
     public void apply(float x, float y){
         vel.add(x / mass(), y / mass());
+    }
+
+    public void entry(StatusEffect effect){
+        entry(effect, 10000000);
+    }
+
+    public void entry(StatusEffect effect, float duration){
+        StatusEntry entry = effect.create();
+        entry.lifetime = duration;
+        entry.ship(this);
+        statuses.add(entry);
     }
 
     /** Returns the sprite of this ship. */
@@ -65,8 +78,7 @@ public class Ship extends Entity{
     }
 
     public boolean spawned(){
-//        return statuses.contains(b -> b.type() == Statuses.spawned); //Note that since spawned is usually the first effect added, this isn't very inefficient
-        return false;
+        return statuses.contains(b -> b.type() == Statuses.spawned); //Note that since spawned is usually the first effect added, this isn't very inefficient
     }
 
     /** Deals the specified damage to this ship. */
@@ -104,7 +116,7 @@ public class Ship extends Entity{
 
         world.ships.raycast(x, y, size() + maxEntitySize, vel.ang(), vel.len(), (s, pos) -> {
             if(s != this && !collided.contains(s) && dst(s, pos) < s.size() + size()){
-                if(s.team != team) s.damage(vel.len() * mass() * ram() * universalRamDamage);
+                if(s.team != team) s.damage(vel.len() * vel.len() * mass() * ram() * universalRamDamage);
                 s.apply(Tmp.v1.set(s.pos).sub(pos).nor().scl(universalDamping * (s.team != team ? 10 : 1)));
                 apply(Tmp.v1.inv());
                 collided.add(s);
@@ -113,6 +125,14 @@ public class Ship extends Entity{
         collided.clear();
 
         vel.scl(1f - universalDrag);
+
+        buffer.clear();
+        for(StatusEntry status : statuses){
+            status.update();
+            if(status.keep()) buffer.add(status);
+        }
+        statuses.clear();
+        statuses.addAll(buffer);
     }
 
     @Override

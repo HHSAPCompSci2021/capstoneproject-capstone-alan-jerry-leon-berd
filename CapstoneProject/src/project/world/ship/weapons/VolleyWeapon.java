@@ -38,9 +38,9 @@ public class VolleyWeapon extends Weapon{
                 Effects.gunfire.at(Tmp.v1.x, Tmp.v1.y, e -> e.color(0, player().color()).parent(player()));
                 world.bullets.add(b);
                 if(b instanceof VolleyBulletEntity && i >= projectiles() / 2) ((VolleyBulletEntity)b).flip = true;
-
-                player().apply(Tmp.v1.set(-recoil(), 0).rot(player().rotation));
             }
+
+            player().apply(Tmp.v1.set(-recoil(), 0).rot(player().rotation));
         }
     }
 }

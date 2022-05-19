@@ -21,16 +21,12 @@ public class Waves{
 
         wave++;
 
-        Seq<Enemy> possible = new Seq<>();
-        for(Type e : content.list(ContentType.enemy)){
-            if(!(e instanceof EnemyPart)) possible.add((Enemy)e);
-        }
-        int enemies = randInt(wave / 10, wave / 10 + 3) + 1;
+        int enemies = randInt(wave / 25, wave / 25 + 3) + 1;
         for(int i = 0;i < enemies;i++){
-            Enemy chosen = possible.get(randInt(0, possible.size - 1));
-            EnemyEntity e = chosen.create();
+            EnemyVersions chosen = EnemyVersions.all.get(randInt(0, EnemyVersions.all.size - 1));
+            int version = (int)min(random(0, rt2(wave / 5f)), 2);
+            EnemyEntity e = (version == 0 ? chosen.common : version == 1 ? chosen.elite : chosen.champion).create();
             e.team = Team.enemy;
-            e.justSpawned = true;
             e.pos.set(Tmp.v1.set(random(0, width), random(0, height)).sub(world.bounds.center()).nor().scl(width).add(world.bounds.center()));
             world.ships.add(e);
         }

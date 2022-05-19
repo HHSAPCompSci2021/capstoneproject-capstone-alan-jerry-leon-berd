@@ -12,7 +12,8 @@ public class Content{
     new Hulls(),
     new Shields(),
     new Weapons(),
-    new Enemies()
+    new Enemies(),
+    new Statuses()
     };
 
     /** Contains all content, sorted by it's type. */
@@ -49,7 +50,8 @@ public class Content{
         shield,
         weapon,
         modifier,
-        enemy;
+        enemy,
+        status;
 
         public static ContentType[] all = values();
 

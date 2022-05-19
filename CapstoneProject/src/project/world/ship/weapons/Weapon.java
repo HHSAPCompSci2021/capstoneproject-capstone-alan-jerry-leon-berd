@@ -109,8 +109,9 @@ public class Weapon extends Modifier{
                 world.bullets.add(b);
                 Tmp.v1.set(player().hull.shootPos()).sub(player().pos);
                 Effects.gunfire.at(Tmp.v1.x, Tmp.v1.y, e -> e.color(0, player().color()).parent(player()));
-                player().apply(Tmp.v1.set(-recoil(), 0).rot(player().rotation));
             }
+
+            player().apply(Tmp.v1.set(-recoil(), 0).rot(player().rotation));
         }
 
         @Override

@@ -40,7 +40,7 @@ public class World{
         effects = new Entities<>();
 
         player = new Player();
-        player.weapon = Weapons.salvo.create();
+        player.weapon = Weapons.lance.create();
         player.pos.set(bounds.center());
         events.call(Event.modChange);
         player.init();
@@ -49,9 +49,8 @@ public class World{
         waves = new Waves();
 //        waves.spawnWave();
 
-        EnemyEntity e = Enemies.tracer.common.create();
+        EnemyEntity e = Enemies.juggernaut.common.create();
         e.team = Team.enemy;
-        e.justSpawned = true;
         e.pos.set(Tmp.v1.set(random(0, width), random(0, height)).sub(world.bounds.center()).nor().scl(width).add(world.bounds.center()));
         world.ships.add(e);
 

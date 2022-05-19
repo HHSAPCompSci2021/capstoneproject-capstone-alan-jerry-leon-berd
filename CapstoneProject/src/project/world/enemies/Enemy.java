@@ -1,10 +1,12 @@
 package project.world.enemies;
 
 import project.*;
+import project.content.*;
 import project.core.Content.*;
 import project.core.Events.Event;
 import project.game.*;
 import project.graphics.*;
+import project.graphics.Sprite.*;
 import project.world.*;
 import project.world.bullets.*;
 import project.world.bullets.Bullet.*;
@@ -18,6 +20,7 @@ import static project.core.Rules.Rule.*;
 
 /** Stores stats for an enemy. */
 public class Enemy extends Type implements ShipType{
+    public EnemySprite glow;
     public EnemySprite sprite = new EnemySprite();
     public Color color = Color.white;
 
@@ -35,6 +38,7 @@ public class Enemy extends Type implements ShipType{
     @Override
     public void init(){
         if(mass == 0) mass = size * size / 100f;
+        if(glow != null) glow.set(SpritePath.none, sprite.path.substring(0, sprite.path.length() - 4) + "-glow");
 
         super.init();
     }
@@ -84,10 +88,9 @@ public class Enemy extends Type implements ShipType{
         /** Stores the reloadTimer, which is incremented every frame and stores when the enemy should shoot. */
         public float reloadt;
 
-        public boolean justSpawned; //TODO: Turn this into a status effect
-
         public EnemyEntity(Enemy type){
             super(type);
+            entry(Statuses.spawned);
         }
 
         /** Returns the real reload speed of this enemy. */
@@ -119,7 +122,7 @@ public class Enemy extends Type implements ShipType{
 
         @Override
         public void wrap(){
-            if(!justSpawned) super.wrap();
+            if(!spawned()) super.wrap();
         }
 
         @Override
@@ -128,10 +131,14 @@ public class Enemy extends Type implements ShipType{
 
             apply(Tmp.v1.set(vel).scl(-0.02f));
 
-            if(justSpawned){
-                if(!world.bounds.contains(pos)) apply(Tmp.v1.set(world.bounds.center()).sub(pos).nor().scl(accel()));
-                else justSpawned = false;
-            }
+            if(spawned()) apply(Tmp.v1.set(world.bounds.center()).sub(pos).nor().scl(accel()));
+        }
+
+        @Override
+        public void glow(){
+            super.glow();
+
+            if(glow != null) glow.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation, Color.white);
         }
 
         @Override
@@ -162,7 +169,7 @@ public class Enemy extends Type implements ShipType{
 
         @Override
         public boolean keep(){
-            return !(life <= 0) && (justSpawned || world.bounds.contains(pos));
+            return !(life <= 0) && (spawned() || world.bounds.contains(pos));
         }
     }
 

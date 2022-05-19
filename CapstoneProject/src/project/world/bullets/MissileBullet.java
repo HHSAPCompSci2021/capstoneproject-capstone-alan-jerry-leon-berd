@@ -25,7 +25,7 @@ public class MissileBullet extends Bullet{
         size = 4;
         knockback = 0.01f;
         lifetime = 2f * 60;
-        trailDuration = 5;
+        trailDuration = 8;
     }
 
     @Override
@@ -43,6 +43,7 @@ public class MissileBullet extends Bullet{
 
         @Override
         public void init(){
+            super.init();
             life = random(-180 / waveFrequency, 0);
             dir = (byte)(randInt(0, 1) == 0 ? -1 : 1);
         }

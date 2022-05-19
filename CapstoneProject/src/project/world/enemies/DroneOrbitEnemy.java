@@ -93,7 +93,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
             super();
 
             sprite.set("host-drone-1");
-            health = 5;
+            health = 10;
             size = 6;
             mass = 0.1f;
             reload = 0.5f;

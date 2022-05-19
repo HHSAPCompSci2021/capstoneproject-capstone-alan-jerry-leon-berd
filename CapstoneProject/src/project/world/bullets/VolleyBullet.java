@@ -14,7 +14,7 @@ public class VolleyBullet extends Bullet{
         sprite.set("blaster-1");
         flipSprite.set("blaster-2");
         speed = 15;
-        size = 3;
+        size = 3.5f;
     }
 
     @Override
