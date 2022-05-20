@@ -11,12 +11,12 @@ import static project.Vars.*;
 //But then, here, there's THIS???! Why the hell is there SoundCopy???
 //At this point, I think we're better off just telling them to search up Nova Drift OST and having them play it separately along with the game, instead of including this mess in the final product.
 public class Sounds{
-    private static final HashMap<String, Integer> songMap = new HashMap<>();
-    private static final HashSet<String> soundSet = new HashSet<>();
-    private static int currentSong = 0;
-    private static JayLayer songs;
-
-    public static void playSong(String name){
+//    private static final HashMap<String, Integer> songMap = new HashMap<>();
+//    private static final HashSet<String> soundSet = new HashSet<>();
+//    private static int currentSong = 0;
+//    private static JayLayer songs;
+//
+//    public static void playSong(String name){
 //        if(songMap.get(name) == null){
 //            return;
 //        }
@@ -26,10 +26,10 @@ public class Sounds{
 //            songs.nextSong();
 //            currentSong = (currentSong + 1) % songMap.size();
 //        }
-    }
+//    }
 
     public static void playSound(String name){
-        if(!soundSet.contains(name) || !soundEffects) return;
+//        if(!soundSet.contains(name) || !soundEffects) return;
 //
 //        JayLayer tmp = new JayLayer("assets/audio/music/", "assets/audio/effects/", false);
 //        tmp.addSoundEffects(new String[]{name});

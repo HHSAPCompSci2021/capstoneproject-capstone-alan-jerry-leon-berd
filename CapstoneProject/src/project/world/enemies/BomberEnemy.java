@@ -9,7 +9,6 @@ import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 public class BomberEnemy extends Enemy{
-    private float thrustDuration = 60;
     public float shootInterval = 5;
     public float inaccuracy = 20;
     public float waveFrequency = 10;
@@ -64,6 +63,7 @@ public class BomberEnemy extends Enemy{
                 rotation += sin(wave) * waveAmplitude * delta;
                 wave += waveFrequency;
                 thrust();
+                float thrustDuration = 60;
                 if(reloadt >= 60 + thrustDuration) reloadt = 0;
             }
 
