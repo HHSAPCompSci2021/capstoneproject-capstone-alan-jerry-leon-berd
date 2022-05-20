@@ -32,6 +32,18 @@ public class Effects{
         frame = new EffectSprite().set("frame");
         slant = new EffectSprite().set("slant");
 
+        explosion = new Effect(20, e -> e.create(4), e -> {
+//            e.tint(0, 255 * e.fout());
+//            Effects.glow.drawc(0, 0, e.data[3] * 5 * e.fin(), e.data[3] * 5 * e.fin());
+            e.fill(0, 150 * e.fout());
+            canvas.ellipse(0, 0, e.data[3] * 3 * e.fin(), e.data[3] * 3 * e.fin());
+
+            Effects.glow.drawc(0, 0, e.data[3] * 5 * e.fin(), e.data[3] * 5 * e.fin(), Color.white, 255 * e.fout());
+            canvas.fill(255, 255, 255, 150 * rt2(e.fout()));
+            e.stroke(0, 100f * e.fout());
+            canvas.strokeWeight(10);
+            canvas.ellipse(0, 0, e.data[3] * 3 * e.fout() * e.fout(), e.data[3] * 3 * e.fout() * e.fout());
+        });
         shockwave = new Effect(25, e -> e.create(5).set(3, 1).set(4, 1), e -> {
             canvas.noFill();
             for(int i = 1;i < e.data[4] + 1;i++){
@@ -48,7 +60,7 @@ public class Effects{
             canvas.fill(255, 255, 255, 255 * e.fout());
             canvas.rectc(maxLineLen / 2, 0, 0, 0, maxLineLen, e.fout() * 2 * e.data[1], e.data[0]);
         }).essential(true).follow(true);
-        gunfire = new Effect(8, e -> e.create(3), e -> {
+        gunfire = new Effect(15, e -> e.create(3), e -> {
             e.fill(0);
             canvas.ellipse(0, 0, 10 * e.fout(), 10 * e.fout());
 
@@ -71,16 +83,16 @@ public class Effects{
             }
         }).follow(true);
         trail = new Effect(5, e -> e.create(6), e -> {
-            e.stroke(0, 255 * e.fout());
-            canvas.strokeWeight(e.data[5]);
+            e.stroke(0);
+            canvas.strokeWeight(e.data[5] * e.fout());
             canvas.line(0, 0, e.data[3] - e.pos.x, e.data[4] - e.pos.y);
             canvas.stroke(255, 255, 255, 100 * e.fout());
-            canvas.strokeWeight(e.data[5]);
+            canvas.strokeWeight(e.data[5] * e.fout());
             canvas.line(0, 0, e.data[3] - e.pos.x, e.data[4] - e.pos.y);
         });
     }
 
-    public class EffectSprite extends Sprite{
+    public static class EffectSprite extends Sprite{
         public EffectSprite set(String name){
             super.set(SpritePath.effects, name);
             return this;
@@ -88,7 +100,7 @@ public class Effects{
     }
 
     /** Represents a sprite that is only drawn when glowEnabled is on. */
-    public class GlowSprite extends EffectSprite{
+    public static class GlowSprite extends EffectSprite{
         public GlowSprite set(String name){
             super.set(name);
             return this;
@@ -106,7 +118,7 @@ public class Effects{
     }
 
     /** Represents a type of effect. Stores the effect renderer and initialization runnables. */
-    public class Effect{
+    public static class Effect{
         public Cons<EffectEntity> init;
         public Cons<EffectEntity> drawer;
 
@@ -204,6 +216,7 @@ public class Effects{
             }
 
             /** Returns the ratio of life to lifetime. */
+            @Override
             public float fin(){
                 return life / lifetime;
             }

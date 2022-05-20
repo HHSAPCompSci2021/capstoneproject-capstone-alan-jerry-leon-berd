@@ -20,6 +20,7 @@ public class LoseScreen extends Screen{
 
     @Override
     public void rebuild(){
+        canvas.cursor(PConstants.ARROW);
         side = new Table(table -> table.add(new List(list -> {
             list.text(text -> text.text("G A M E  O V E R").size(100).x(100).y(100).alignX(AlignX.center).color(Pal.opaqueWhite).alpha(t -> min(time, 255)));
             list.row(20);
@@ -35,8 +36,7 @@ public class LoseScreen extends Screen{
         time++;
 
         world.update();
-        delta = max(1f - time / 600, 0);
-        canvas.cursor(PConstants.ARROW);
+        delta = max(1f - time / 300, 0);
     }
 
     @Override

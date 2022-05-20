@@ -8,7 +8,7 @@ import static project.Vars.*;
 import static project.core.Rules.Rule.*;
 
 public class SalvoWeapon extends Weapon{
-    public float chargeBonus = 0.0005f;
+    public float chargeBonus = 0.002f;
 
     public SalvoWeapon(String name){
         super(name);

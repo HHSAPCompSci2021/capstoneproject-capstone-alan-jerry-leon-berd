@@ -22,6 +22,7 @@ public class Enemies implements ContentList{
             elite = new DroneOrbitEnemy(){{
                 spacedShooting = true;
                 drone = new OrbitDrone(){{
+                    health = 25;
                     reload = 1;
                     sprite.set("host-drone-2");
                     bullet = new Bullet(){{
@@ -34,13 +35,18 @@ public class Enemies implements ContentList{
                 droneSpace = 35;
             }};
             champion = new DroneOrbitEnemy(){{
+                health = 200;
                 drone = new OrbitDrone(){{
+                    health = 50;
                     reload = 0.5f;
+                    rotate = 2f;
                     spacedShooting = true;
                     sprite.set("host-drone-3");
-                    bullet = new LaserBullet(){{
-                        rotate = 2f;
-                        damage = 10;
+                    bullet = new LanceBullet(){{
+                        size = 7;
+                        lifetime = 50;
+                        damage = 1;
+                        damageInterval = 5;
                     }};
                 }};
                 size = 17;
@@ -55,7 +61,12 @@ public class Enemies implements ContentList{
                 bullets = 4;
                 reload = 0.3f;
                 sprite.set("gyrogun-2");
-                size = 10;
+                size = 12;
+                bullet = new VolleyBullet(){{
+                    damage = 15;
+                    size = 2;
+                    speed = 5;
+                }};
             }};
             champion = new SprayerEnemy(){{
                 bullets = 8;
@@ -63,7 +74,12 @@ public class Enemies implements ContentList{
                 rotate = 0.6f;
                 shootInterval = 5;
                 sprite.set("gyrogun-3");
-                size = 12;
+                size = 14;
+                bullet = new VolleyBullet(){{
+                    damage = 15;
+                    size = 3f;
+                    speed = 5;
+                }};
             }};
         }};
 
@@ -79,8 +95,9 @@ public class Enemies implements ContentList{
                     size = 13;
                     shootDuration = 10;
                     shootInterval = 2;
+                    health = 40;
                     bullet = new MissileBullet(){{
-                        damage = 2;
+                        damage = 5;
                         size = 3;
                         speed = 3;
                         accel = 0.07f;
@@ -90,20 +107,53 @@ public class Enemies implements ContentList{
                     }};
                 }};
                 thruster = new RammingThruster(){{
+                    health = 40;
                     offset.set(0, 39);
                     size = 18;
-                    ramPower = 40;
+                    ramPower = 70;
                 }};
             }};
             elite = new RammingEnemy();
+            champion = new RammingEnemy();
         }};
         
         tracer = new EnemyVersions() {{
         	common = new BomberEnemy();
+            elite = new BomberEnemy(){{
+                sprite.set("tracer-2");
+                health = 75;
+                size = 15;
+                reload = 1.5f;
+                shootInterval = 4;
+                accel = 0.7f;
+                bullet = new Bullet(){{
+                    size = 4;
+                    damage = 25;
+                    speed = 2;
+                }};
+            }};
+            champion = new BomberEnemy(){{
+                sprite.set("tracer-3");
+                health = 175;
+                size = 20;
+                reload = 1.2f;
+                shootInterval = 3;
+                accel = 1f;
+                waveFrequency = 5f;
+                waveAmplitude = 3;
+                bullet = new MissileBullet(){{
+                    speed = 3;
+                    damage = 5;
+                    accel = 0.2f;
+                    homingPower = 0.04f;
+                    homingRange = 2000;
+                    lifetime = 3 * 60f;
+                }};
+            }};
         }};
         
-        dodger = new EnemyVersions(){{
-            common = new TeleportingEnemy();
-        }};
+//        dodger = new EnemyVersions(){{
+//            common = new TeleportingEnemy();
+//        }};
     }
 }

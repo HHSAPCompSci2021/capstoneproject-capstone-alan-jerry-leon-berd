@@ -70,9 +70,9 @@ public class UpgradeScreen extends PauseScreen{
         world.player.spent++;
         events.call(Event.modChange);
 
+        reroll();
         if(world.player.spent >= world.player.level) canvas.screen(ui.gameScreen);
         else rebuild();
-        reroll();
     }
 
     public void choose(Seq<Type> from){

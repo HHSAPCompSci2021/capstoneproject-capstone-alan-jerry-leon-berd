@@ -1,6 +1,9 @@
 package project.world.bullets;
 
 import gameutils.math.*;
+import project.world.ship.*;
+
+import java.awt.*;
 
 import static project.Vars.*;
 
@@ -8,9 +11,14 @@ import static project.Vars.*;
 public class RailgunBullet extends Bullet{
     public RailgunBullet(){
         super();
-        speed = 25;
-        damage = 100;
-        pierce = 5;
+
+        sprite.set("railgun");
+
+        size = 10;
+        speed = 75;
+        damage = 150;
+        trailDuration = 20;
+        trailSize = 5;
     }
 
     @Override
@@ -20,30 +28,38 @@ public class RailgunBullet extends Bullet{
 
     /** Represents and simulates a railgun bullet. */
     public class RailgunBulletEntity extends BulletEntity{
-        /** The last position of this bullet. */
-        public Vec2 pPos = new Vec2();
+        public float spent;
 
         public RailgunBulletEntity(RailgunBullet type){
             super(type);
         }
 
         @Override
-        public void init(){
-            super.init();
-            pPos.set(pos);
+        public float damage(){
+            return (super.damage() * speed / bullet.speed) - spent;
         }
 
         @Override
-        public void update(){
-            pPos.set(pos);
-            super.update();
+        public void init(){
+            super.init();
+        }
+
+        @Override
+        public void hit(Ship s){
+            float tmp = s.life;
+            super.hit(s);
+            spent += tmp;
         }
 
         @Override
         public void draw(){
-            canvas.stroke(255);
-            canvas.strokeWeight(size);
-            canvas.line(pos.x, pos.y, pPos.x, pPos.y);
+            sprite.drawc(pos.x, pos.y, size() * 10, speed * 2, rotation + 90, color());
+            sprite.drawc(pos.x, pos.y, size() * 10, speed * 2, rotation + 90, Color.white, 200);
+        }
+
+        @Override
+        public boolean keep(){
+            return world.bounds.contains(pos) && (life < lifetime || lifetime <= 0) && damage() > 0;
         }
     }
 }

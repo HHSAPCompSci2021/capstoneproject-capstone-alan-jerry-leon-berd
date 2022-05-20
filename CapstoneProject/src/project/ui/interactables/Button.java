@@ -1,6 +1,7 @@
 package project.ui.interactables;
 
 import gameutils.func.*;
+import project.core.*;
 import project.ui.drawables.*;
 
 import static project.Vars.*;
@@ -25,6 +26,7 @@ public class Button extends Drawable{
     public void update(){
         super.update();
         if(bounds().contains(input.mouse) && input.mouseLeft()){
+            Sounds.playSound("press.mp3");
             press.get(this);
             input.remove(input.left);
         }

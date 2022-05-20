@@ -1,4 +1,3 @@
-unnamed package
 project
 project.content
 project.core
@@ -14,4 +13,5 @@ project.world.bullets
 project.world.enemies
 project.world.modifiers
 project.world.ship
+project.world.ship.shields
 project.world.ship.weapons

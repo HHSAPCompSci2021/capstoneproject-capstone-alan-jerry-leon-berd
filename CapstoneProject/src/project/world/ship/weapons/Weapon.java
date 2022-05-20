@@ -37,6 +37,16 @@ public class Weapon extends Modifier{
     }
 
     @Override
+    public void init(){
+        super.init();
+
+        if(charges != 1) addPro("Base charges: " + charges);
+        if(shots != 1) addPro("Base projectiles: " + shots);
+        addPro("Rate of fire: " + reload + "/sec");
+        addPro("Damage: " + bullet.damage);
+    }
+
+    @Override
     public ContentType type(){
         return ContentType.weapon;
     }
@@ -109,8 +119,9 @@ public class Weapon extends Modifier{
                 world.bullets.add(b);
                 Tmp.v1.set(player().hull.shootPos()).sub(player().pos);
                 Effects.gunfire.at(Tmp.v1.x, Tmp.v1.y, e -> e.color(0, player().color()).parent(player()));
-                player().apply(Tmp.v1.set(-recoil(), 0).rot(player().rotation));
             }
+
+            player().apply(Tmp.v1.set(-recoil(), 0).rot(player().rotation));
         }
 
         @Override

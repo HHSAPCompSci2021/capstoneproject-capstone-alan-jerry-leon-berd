@@ -88,12 +88,12 @@ public class DroneOrbitEnemy extends MultiEnemy{
     }
 
     /** Stores stats for the drones that rotate around the enemy. */
-    public class OrbitDrone extends EnemyPart{
+    public static class OrbitDrone extends EnemyPart{
         public OrbitDrone(){
             super();
 
             sprite.set("host-drone-1");
-            health = 5;
+            health = 10;
             size = 6;
             mass = 0.1f;
             reload = 0.5f;
@@ -128,8 +128,6 @@ public class DroneOrbitEnemy extends MultiEnemy{
             @Override
             public void remove(){
                 super.remove();
-
-                Sounds.playSound("fuel_explosion.mp3");
             }
         }
     }

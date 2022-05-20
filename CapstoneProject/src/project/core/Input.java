@@ -55,7 +55,7 @@ public class Input{
         return inputs.contains(right);
     }
 
-    //TODO: Create KeyCode class, that processes and stores key values for keybinds (Mainly just for the name)
+    //TODO: Keybinds
     /** Represents a keybind, storing both the value, and name. */
     public enum KeyBind{
         thrust("THRUST", input.right),

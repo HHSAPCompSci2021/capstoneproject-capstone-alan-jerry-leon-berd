@@ -2,6 +2,7 @@ package project.core;
 
 import project.core.Events.*;
 import project.game.*;
+import project.world.modifiers.*;
 import project.world.modifiers.Modifier.*;
 
 import static project.Vars.*;
@@ -22,13 +23,19 @@ public class Rules{
         events.on(Event.modChange, e -> {
             reset();
 
-            for(ModInstance m : world.player.modifiers){
-                for(int i = 0;i < all.length;i++){
-                    rules[Team.player.id()][i][0] += m.type().mult[i];
-                    rules[Team.player.id()][i][1] += m.type().add[i];
-                }
-            }
+            for(ModInstance m : world.player.modifiers) process(m);
+
+            process(world.player.hull);
+            process(world.player.shield);
+            process(world.player.weapon);
         });
+    }
+
+    public void process(ModInstance m){
+        for(int i = 0;i < all.length;i++){
+            rules[Team.player.id()][i][0] += m.type().mult[i];
+            rules[Team.player.id()][i][1] += m.type().add[i];
+        }
     }
 
     public void reset(){
@@ -71,11 +78,14 @@ public class Rules{
         maxHull("maximum hull"),
         hullRegen("passive regeneration rate"),
         maxShields("shields"),
-        shieldRegen("shield");
+        shieldRegen("shield"),
+
+        vulnerability("vulnerability"),
+        armorStack("armor stack");
 
         public static Rule[] all = values();
 
-        public String name;
+        public final String name;
 
         Rule(String name){
             this.name = name;

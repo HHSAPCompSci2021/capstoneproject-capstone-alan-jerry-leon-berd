@@ -17,10 +17,10 @@ public class TeleportingEnemy extends Enemy{
     public TeleportingEnemy(){
         super();
 
-        bullet = new LaserBullet(){{
-            rotate = 2f;
-            damage = 10;
-        }};
+//        bullet = new LaserBullet(){{
+//            rotate = 2f;
+//            damage = 10;
+//        }};
         sprite.set("tracer"); //leon change/make the sprite pls
         accel = 0.5f;
         rotate = 1f;
