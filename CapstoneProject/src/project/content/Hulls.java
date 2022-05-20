@@ -30,7 +30,7 @@ public class Hulls implements ContentList{
             size = 15;
             mass = 1.2f;
             drag = 0.7f;
-            rotate = 3;
+            rotate = 5;
             add(shotProjectiles, 3);
             mult(maxShields, -0.3f);
             mult(weaponReload, -0.5f);
@@ -47,7 +47,7 @@ public class Hulls implements ContentList{
             accel = 0.3f;
             mass = 2.2f;
             drag = 1.25f;
-            rotate = 5;
+            rotate = 4;
             barrels.addAll(new Barrel(10, 20, 90), new Barrel(10, -20, 270), new Barrel(-10, 20, 90), new Barrel(-10, -20, 270));
             add(shotProjectiles, 2);
             mult(maxShields, 0.5f);
@@ -80,11 +80,11 @@ public class Hulls implements ContentList{
             thrusters.add(new Thruster(0, 0, 6f, 25f, 0));
         }};
         assault = new Hull("assault"){{
-            health = 65;
+            health = 35;
             accel = 0.35f;
             rotate = 7;
             size = 12;
-            mult(maxShields, 0.35f);
+            mult(maxShields, 0.55f);
             mult(weaponReload, -0.4f);
             mult(globalDamage, 0.8f);
             thrusters.clear();

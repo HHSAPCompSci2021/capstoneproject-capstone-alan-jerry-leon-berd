@@ -35,7 +35,7 @@ public class Player extends Ship{
         super(null);
         team = Team.player;
         hull = Hulls.standard.create();
-        shield = Shields.standard.create();
+        shield = Shields.temporal.create();
         weapon = Weapons.blaster.create();
         life = health();
     }
@@ -69,13 +69,11 @@ public class Player extends Ship{
     public void damage(float damage){
         events.call(Event.playerDamaged);
         float real = damage * vulnerability();
-        if(shield.value > 0){
-            if(shield.value > real) shield.value -= real;
-            else{
-                shield.value = 0;
-                life -= real - shield.value;
-            }
-        }else life -= real;
+
+        if(!shield.broken){
+            life -= max(real - shield.value, 0);
+            shield.damage(real);
+        }else life = max(life - real, 0);
     }
 
     @Override
@@ -107,25 +105,27 @@ public class Player extends Ship{
 
         wrap();
 
-//        for(ModEntry m : modifiers) m.update();
+        if(delta < 0.5f) pos.add(Tmp.v1.set(vel).scl(delta)); //Double speed for temporal shield
     }
 
     @Override
     public void draw(){
         super.draw();
 
+        sprite().drawc(pos.x + 5, pos.y + 5, size() * 6, size() * 6, rotation + 90, Color.black, 50);
+
         sprite().drawc(pos.x, pos.y, size() * 6, size() * 6, rotation + 90, color());
         sprite().drawc(pos.x, pos.y, size() * 6, size() * 6, rotation + 90, Color.white, 200);
 
         if(!shield.broken){
             canvas.noFill();
-            canvas.stroke(color());
-            canvas.strokeWeight(4);
+            canvas.stroke(color(), 255 * shield.fin());
+            canvas.strokeWeight(3);
             canvas.ellipse(pos.x, pos.y, size() * 5, size() * 5);
 
-            canvas.stroke(Color.white, 200);
-            canvas.strokeWeight(2);
-            canvas.ellipse(pos.x, pos.y, size() * 5, size() * 5);
+//            canvas.stroke(Color.white, 200 * shield.fin());
+//            canvas.strokeWeight(3);
+//            canvas.ellipse(pos.x, pos.y, size() * 5, size() * 5);
         }
 
         super.draw();

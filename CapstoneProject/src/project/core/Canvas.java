@@ -71,19 +71,9 @@ public class Canvas extends PApplet{
         else if(mouseButton == 39) input.remove(input.right);
     }
 
-
-    int i = 0, j = 0;
     @Override
     public void keyPressed(){
-        if(key == 'd'){
-//            debug = !debug;
-            world.player.hull = (HullInstance)content.list(ContentType.hull).get(i++ % 7).create();
-            events.call(Events.Event.modChange);
-        }
-        if(key == 'f'){
-//            debug = !debug;
-            world.player.weapon = (WeaponInstance)content.list(ContentType.weapon).get(j++ % 7).create();
-        }
+        if(key == 'd') debug = !debug;
         input.register(keyCode);
     }
 

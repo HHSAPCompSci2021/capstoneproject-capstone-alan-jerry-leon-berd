@@ -27,7 +27,7 @@ public class MenuScreen extends Screen{
 
     /** Sets the defaults for the specified slider. */
     public void def(Slider slider){
-        slider.color(s -> s.bounds().contains(input.mouse) ? Pal.opaqueWhite : Pal.opaqueGray);
+        slider.color(s -> s.bounds().contains(input.mouse) ? Pal.opaqueBlack : Pal.opaqueGray);
         slider.drawer(s -> {
             canvas.rectc(s.width() / 2, s.height() / 2, s.width(), s.height() / 2);
             canvas.rectc(s.width() * slider.value(), s.height() / 2, 5, s.height());
@@ -39,12 +39,12 @@ public class MenuScreen extends Screen{
         canvas.cursor(PConstants.ARROW);
         side = new Table(table -> {
             table.add(new List(list -> {
-                list.text(text -> text.text("N O V A   S U B R I F T").size(60).color(Pal.opaqueWhite));
+                list.text(text -> text.text("N O V A   S U B R I F T").size(60).color(Pal.opaqueBlack));
                 list.row(20);
                 if(menu == 0){
                     list.button(button -> {
                         button.hover = buttonHover;
-                        button.press(b -> canvas.screen(ui.gameScreen)).text(text -> text.text("PLAY").size(35).color(Pal.opaqueWhite)).width(150);
+                        button.press(b -> canvas.screen(ui.gameScreen)).text(text -> text.text("PLAY").size(35).color(Pal.opaqueBlack)).width(150);
                     });
                     list.row(10);
                     list.button(button -> {
@@ -52,17 +52,17 @@ public class MenuScreen extends Screen{
                         button.press(b -> {
                             menu = 1;
                             rebuild();
-                        }).text(text -> text.text("SETTINGS").size(35).color(Pal.opaqueWhite)).width(150);
+                        }).text(text -> text.text("SETTINGS").size(35).color(Pal.opaqueBlack)).width(150);
                     });
                 }else if(menu == 1){
-                    list.text(text -> text.text("SETTINGS").size(40).color(Pal.opaqueWhite));
+                    list.text(text -> text.text("SETTINGS").size(40).color(Pal.opaqueBlack));
                     list.row(10);
                     list.button(button -> {
                         button.hover = buttonHover;
                         button.press(b -> {
                             menu = 2;
                             rebuild();
-                        }).text(text -> text.text("KEYBINDS").size(30).color(Pal.opaqueWhite));
+                        }).text(text -> text.text("KEYBINDS").size(30).color(Pal.opaqueBlack));
                     });
                     list.row(10);
                     list.button(button -> {
@@ -70,7 +70,7 @@ public class MenuScreen extends Screen{
                         button.press(b -> {
                             menu = 3;
                             rebuild();
-                        }).text(text -> text.text("GRAPHICS").size(30).color(Pal.opaqueWhite));
+                        }).text(text -> text.text("GRAPHICS").size(30).color(Pal.opaqueBlack));
                     });
                     list.row(10);
                     list.button(button -> {
@@ -78,27 +78,27 @@ public class MenuScreen extends Screen{
                         button.press(b -> {
                             menu = 4;
                             rebuild();
-                        }).text(text -> text.text("SOUNDS").size(30).color(Pal.opaqueWhite));
+                        }).text(text -> text.text("SOUNDS").size(30).color(Pal.opaqueBlack));
                     });
                 }else if(menu == 2){
-                    list.text(text -> text.text("KEYBINDS").size(40).color(Pal.opaqueWhite));
+                    list.text(text -> text.text("KEYBINDS").size(40).color(Pal.opaqueBlack));
                     list.row(10);
                     for(KeyBind k : KeyBind.all){
-                        list.text(text -> text.text(k.name + ": " + k.value).size(20).color(Pal.opaqueWhite));
+                        list.text(text -> text.text(k.name + ": " + k.value).size(20).color(Pal.opaqueBlack));
                         list.row(5);
                     }
                 }else if(menu == 3){
-                    list.text(text -> text.text("GRAPHICS").size(40).color(Pal.opaqueWhite));
+                    list.text(text -> text.text("GRAPHICS").size(40).color(Pal.opaqueBlack));
                     list.row(10);
                     list.button(button -> {
                         button.hover = buttonHover;
                         button.press(b -> {
                             glowEnabled = !glowEnabled;
                             rebuild();
-                        }).text(text -> text.text("GLOW: " + (glowEnabled ? "ON" : "OFF")).size(30).color(Pal.opaqueWhite));
+                        }).text(text -> text.text("GLOW: " + (glowEnabled ? "ON" : "OFF")).size(30).color(Pal.opaqueBlack));
                     });
                     list.row(10);
-                    list.text(text -> text.text("UI SCALE").size(30).color(Pal.opaqueWhite));
+                    list.text(text -> text.text("UI SCALE").size(30).color(Pal.opaqueBlack));
                     list.row(10);
                     list.slider(slider -> {
                         def(slider);
@@ -122,10 +122,10 @@ public class MenuScreen extends Screen{
                         button.press(b -> {
                             effectsEnabled = !effectsEnabled;
                             rebuild();
-                        }).text(text -> text.text("EFFECTS: " + (effectsEnabled ? "ON" : "OFF")).size(30).color(Pal.opaqueWhite));
+                        }).text(text -> text.text("EFFECTS: " + (effectsEnabled ? "ON" : "OFF")).size(30).color(Pal.opaqueBlack));
                     });
                     list.row(10);
-                    list.text(text -> text.text("SCREEN SHAKE").size(30).color(Pal.opaqueWhite));
+                    list.text(text -> text.text("SCREEN SHAKE").size(30).color(Pal.opaqueBlack));
                     list.row(10);
                     list.slider(slider -> {
                         def(slider);
@@ -143,14 +143,14 @@ public class MenuScreen extends Screen{
                         });
                     });
                 }else if(menu == 4){
-                    list.text(text -> text.text("SOUNDS").size(40).color(Pal.opaqueWhite));
+                    list.text(text -> text.text("SOUNDS").size(40).color(Pal.opaqueBlack));
                     list.row(10);
                     list.button(button -> {
                         button.hover = buttonHover;
                         button.press(b -> {
                             soundEffects = !soundEffects;
                             rebuild();
-                        }).text(text -> text.text("SOUND EFFECTS: " + (soundEffects ? "ON" : "OFF")).size(30).color(Pal.opaqueWhite));
+                        }).text(text -> text.text("SOUND EFFECTS: " + (soundEffects ? "ON" : "OFF")).size(30).color(Pal.opaqueBlack));
                     });
                 }
             }));
@@ -159,7 +159,7 @@ public class MenuScreen extends Screen{
                 button.press(b -> {
                     menu = menu == 1 ? 0 : 1;
                     rebuild();
-                }).text(text -> text.text("<").size(30).color(Pal.opaqueWhite)).width(150).y(height - 80);
+                }).text(text -> text.text("<").size(30).color(Pal.opaqueBlack)).width(150).y(height - 80);
             });
         }).x(20).y(10);
     }
@@ -173,12 +173,9 @@ public class MenuScreen extends Screen{
 
     @Override
     public void draw(){
-        canvas.pushMatrix();
-        canvas.translate(-canvas.mouseX / 50f, -canvas.mouseY / 50f);
-        background.draw(-125, 0, (float)background.image.width * height / background.image.height, height, Color.white);
-        canvas.popMatrix();
+        canvas.background(220, 220, 220);
 
-        Effects.blur.draw(sidex - 300, 0, 300, height, Color.black);
+        Effects.blur.draw(sidex - 300, 0, 300, height, Pal.opaqueGray);
 
         side.process();
     }

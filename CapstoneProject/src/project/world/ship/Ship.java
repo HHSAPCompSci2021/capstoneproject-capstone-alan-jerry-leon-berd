@@ -115,7 +115,7 @@ public class Ship extends Entity{
     }
 
     public float rotate(){
-        return calc(rotateSpeed, ship().rotate());
+        return calc(rotateSpeed, ship().rotate()) * delta;
     }
 
     public float ram(){
@@ -193,7 +193,7 @@ public class Ship extends Entity{
     @Override
     public void glow(){
         super.glow();
-        Effects.glow.drawc(pos.x, pos.y, size() * 5, size() * 5, Color.white, 30);
+//        Effects.glow.drawc(pos.x, pos.y, size() * 5, size() * 5, Color.white, 30);
     }
 
     @Override

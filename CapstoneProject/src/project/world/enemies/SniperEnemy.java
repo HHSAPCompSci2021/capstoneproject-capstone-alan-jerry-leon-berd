@@ -18,15 +18,14 @@ public class SniperEnemy extends Enemy{
 
         sprite.set("beam-caster");
         bullet = new RailgunBullet(){{
-            size = 2;
-            damage = 75;
+            size = 6;
+            damage = 25;
             splashRadius = 25;
-            speed = 200;
-            color = new Color(0, 250, 0);
+            speed = 30;
         }};
 
         health = 70;
-        color = new Color(120, 120, 0);
+        color = new Color(255, 110, 200);
         reload = 1;
         rotate = 3;
         accel = 0.2f;

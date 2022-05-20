@@ -4,6 +4,8 @@ import project.core.Content.*;
 import project.core.Rules.*;
 import project.world.*;
 
+import static project.Vars.*;
+
 public class StatusEffect extends Type{
     public float damage;
 
@@ -34,7 +36,7 @@ public class StatusEffect extends Type{
         }
 
         public void update(){
-            life++;
+            life += delta;
             ship.damage(damage);
         }
 

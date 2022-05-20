@@ -56,7 +56,7 @@ public class MissileBullet extends Bullet{
             super.update();
 
             rotation += sin(life * waveFrequency) * waveAmplitude * delta;
-            if(target == null || !target.keep()){
+            if(target == null || !target.keep() || target.team == team){
                 world.ships.query(pos.x, pos.y, homingRange, e -> {
                     if(e.team != team) target = e;
                 });

@@ -89,6 +89,10 @@ public class Effects{
             canvas.stroke(255, 255, 255, 100 * e.fout());
             canvas.strokeWeight(e.data[5] * e.fout());
             canvas.line(0, 0, e.data[3] - e.pos.x, e.data[4] - e.pos.y);
+
+            canvas.stroke(0, 0, 0, 10);
+            canvas.strokeWeight(e.data[5] * e.fout());
+            canvas.line(5, 5, e.data[3] - e.pos.x + 5, e.data[4] - e.pos.y + 5);
         });
     }
 

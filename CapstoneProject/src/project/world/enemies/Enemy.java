@@ -152,6 +152,7 @@ public class Enemy extends Type implements ShipType{
         public void draw(){
             super.draw();
 
+            sprite.drawc(pos.x + 5, pos.y + 5, size() * 5, size() * 5, rotation, Color.black, 50);
             sprite.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation, Color.white);
         }
 

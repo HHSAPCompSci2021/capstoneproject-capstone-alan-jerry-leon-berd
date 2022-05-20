@@ -9,5 +9,6 @@ public class Pal{
     shieldBlue = new Color(150, 150, 200),
     expGray = new Color(150, 150, 150, 100),
     opaqueWhite = new Color(255, 255, 255, 150),
-    opaqueGray = new Color(150, 150, 150, 200);
+    opaqueGray = new Color(150, 150, 150, 200),
+    opaqueBlack = new Color(0, 0, 0, 100);
 }

@@ -30,6 +30,8 @@ public class Bullet{
     public float trailSize = 8;
     public float trailAlpha = 255;
 
+    public boolean reflectable = true;
+
     public BulletEntity create(){
         return new BulletEntity(this);
     }
@@ -38,7 +40,7 @@ public class Bullet{
     public class BulletEntity extends Entity{
         public Bullet bullet;
 
-        public float rotation, speed = 1f;
+        public float rotation, damage = 1f, speed = 1f;
         public Vec2 pPos = new Vec2();
 
         public Ship origin;
@@ -109,6 +111,7 @@ public class Bullet{
 
         @Override
         public void init(){
+            damage *= bullet.damage;
             speed *= speed();
             pPos.set(pos);
         }
@@ -131,6 +134,8 @@ public class Bullet{
 
         @Override
         public void draw(){
+            sprite.drawc(pos.x + 5, pos.y + 5, size() * 5, size() * 5, rotation + 90, Color.black, 50);
+
             sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, color());
             sprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, Color.white, 200);
         }

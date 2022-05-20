@@ -35,7 +35,7 @@ public class VolleyBullet extends Bullet{
         @Override
         public void draw(){
             if(flip){
-                Effects.glow.drawc(pos.x, pos.y, size() * 15, size() * 15, origin.color(), 30);
+//                Effects.glow.drawc(pos.x, pos.y, size() * 15, size() * 15, origin.color(), 30);
                 flipSprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, origin.color());
                 flipSprite.drawc(pos.x, pos.y, size() * 10, size() * 10, rotation + 90, Color.white, 200);
             }else super.draw();

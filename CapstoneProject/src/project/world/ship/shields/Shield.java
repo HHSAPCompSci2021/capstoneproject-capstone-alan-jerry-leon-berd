@@ -13,12 +13,11 @@ import static project.core.Rules.Rule.*;
 /** Stores stats for a shield. */
 public class Shield extends Modifier{
     public Color color = new Color(120, 120, 255);
-//    public Color color = new Color(255, 120, 120);
 
     public float max = 100;
-    public float regen = 15;
+    public float regen = 20;
 
-    public float respawn = 60 * 5;
+    public float respawn = 10;
 
     public Shield(String name){
         super(name);
@@ -26,6 +25,15 @@ public class Shield extends Modifier{
         tag = "SHIELD";
 
         sprite.set("shield-" + name);
+    }
+
+    @Override
+    public void init(){
+        addPro("Shields: " + max);
+        addPro("Regeneration: " + (int)regen + "%/sec");
+        addPro("Cooldown: " + (int)respawn + " sec");
+
+        super.init();
     }
 
     @Override
@@ -62,12 +70,16 @@ public class Shield extends Modifier{
             return broken ? 0 : value / shields();
         }
 
+        public void damage(float damage){
+            if(damage > value) broken = true;
+            value = max(0, value - damage);
+        }
+
         /** Updates this shield. */
         public void update(){
-            if(value <= 0) broken = true;
             if(broken){
-                value++;
-                if(value > respawn){
+                value += regen() / regen;
+                if(value > respawn * 60){
                     broken = false;
                     value = shields();
                 }

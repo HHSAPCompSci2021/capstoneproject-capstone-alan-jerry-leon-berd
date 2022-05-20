@@ -18,6 +18,7 @@ public class LanceBullet extends Bullet{
         speed = 40;
         lifetime = 120;
         damage = 2;
+        reflectable = false;
     }
 
     public LanceBulletEntity create(){
@@ -26,8 +27,6 @@ public class LanceBullet extends Bullet{
 
     /** Represents and simulates a laser bullet. */
     public class LanceBulletEntity extends BulletEntity{
-        public float damageScale = 1f;
-
         public LanceBulletEntity(LanceBullet type){
             super(type);
         }
@@ -42,7 +41,7 @@ public class LanceBullet extends Bullet{
 
         @Override
         public float damage(){
-            return super.damage() * damageScale;
+            return super.damage();
         }
 
         @Override
@@ -55,7 +54,7 @@ public class LanceBullet extends Bullet{
         @Override
         public void update(){
             pos.set(origin.pos);
-            life ++;
+            life += delta;
 
             if(life % damageInterval < 1){
                 collided.clear();
@@ -63,7 +62,7 @@ public class LanceBullet extends Bullet{
                     if(s.team != team && s.keep() && !collided.contains(s) && dst(s, pos) < s.size() + size){
                         collided.add(s);
                         this.pos.set(pos);
-                        s.entry(Statuses.vulnerable, 60);
+                        s.entry(Statuses.vulnerable, 20);
                         hit(s);
                     }
                 });

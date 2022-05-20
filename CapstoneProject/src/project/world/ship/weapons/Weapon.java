@@ -86,7 +86,7 @@ public class Weapon extends Modifier{
         }
 
         public float reload(){
-            return (reload + rules.add(weaponReload, Team.player)) * rules.mult(weaponReload, Team.player);
+            return (reload + rules.add(weaponReload, Team.player)) * rules.mult(weaponReload, Team.player) * delta;
         }
 
         public float spread(){
