@@ -16,34 +16,34 @@ public class Sounds {
     public static void playSong(String name) {
         if (songMap.get(name) == null) return;
 
-        int idx = songMap.get(name);
-        while (currentSong != idx) {
-            songs.nextSong();
-            currentSong = (currentSong + 1) % songMap.size();
-        }
+//        int idx = songMap.get(name);
+//        while (currentSong != idx) {
+//            songs.nextSong();
+//            currentSong = (currentSong + 1) % songMap.size();
+//        }
     }
 
     public static void playSound(String name) {
-        if (soundMap.get(name) == null) return;
-        soundMap.get(name).play();
+//        if (soundMap.get(name) == null) return;
+//        soundMap.get(name).play();
     }
 
     public void init() {
-        songs = new JayLayer("assets/audio/music/", "assets/audio/effects/", false);
-        songs.addPlayList();
-        String[] songList = new String[]{"Neverend.mp3", "Slowburn.mp3", "Blueshift.mp3", "Rubidium.mp3", "Near_Miss.mp3", "Collider.mp3", "Superlumen.mp3", "Freefall.mp3", "Zeroed.mp3", "Singular.mp3"};
-        for (String song : songList) {
-            songMap.put(song, songMap.size());
-        }
-        songs.addSongs(0, songList);
-        songs.changePlayList(0);
-        songs.nextSong();
-        playSong("Neverend.mp3");
-
-        String[] soundList = new String[]{"fuel_explosion.wav", "field_explosion.wav", "car_explosion.wav", "laser_impact.wav", "mine_explosion.wav"};
-        for (String sound : soundList) {
-            soundMap.put(sound, new SoundPlayer("assets/audio/effects/" + sound));
-        }
+//        songs = new JayLayer("assets/audio/music/", "assets/audio/effects/", false);
+//        songs.addPlayList();
+//        String[] songList = new String[]{"Neverend.mp3", "Slowburn.mp3", "Blueshift.mp3", "Rubidium.mp3", "Near_Miss.mp3", "Collider.mp3", "Superlumen.mp3", "Freefall.mp3", "Zeroed.mp3", "Singular.mp3"};
+//        for (String song : songList) {
+//            songMap.put(song, songMap.size());
+//        }
+//        songs.addSongs(0, songList);
+//        songs.changePlayList(0);
+//        songs.nextSong();
+//        playSong("Neverend.mp3");
+//
+//        String[] soundList = new String[]{"fuel_explosion.wav", "field_explosion.wav", "car_explosion.wav", "laser_impact.wav", "mine_explosion.wav"};
+//        for (String sound : soundList) {
+//            soundMap.put(sound, new SoundPlayer("assets/audio/effects/" + sound));
+//        }
     }
 
     public static class SoundPlayer implements Runnable {
