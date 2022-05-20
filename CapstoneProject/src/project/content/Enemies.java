@@ -164,10 +164,10 @@ public class Enemies implements ContentList{
                 shootInterval = 7;
                 accel = 0.7f;
                 bullet = new RailgunBullet(){{
-                    size = 4;
+                    size = 8;
                     damage = 45;
                     splashRadius = 50;
-                    speed = 4;
+                    speed = 35;
                 }};
             }};
             champion = new SniperEnemy(){{
@@ -178,8 +178,9 @@ public class Enemies implements ContentList{
                 shootInterval = 5;
                 accel = 1f;
                 bullet = new RailgunBullet(){{
-                    speed = 3;
-                    damage = 5;
+                    size = 12;
+                    speed = 40;
+                    damage = 75;
                     accel = 0.2f;
                     lifetime = 3 * 60f;
                 }};
