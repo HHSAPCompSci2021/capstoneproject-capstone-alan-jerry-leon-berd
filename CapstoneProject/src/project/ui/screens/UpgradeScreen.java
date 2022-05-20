@@ -195,7 +195,7 @@ public class UpgradeScreen extends PauseScreen{
         }).x(width * 0.35f).y(height * 0.35f);
 
         description = new Tooltip(tip -> {
-            tip.drawable(d -> d.drawer(drawer -> Effects.slant.draw(0, 0, 300, 300, Color.black, 150)));
+            tip.drawable(d -> d.drawer(drawer -> Effects.slant.draw(0, 0, 400, 400, Color.black, 50)));
 
             tip.translated(true).draw(table -> selected != -1);
             tip.add(new List(list -> {

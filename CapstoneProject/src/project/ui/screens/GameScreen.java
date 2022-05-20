@@ -57,7 +57,7 @@ public class GameScreen extends Screen{
 
         if(input.pressed(KeyBind.upgrade)){
             input.consume(KeyBind.upgrade);
-            if(world.player.level > world.player.spent) canvas.screen(ui.upgradeScreen);
+            if(3 > world.player.spent) canvas.screen(ui.upgradeScreen);
             else canvas.screen(ui.pauseScreen);
         }
     }

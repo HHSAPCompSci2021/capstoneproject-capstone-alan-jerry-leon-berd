@@ -26,7 +26,7 @@ public class Player extends Ship{
     public ShieldInstance shield;
     public WeaponInstance weapon;
 
-    public int level, spent;
+    public int level = 3, spent;
     public float exp;
 
     public Seq<ModInstance> modifiers = new Seq<>();
