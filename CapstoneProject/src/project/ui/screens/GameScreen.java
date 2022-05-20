@@ -49,6 +49,8 @@ public class GameScreen extends Screen{
     public void update(){
         rot += 0.025f;
 
+        delta += (1f - delta) / 10f;
+
         pan.add(Tmp.v1.set(world.player.pos).sub(pan).scl(0.1f));
 
         world.update();

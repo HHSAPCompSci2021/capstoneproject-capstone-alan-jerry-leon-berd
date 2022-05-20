@@ -115,7 +115,7 @@ public class Ship extends Entity{
     }
 
     public float rotate(){
-        return calc(rotateSpeed, ship().rotate());
+        return calc(rotateSpeed, ship().rotate()) * delta;
     }
 
     public float ram(){

@@ -49,10 +49,10 @@ public class World{
         waves = new Waves();
         waves.spawnWave();
 
-//        EnemyEntity e = Enemies.tracer.champion.create();
-//        e.team = Team.enemy;
-//        e.pos.set(Tmp.v1.set(random(0, width), random(0, height)).sub(world.bounds.center()).nor().scl(width).add(world.bounds.center()));
-//        world.ships.add(e);
+        EnemyEntity e = Enemies.host.champion.create();
+        e.team = Team.enemy;
+        e.pos.set(Tmp.v1.set(random(0, width), random(0, height)).sub(world.bounds.center()).nor().scl(width).add(world.bounds.center()));
+        world.ships.add(e);
 
         events.on(Event.enemyDestroyed, event -> {
             boolean spawnNext = true;

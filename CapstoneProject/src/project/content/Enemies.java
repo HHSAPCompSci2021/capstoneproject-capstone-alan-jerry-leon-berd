@@ -27,7 +27,7 @@ public class Enemies implements ContentList{
                     sprite.set("host-drone-2");
                     bullet = new Bullet(){{
                         damage = 10f;
-                        speed = 10;
+                        speed = 15;
                         size = 3;
                     }};
                 }};
