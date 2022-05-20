@@ -21,7 +21,7 @@ public class Vars{
     public static float universalDrag = 0.02f;
     public static float universalSpeedLimit = 25;
     public static float universalDamping = 0.3f;
-    public static float universalRamDamage = 0.1f;
+    public static float universalRamDamage = 0.25f;
 
     public static float raycastLength = 10;
     public static float maxEntitySize = 50;

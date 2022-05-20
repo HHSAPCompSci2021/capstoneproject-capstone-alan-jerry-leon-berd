@@ -38,12 +38,12 @@ public class Weapon extends Modifier{
 
     @Override
     public void init(){
-        super.init();
-
         if(charges != 1) addPro("Base charges: " + charges);
         if(shots != 1) addPro("Base projectiles: " + shots);
         addPro("Rate of fire: " + reload + "/sec");
         addPro("Damage: " + bullet.damage);
+
+        super.init();
     }
 
     @Override
@@ -89,6 +89,10 @@ public class Weapon extends Modifier{
             return (reload + rules.add(weaponReload, Team.player)) * rules.mult(weaponReload, Team.player);
         }
 
+        public float spread(){
+            return (spread + rules.add(shotSpread, Team.player)) * rules.mult(shotSpread, Team.player);
+        }
+
         /** Updates this weapon. */
         public void update(){
             reloadt = min(reloadt + reload(), 60 * charges());
@@ -104,7 +108,7 @@ public class Weapon extends Modifier{
         public BulletEntity def(BulletEntity b){
             b.pos.set(player().hull.shootPos());
             b.team = Team.player;
-            b.rotation = player().rotation + random(-inaccuracy, inaccuracy);
+            b.rotation = player().rotation + random(-inaccuracy, inaccuracy) + player().hull.shootRot();
             b.speed *= random(1f - velRand, 1f);
             b.life = b.bullet.lifetime * random(0, lifeRand);
             b.origin = player();
@@ -115,13 +119,13 @@ public class Weapon extends Modifier{
         public void shoot(){
             for(int i = 0;i < projectiles();i++){
                 BulletEntity b = def(bullet.create());
-                b.rotation += spread * (i - (shots - 1) / 2f);
+                b.rotation += spread() * (i - (shots - 1) / 2f);
                 world.bullets.add(b);
                 Tmp.v1.set(player().hull.shootPos()).sub(player().pos);
                 Effects.gunfire.at(Tmp.v1.x, Tmp.v1.y, e -> e.color(0, player().color()).parent(player()));
+                player().apply(Tmp.v1.set(-recoil(), 0).rot(player().rotation + player().hull.shootRot()));
+                player().hull.shot();
             }
-
-            player().apply(Tmp.v1.set(-recoil(), 0).rot(player().rotation));
         }
 
         @Override

@@ -31,6 +31,7 @@ public class Enemy extends Type implements ShipType{
     public float mass = 0;
     public float size = 10;
     public float ram = 1;
+    public float drag = 1;
 
     public float reload = 1;
 
@@ -82,6 +83,11 @@ public class Enemy extends Type implements ShipType{
     @Override
     public float ram(){
         return ram;
+    }
+
+    @Override
+    public float drag(){
+        return drag;
     }
 
     /** Represents and simulates an enemy. */

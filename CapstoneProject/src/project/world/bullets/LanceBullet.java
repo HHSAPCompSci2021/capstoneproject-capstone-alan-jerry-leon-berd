@@ -68,6 +68,7 @@ public class LanceBullet extends Bullet{
                     }
                 });
             }
+            if(!origin.statuses.contains(t -> t.type() == Statuses.slow)) origin.entry(Statuses.slow, bullet.lifetime);
         }
 
         @Override

@@ -76,7 +76,7 @@ public class Ship extends Entity{
     }
 
     public float mult(Rule rule){
-        return mult[rule.id()];
+        return max(mult[rule.id()], 0);
     }
 
     public float calc(Rule rule, float base){
@@ -122,6 +122,14 @@ public class Ship extends Entity{
         return calc(ramDamage, ship().ram());
     }
 
+    public float drag(){
+        return calc(shipDrag, ship().drag());
+    }
+
+    public float resistance(){
+        return calc(ramResistance, 1f);
+    }
+
     public boolean spawned(){
         return statuses.contains(b -> b.type() == Statuses.spawned); //Note that since spawned is usually the first effect added, this isn't very inefficient
     }
@@ -161,7 +169,7 @@ public class Ship extends Entity{
 
         world.ships.raycast(x, y, size() + maxEntitySize, vel.ang(), vel.len(), (s, pos) -> {
             if(s != this && !collided.contains(s) && dst(s, pos) < s.size() + size()){
-                if(s.team != team) s.damage(vel.len() * vel.len() * mass() * ram() * universalRamDamage);
+                if(s.team != team) s.damage((vel.len() * mass() + s.vel.len() * s.mass()) * ram() * universalRamDamage / s.resistance());
                 s.apply(Tmp.v1.set(s.pos).sub(pos).nor().scl(universalDamping * (s.team != team ? 10 : 1)));
                 apply(Tmp.v1.inv());
                 collided.add(s);
@@ -169,7 +177,7 @@ public class Ship extends Entity{
         });
         collided.clear();
 
-        vel.scl(1f - universalDrag);
+        vel.scl(1f - universalDrag * drag());
 
         buffer.clear();
         for(StatusEntry status : statuses){

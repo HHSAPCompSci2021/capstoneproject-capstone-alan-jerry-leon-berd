@@ -14,7 +14,8 @@ import project.ui.interactables.*;
 import project.world.*;
 import project.world.modifiers.*;
 import project.world.ship.*;
-import project.world.ship.Hull.*;
+import project.world.ship.hulls.*;
+import project.world.ship.hulls.Hull.*;
 import project.world.ship.shields.*;
 import project.world.ship.shields.Shield.*;
 import project.world.ship.weapons.*;
@@ -76,7 +77,8 @@ public class UpgradeScreen extends PauseScreen{
     }
 
     public void choose(Seq<Type> from){
-        Seq<Type> copy = new Seq<>(from.list());
+        Seq<Type> copy = new Seq<>();
+        for(Type t : from) if(!world.player.hasMod((Modifier)t) && t != Modifiers.theVoid) copy.add(t);
         for(int i = 0;i < 7;i++){
             if(copy.size == 0) choices[i] = Modifiers.theVoid;
             else{

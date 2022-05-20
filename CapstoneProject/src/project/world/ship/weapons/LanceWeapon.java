@@ -2,6 +2,7 @@ package project.world.ship.weapons;
 
 import project.content.*;
 import project.core.Input.*;
+import project.world.bullets.Bullet.*;
 import project.world.bullets.LanceBullet.*;
 
 import static gameutils.util.Mathf.*;
@@ -12,6 +13,7 @@ public class LanceWeapon extends Weapon{
         super(name);
 
         reload = 0.7f;
+        spread = 40;
     }
 
     @Override
@@ -33,9 +35,13 @@ public class LanceWeapon extends Weapon{
                 reloadt = min(reloadt + reload(), 60 * charges());
                 if(input.pressed(KeyBind.shoot) && reloadt >= 60){
                     reloadt -= 60;
-                    current = (LanceBulletEntity)def(bullet.create());
-                    world.bullets.add(current);
-                    world.player.entry(Statuses.slow, bullet.lifetime);
+                    for(int i = 0;i < projectiles();i++){
+                        current = (LanceBulletEntity)def(bullet.create());
+                        current.rotation += spread() * (i - (shots - 1) / 2f);
+                        world.bullets.add(current);
+
+                        player().hull.shot();
+                    }
                 }
             }else if(!current.keep()) current = null;
         }

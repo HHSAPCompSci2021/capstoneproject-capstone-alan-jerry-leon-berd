@@ -39,19 +39,20 @@ public class Enemies implements ContentList{
                 drone = new OrbitDrone(){{
                     health = 50;
                     reload = 0.5f;
-                    rotate = 2f;
+                    rotate = 5f;
                     spacedShooting = true;
                     sprite.set("host-drone-3");
                     bullet = new LanceBullet(){{
-                        size = 7;
+                        size = 5;
                         lifetime = 50;
                         damage = 1;
                         damageInterval = 5;
+                        speed = 75;
                     }};
                 }};
                 size = 17;
                 droneSpace = 40;
-                kiteDistance = 300;
+                kiteDistance = 50;
             }};
         }};
 
@@ -62,7 +63,7 @@ public class Enemies implements ContentList{
                 reload = 0.3f;
                 sprite.set("gyrogun-2");
                 size = 12;
-                bullet = new VolleyBullet(){{
+                bullet = new Bullet(){{
                     damage = 15;
                     size = 2;
                     speed = 5;
@@ -75,7 +76,7 @@ public class Enemies implements ContentList{
                 shootInterval = 5;
                 sprite.set("gyrogun-3");
                 size = 14;
-                bullet = new VolleyBullet(){{
+                bullet = new Bullet(){{
                     damage = 15;
                     size = 3f;
                     speed = 5;
@@ -124,12 +125,13 @@ public class Enemies implements ContentList{
                 health = 75;
                 size = 15;
                 reload = 1.5f;
-                shootInterval = 4;
+                shootInterval = 7;
                 accel = 0.7f;
-                bullet = new Bullet(){{
+                bullet = new GrenadeBullet(){{
                     size = 4;
-                    damage = 25;
-                    speed = 2;
+                    damage = 45;
+                    splashRadius = 50;
+                    speed = 4;
                 }};
             }};
             champion = new BomberEnemy(){{
@@ -137,7 +139,7 @@ public class Enemies implements ContentList{
                 health = 175;
                 size = 20;
                 reload = 1.2f;
-                shootInterval = 3;
+                shootInterval = 5;
                 accel = 1f;
                 waveFrequency = 5f;
                 waveAmplitude = 3;

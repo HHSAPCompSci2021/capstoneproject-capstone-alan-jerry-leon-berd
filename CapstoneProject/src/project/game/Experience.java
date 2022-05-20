@@ -2,6 +2,7 @@ package project.game;
 
 import project.*;
 import project.core.Events.Event;
+import project.core.Rules.*;
 import project.graphics.*;
 import project.world.*;
 
@@ -35,7 +36,7 @@ public class Experience extends Entity{
         life += delta;
         if(dst(pos, world.player) < expRange) vel.add(Tmp.v1.set(world.player.pos).sub(pos).nor().scl(0.5f));
         if(dst(pos, world.player) < world.player.size() + 5){
-            world.player.exp += amount;
+            world.player.exp += amount * rules.mult(Rule.expGain, Team.player);
             amount = 0;
             events.call(Event.expGain);
         }

@@ -8,8 +8,8 @@ import project.core.Input.*;
 import project.graphics.*;
 import project.world.modifiers.*;
 import project.world.modifiers.Modifier.*;
-import project.world.ship.Hull.*;
 import project.world.ship.*;
+import project.world.ship.hulls.Hull.*;
 import project.world.ship.shields.Shield.*;
 import project.world.ship.weapons.Weapon.*;
 
@@ -32,7 +32,7 @@ public class Player extends Ship{
     public Seq<ModInstance> modifiers = new Seq<>();
 
     public Player(){
-        super(Hulls.standard);
+        super(null);
         team = Team.player;
         hull = Hulls.standard.create();
         shield = Shields.standard.create();
@@ -59,6 +59,10 @@ public class Player extends Ship{
     /** Add a modifier to this player. */
     public void addMod(Modifier mod){
         modifiers.add(mod.create());
+    }
+
+    public boolean hasMod(Modifier mod){
+        return modifiers.contains(m -> m.type() == mod);
     }
 
     @Override
@@ -110,17 +114,19 @@ public class Player extends Ship{
     public void draw(){
         super.draw();
 
-        sprite().drawc(pos.x, pos.y, size() * 5, size() * 5, rotation + 90, color());
-        sprite().drawc(pos.x, pos.y, size() * 5, size() * 5, rotation + 90, Color.white, 200);
+        sprite().drawc(pos.x, pos.y, size() * 6, size() * 6, rotation + 90, color());
+        sprite().drawc(pos.x, pos.y, size() * 6, size() * 6, rotation + 90, Color.white, 200);
 
-        canvas.noFill();
-        canvas.stroke(color());
-        canvas.strokeWeight(3);
-        canvas.ellipse(pos.x, pos.y, size() * 5, size() * 5);
+        if(!shield.broken){
+            canvas.noFill();
+            canvas.stroke(color());
+            canvas.strokeWeight(4);
+            canvas.ellipse(pos.x, pos.y, size() * 5, size() * 5);
 
-        canvas.stroke(Color.white, 200);
-        canvas.strokeWeight(2);
-        canvas.ellipse(pos.x, pos.y, size() * 5, size() * 5);
+            canvas.stroke(Color.white, 200);
+            canvas.strokeWeight(2);
+            canvas.ellipse(pos.x, pos.y, size() * 5, size() * 5);
+        }
 
         super.draw();
     }
@@ -133,5 +139,10 @@ public class Player extends Ship{
     @Override
     public boolean keep(){
         return !(life <= 0);
+    }
+
+    @Override
+    public ShipType ship(){
+        return hull.type();
     }
 }

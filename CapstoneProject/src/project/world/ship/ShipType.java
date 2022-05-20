@@ -7,4 +7,5 @@ public interface ShipType{
     public float size();
     public float health();
     public float ram();
+    public float drag();
 }

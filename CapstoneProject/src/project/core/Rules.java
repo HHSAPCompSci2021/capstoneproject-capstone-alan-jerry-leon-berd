@@ -5,6 +5,7 @@ import project.game.*;
 import project.world.modifiers.*;
 import project.world.modifiers.Modifier.*;
 
+import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 import static project.core.Rules.Rule.*;
 
@@ -48,7 +49,7 @@ public class Rules{
     }
 
     public float mult(Rule rule, Team team){
-        return rules[team.id()][rule.id()][0];
+        return max(rules[team.id()][rule.id()][0], 0);
     }
 
     public float add(Rule rule, Team team){
@@ -70,10 +71,12 @@ public class Rules{
         weaponRecoil("weapon recoil"),
         weaponCharges("weapon charges"),
         shotProjectiles("shot projectiles"),
+        shotSpread("shot spread"),
 
         enginePower("engine power"),
         rotateSpeed("rotate speed"),
         shipMass("ship mass"),
+        shipDrag("ship drag"),
 
         maxHull("maximum hull"),
         hullRegen("passive regeneration rate"),
@@ -81,7 +84,10 @@ public class Rules{
         shieldRegen("shield"),
 
         vulnerability("vulnerability"),
-        armorStack("armor stack");
+        armorStack("armor stack"),
+        ramResistance("collision resistance"),
+
+        expGain("exp gained");
 
         public static Rule[] all = values();
 

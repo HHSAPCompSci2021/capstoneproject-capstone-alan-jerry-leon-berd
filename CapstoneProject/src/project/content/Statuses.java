@@ -30,8 +30,8 @@ public class Statuses implements ContentList{
             }
         };
         slow = new StatusEffect(){{
-            mult[Rule.enginePower.id()] = -0.6f;
-            mult[Rule.rotateSpeed.id()] = -0.75f;
+            mult[Rule.enginePower.id()] = -0.3f;
+            mult[Rule.rotateSpeed.id()] = -0.7f;
         }};
         vulnerable = new StatusEffect(){
             {

@@ -9,7 +9,9 @@ import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 public class BomberEnemy extends Enemy{
-    public float shootInterval = 5;
+    public float thrustDuration = 60;
+    public float shootInterval = 10;
+
     public float inaccuracy = 20;
     public float waveFrequency = 10;
     public float waveAmplitude = 5;
@@ -18,10 +20,11 @@ public class BomberEnemy extends Enemy{
         super();
 
         sprite.set("tracer-1");
-        bullet = new Bullet(){{
+        bullet = new GrenadeBullet(){{
             size = 2;
-            damage = 15;
-            speed = 1;
+            damage = 25;
+            splashRadius = 25;
+            speed = 3;
         }};
 
         health = 40;

@@ -13,7 +13,7 @@ public class FlakBullet extends Bullet{
         sprite.set("flak");
 
         trailDuration = 10;
-        trailSize = 2;
+        trailSize = 3;
         speed = 30;
         lifetime = 8;
         damage = 30;

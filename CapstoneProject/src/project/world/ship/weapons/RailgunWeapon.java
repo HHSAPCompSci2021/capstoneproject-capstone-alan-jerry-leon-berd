@@ -14,7 +14,7 @@ public class RailgunWeapon extends Weapon{
 
         manual = true;
         reload = 1;
-        recoil = 5;
+        recoil = 2;
     }
 
     @Override

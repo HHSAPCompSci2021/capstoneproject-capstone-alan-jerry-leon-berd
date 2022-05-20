@@ -15,7 +15,7 @@ public class VolleyBullet extends Bullet{
         flipSprite.set("blaster-2");
         speed = 15;
         size = 4f;
-        trailDuration = 5;
+        trailDuration = 3;
         trailSize = 10;
     }
 

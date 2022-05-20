@@ -18,6 +18,8 @@ public class Shield extends Modifier{
     public float max = 100;
     public float regen = 15;
 
+    public float respawn = 60 * 5;
+
     public Shield(String name){
         super(name);
 
@@ -38,6 +40,7 @@ public class Shield extends Modifier{
 
     /** Represents an instance of a shield. */
     public class ShieldInstance extends ModInstance{
+        public boolean broken;
         /** Stores the current health in the shield. */
         public float value;
 
@@ -56,12 +59,19 @@ public class Shield extends Modifier{
 
         /** Returns ratio of the shields current value to it's maximum value. */
         public float fin(){
-            return value / shields();
+            return broken ? 0 : value / shields();
         }
 
         /** Updates this shield. */
         public void update(){
-            value = min(shields(), value + shields() * regen());
+            if(value <= 0) broken = true;
+            if(broken){
+                value++;
+                if(value > respawn){
+                    broken = false;
+                    value = shields();
+                }
+            }else value = min(shields(), value + shields() * regen());
         }
 
         @Override

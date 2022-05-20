@@ -2,8 +2,11 @@ package project.core;
 
 import gameutils.math.*;
 import processing.core.*;
+import project.core.Content.*;
 import project.graphics.*;
 import project.ui.screens.*;
+import project.world.ship.hulls.Hull.*;
+import project.world.ship.weapons.Weapon.*;
 
 import java.awt.*;
 
@@ -69,9 +72,18 @@ public class Canvas extends PApplet{
     }
 
 
+    int i = 0, j = 0;
     @Override
     public void keyPressed(){
-        if(key == 'd') debug = !debug;
+        if(key == 'd'){
+//            debug = !debug;
+            world.player.hull = (HullInstance)content.list(ContentType.hull).get(i++ % 7).create();
+            events.call(Events.Event.modChange);
+        }
+        if(key == 'f'){
+//            debug = !debug;
+            world.player.weapon = (WeaponInstance)content.list(ContentType.weapon).get(j++ % 7).create();
+        }
         input.register(keyCode);
     }
 

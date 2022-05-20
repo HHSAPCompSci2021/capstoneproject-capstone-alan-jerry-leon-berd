@@ -17,7 +17,7 @@ public class Weapons implements ContentList{
         }};
         salvo = new SalvoWeapon("salvo"){{
             addPro("Seeking missiles that home in on enemies");
-            addPro("While not firing, stockpile missiles at a rate proportional to shots and reload");
+            addPro("Missiles stockpile at a rate scaling with shots and reload when not firing");
             addPro("Stockpile rate also scales with amount of missiles in stockpile");
             addPro("Firing releases the entire stockpile");
             bullet = new MissileBullet();
@@ -30,7 +30,7 @@ public class Weapons implements ContentList{
         }};
         burst = new ShotgunWeapon("burst"){{
             addPro("An array of outwards-fanning bullets");
-            addPro("Projectiles explode on impact, dealing 40% of base damage as blast damage");
+            addPro("Projectiles explode on impact");
             manual = false;
             shots = 3;
             shotMult = 1;
@@ -63,7 +63,7 @@ public class Weapons implements ContentList{
         }};
         lance = new LanceWeapon("lance"){{
             addPro("A focused lance of energy which penetrates enemies");
-            addPro("Damage of lance scales based on how long it is focused on target");
+            addPro("Damage scales with how amount of time it has been hitting the target");
             bullet = new LanceBullet();
         }};
     }

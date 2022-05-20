@@ -201,7 +201,7 @@ public class RammingEnemy extends MultiEnemy{
 
             @Override
             public boolean keep(){
-                return life > 0;
+                return life > 0 && parent.keep();
             }
         }
     }
@@ -256,7 +256,7 @@ public class RammingEnemy extends MultiEnemy{
 
             @Override
             public boolean keep(){
-                return life > 0;
+                return life > 0 && parent.keep();
             }
         }
     }

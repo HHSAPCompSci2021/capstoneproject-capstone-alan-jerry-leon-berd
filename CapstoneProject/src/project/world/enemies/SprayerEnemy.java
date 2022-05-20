@@ -16,7 +16,7 @@ public class SprayerEnemy extends Enemy{
     public SprayerEnemy(){
         super();
 
-        bullet = new VolleyBullet(){{
+        bullet = new Bullet(){{
             size = 2;
             speed = 5;
         }};
