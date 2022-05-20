@@ -6,7 +6,7 @@ import project.world.enemies.*;
 
 /** Contains and loads all the enemy types in the game. */
 public class Enemies implements ContentList{
-    public static EnemyVersions host, gyrogun, juggernaut, dodger, tracer;
+    public static EnemyVersions host, gyrogun, juggernaut, dodger, tracer, sniper;
 
     @Override
     public void load(){
@@ -135,7 +135,7 @@ public class Enemies implements ContentList{
                 }};
             }};
             champion = new BomberEnemy(){{
-                sprite.set("tracer-3");
+                sprite.set("beam-caster");
                 health = 175;
                 size = 20;
                 reload = 1.2f;
@@ -149,6 +149,38 @@ public class Enemies implements ContentList{
                     accel = 0.2f;
                     homingPower = 0.04f;
                     homingRange = 2000;
+                    lifetime = 3 * 60f;
+                }};
+            }};
+        }};
+        
+        sniper = new EnemyVersions() {{
+        	common = new SniperEnemy();
+            elite = new SniperEnemy(){{
+                sprite.set("beam-caster");
+                health = 75;
+                size = 15;
+                reload = 1.5f;
+                shootInterval = 7;
+                accel = 0.7f;
+                bullet = new RailgunBullet(){{
+                    size = 4;
+                    damage = 45;
+                    splashRadius = 50;
+                    speed = 4;
+                }};
+            }};
+            champion = new SniperEnemy(){{
+                sprite.set("beam-caster");
+                health = 175;
+                size = 20;
+                reload = 1.2f;
+                shootInterval = 5;
+                accel = 1f;
+                bullet = new RailgunBullet(){{
+                    speed = 3;
+                    damage = 5;
+                    accel = 0.2f;
                     lifetime = 3 * 60f;
                 }};
             }};
