@@ -2,6 +2,7 @@ package project.world.enemies;
 
 import project.*;
 import project.content.*;
+import project.core.*;
 import project.core.Content.*;
 import project.core.Events.Event;
 import project.game.*;
@@ -160,6 +161,8 @@ public class Enemy extends Type implements ShipType{
             }
 
             events.call(Event.enemyDestroyed);
+
+            Sounds.playSound("fuel_explosion.mp3");
         }
 
         @Override

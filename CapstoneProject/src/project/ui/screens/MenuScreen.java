@@ -72,6 +72,14 @@ public class MenuScreen extends Screen{
                             rebuild();
                         }).text(text -> text.text("GRAPHICS").size(30).color(Pal.opaqueWhite));
                     });
+                    list.row(10);
+                    list.button(button -> {
+                        button.hover = buttonHover;
+                        button.press(b -> {
+                            menu = 4;
+                            rebuild();
+                        }).text(text -> text.text("SOUNDS").size(30).color(Pal.opaqueWhite));
+                    });
                 }else if(menu == 2){
                     list.text(text -> text.text("KEYBINDS").size(40).color(Pal.opaqueWhite));
                     list.row(10);
@@ -133,6 +141,16 @@ public class MenuScreen extends Screen{
                             });
                             t.update(tip -> tip.x(slider.x() + slider.width() * slider.value()).y(slider.y() - 10));
                         });
+                    });
+                }else if(menu == 4){
+                    list.text(text -> text.text("SOUNDS").size(40).color(Pal.opaqueWhite));
+                    list.row(10);
+                    list.button(button -> {
+                        button.hover = buttonHover;
+                        button.press(b -> {
+                            soundEffects = !soundEffects;
+                            rebuild();
+                        }).text(text -> text.text("SOUND EFFECTS: " + (soundEffects ? "ON" : "OFF")).size(30).color(Pal.opaqueWhite));
                     });
                 }
             }));

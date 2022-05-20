@@ -8,7 +8,7 @@ import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 public class LanceBullet extends Bullet{
-    public float damageInterval = 5;
+    public float damageInterval = 2;
 
     public LanceBullet(){
         super();
@@ -17,7 +17,7 @@ public class LanceBullet extends Bullet{
         size = 10;
         speed = 40;
         lifetime = 120;
-        damage = 5;
+        damage = 2;
     }
 
     public LanceBulletEntity create(){

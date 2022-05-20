@@ -35,7 +35,7 @@ public class Statuses implements ContentList{
         }};
         vulnerable = new StatusEffect(){
             {
-                mult[Rule.vulnerability.id()] = 0.25f;
+                mult[Rule.vulnerability.id()] = 0.15f;
             }
 
             class VulnerableEntry extends StatusEntry{

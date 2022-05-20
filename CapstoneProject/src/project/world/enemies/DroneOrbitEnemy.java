@@ -128,8 +128,6 @@ public class DroneOrbitEnemy extends MultiEnemy{
             @Override
             public void remove(){
                 super.remove();
-
-                Sounds.playSound("fuel_explosion.mp3");
             }
         }
     }

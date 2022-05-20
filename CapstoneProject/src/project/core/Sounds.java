@@ -4,6 +4,12 @@ import sound.jaysound.*;
 
 import java.util.*;
 
+import static project.Vars.*;
+
+//I hate this class. It's so scuffed, the effects are too loud, and based on what I can tell, it eats ram and is not even close to efficient.
+//Like everywhere else, the amount of scuff is limited to a certain extent, and some places even contain optimizations such as quadtrees.
+//But then, here, there's THIS???! Why the hell is there SoundCopy???
+//At this point, I think we're better off just telling them to search up Nova Drift OST and having them play it separately along with the game, instead of including this mess in the final product.
 public class Sounds{
     private static final HashMap<String, Integer> songMap = new HashMap<>();
     private static final HashSet<String> soundSet = new HashSet<>();
@@ -11,10 +17,10 @@ public class Sounds{
     private static JayLayer songs;
 
     public static void playSong(String name){
-        if(songMap.get(name) == null){
-            return;
-        }
-
+//        if(songMap.get(name) == null){
+//            return;
+//        }
+//
 //        int idx = songMap.get(name);
 //        while(currentSong != idx){
 //            songs.nextSong();
@@ -23,8 +29,8 @@ public class Sounds{
     }
 
     public static void playSound(String name){
-        if(!soundSet.contains(name)) return;
-
+        if(!soundSet.contains(name) || !soundEffects) return;
+//
 //        JayLayer tmp = new JayLayer("assets/audio/music/", "assets/audio/effects/", false);
 //        tmp.addSoundEffects(new String[]{name});
 //        tmp.playSoundEffect(0);

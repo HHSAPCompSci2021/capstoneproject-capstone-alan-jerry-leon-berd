@@ -16,6 +16,7 @@ public class Vars{
     public static float UIscale = 1f; //Well and completely broken.
     public static boolean effectsEnabled = true;
     public static boolean glowEnabled = true;
+    public static boolean soundEffects = true;
 
     public static float universalDrag = 0.02f;
     public static float universalSpeedLimit = 25;
@@ -31,7 +32,7 @@ public class Vars{
     public static float expDrag = 0.05f;
 
     public static float baseLevelExp = 50;
-    public static float expScaling = 1.1f;
+    public static float expScaling = 1.2f;
 
     public static Sounds sounds;
     public static Events events;

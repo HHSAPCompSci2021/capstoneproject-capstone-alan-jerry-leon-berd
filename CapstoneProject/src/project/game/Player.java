@@ -115,7 +115,7 @@ public class Player extends Ship{
 
         canvas.noFill();
         canvas.stroke(color());
-        canvas.strokeWeight(2);
+        canvas.strokeWeight(3);
         canvas.ellipse(pos.x, pos.y, size() * 5, size() * 5);
 
         canvas.stroke(Color.white, 200);

@@ -37,6 +37,16 @@ public class Weapon extends Modifier{
     }
 
     @Override
+    public void init(){
+        super.init();
+
+        if(charges != 1) addPro("Base charges: " + charges);
+        if(shots != 1) addPro("Base projectiles: " + shots);
+        addPro("Rate of fire: " + reload + "/sec");
+        addPro("Damage: " + bullet.damage);
+    }
+
+    @Override
     public ContentType type(){
         return ContentType.weapon;
     }

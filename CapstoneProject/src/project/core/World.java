@@ -40,7 +40,7 @@ public class World{
         effects = new Entities<>();
 
         player = new Player();
-        player.weapon = Weapons.lance.create();
+//        player.weapon = Weapons.lance.create();
         player.pos.set(bounds.center());
         events.call(Event.modChange);
         player.init();

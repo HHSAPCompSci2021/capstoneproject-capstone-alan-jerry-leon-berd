@@ -46,7 +46,7 @@ public class Enemies implements ContentList{
                         size = 7;
                         lifetime = 50;
                         damage = 1;
-                        damageInterval = 10;
+                        damageInterval = 5;
                     }};
                 }};
                 size = 17;
