@@ -64,13 +64,13 @@ public class GameScreen extends Screen{
 
     @Override
     public void draw(){
-        canvas.pushMatrix();
-        canvas.translate(-pan.x / 50f, -pan.y / 50f);
-        canvas.tint(255, 255, 255);
-        background.draw(Tmp.v1.setr(rot, 1).x * 550 - 550, Tmp.v1.y * 100 - 100, (float)background.image.width * (height + 200) / background.image.height, height + 200, Color.white);
-        canvas.popMatrix();
+//        canvas.pushMatrix();
+//        canvas.translate(-pan.x / 50f, -pan.y / 50f);
+//        canvas.tint(255, 255, 255);
+//        background.draw(Tmp.v1.setr(rot, 1).x * 550 - 550, Tmp.v1.y * 100 - 100, (float)background.image.width * (height + 200) / background.image.height, height + 200, Color.white);
+//        canvas.popMatrix();
 
-        canvas.fill(0, 0, 0, 150);
+        canvas.fill(220, 220, 220);
         canvas.rect(0, 0, width, height);
 
         canvas.push();

@@ -20,7 +20,7 @@ public class TemporalShield extends Shield{
         regen = 10;
         respawn = 15;
 
-        color = new Color(20, 170, 20);
+        color = new Color(80, 170, 80);
     }
 
     @Override
