@@ -22,26 +22,28 @@ public class Enemies implements ContentList{
             elite = new DroneOrbitEnemy(){{
                 spacedShooting = true;
                 drone = new OrbitDrone(){{
+                    size = 9;
                     health = 25;
                     reload = 1;
-                    sprite.set("host-drone-2");
+                    sprite.set("host-drone-p2");
                     bullet = new Bullet(){{
                         damage = 10f;
                         speed = 15;
                         size = 3;
                     }};
                 }};
-                size = 15;
-                droneSpace = 35;
+                size = 27;
+                droneSpace = 60;
             }};
             champion = new DroneOrbitEnemy(){{
                 health = 200;
                 drone = new OrbitDrone(){{
+                	size = 10;
                     health = 50;
                     reload = 0.5f;
                     rotate = 5f;
                     spacedShooting = true;
-                    sprite.set("host-drone-3");
+                    sprite.set("host-drone-p3");
                     bullet = new LanceBullet(){{
                         size = 5;
                         lifetime = 50;
@@ -50,8 +52,8 @@ public class Enemies implements ContentList{
                         speed = 75;
                     }};
                 }};
-                size = 17;
-                droneSpace = 40;
+                size = 30;
+                droneSpace = 70;
                 kiteDistance = 50;
             }};
         }};
@@ -121,7 +123,7 @@ public class Enemies implements ContentList{
         tracer = new EnemyVersions() {{
         	common = new BomberEnemy();
             elite = new BomberEnemy(){{
-                sprite.set("tracer-2");
+                sprite.set("tracer-1");
                 health = 75;
                 size = 15;
                 reload = 1.5f;
@@ -135,9 +137,9 @@ public class Enemies implements ContentList{
                 }};
             }};
             champion = new BomberEnemy(){{
-                sprite.set("beam-caster");
+                sprite.set("tracer-1");
                 health = 175;
-                size = 20;
+                size = 50;
                 reload = 1.2f;
                 shootInterval = 5;
                 accel = 1f;
@@ -157,9 +159,9 @@ public class Enemies implements ContentList{
         sniper = new EnemyVersions() {{
         	common = new SniperEnemy();
             elite = new SniperEnemy(){{
-                sprite.set("beam-caster");
+                sprite.set("sniper");
                 health = 75;
-                size = 15;
+                size = 30;
                 reload = 1.5f;
                 shootInterval = 7;
                 accel = 0.7f;
@@ -171,9 +173,9 @@ public class Enemies implements ContentList{
                 }};
             }};
             champion = new SniperEnemy(){{
-                sprite.set("beam-caster");
+                sprite.set("sniper");
                 health = 175;
-                size = 20;
+                size = 40;
                 reload = 1.2f;
                 shootInterval = 5;
                 accel = 1f;
