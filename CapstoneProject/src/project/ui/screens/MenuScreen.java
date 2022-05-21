@@ -54,6 +54,10 @@ public class MenuScreen extends Screen{
                             rebuild();
                         }).text(text -> text.text("SETTINGS").size(35).color(Pal.opaqueBlack)).width(150);
                     });
+                    list.button(button -> {
+                        button.hover = buttonHover;
+                        button.press(b -> canvas.exit()).text(text -> text.text("EXIT").size(35).color(Pal.opaqueBlack)).width(150);
+                    });
                 }else if(menu == 1){
                     list.text(text -> text.text("SETTINGS").size(40).color(Pal.opaqueBlack));
                     list.row(10);

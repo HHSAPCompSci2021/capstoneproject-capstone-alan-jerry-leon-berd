@@ -35,7 +35,7 @@ public class Player extends Ship{
         super(null);
         team = Team.player;
         hull = Hulls.standard.create();
-        shield = Shields.temporal.create();
+        shield = Shields.standard.create();
         weapon = Weapons.blaster.create();
         life = health();
     }
