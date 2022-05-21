@@ -2,9 +2,6 @@ package project.world.enemies;
 
 import project.*;
 import project.core.*;
-import project.graphics.*;
-import project.graphics.Sprite.*;
-import project.world.bullets.*;
 
 import java.awt.*;
 
@@ -77,7 +74,7 @@ public class TeleportingEnemy extends Enemy{
         public void remove(){
             super.remove();
 
-            Sounds.playSound("car_explosion.mp3");
+            if(soundEffects) Sounds.playSound("car_explosion.mp3");
         }
 
         @Override

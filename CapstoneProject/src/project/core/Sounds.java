@@ -4,6 +4,8 @@ import sound.jaysound.*;
 
 import java.util.*;
 
+import static project.Vars.*;
+
 public class Sounds{
     private static final HashMap<String, Integer> songMap = new HashMap<>();
     private static final HashMap<String, Integer> soundMap = new HashMap<>();
@@ -20,6 +22,14 @@ public class Sounds{
             layer.nextSong();
             currentSong = (currentSong + 1) % songMap.size();
         }
+    }
+
+    public static void stopSong() {
+        layer.stopSong();
+    }
+
+    public static void resumeSong() {
+        layer.nextSong();
     }
 
     public static void playSound(String name){
@@ -40,8 +50,10 @@ public class Sounds{
         }
         layer.addSongs(0, songList);
         layer.changePlayList(0);
-        layer.nextSong();
-        playSong("Neverend.mp3");
+        if(music){
+            layer.nextSong();
+            playSong("Neverend.mp3");
+        }
 
         String[] soundList = new String[]{"fuel_explosion.mp3", "field_explosion.mp3", "car_explosion.mp3", "laser_impact.mp3", "mine_explosion.mp3"};
         for(String sound : soundList){

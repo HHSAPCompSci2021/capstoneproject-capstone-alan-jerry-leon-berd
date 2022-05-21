@@ -107,7 +107,7 @@ public class RammingEnemy extends MultiEnemy{
         public void remove(){
             super.remove();
 
-            Sounds.playSound("car_explosion.mp3");
+            if(soundEffects) Sounds.playSound("car_explosion.mp3");
         }
 
         @Override

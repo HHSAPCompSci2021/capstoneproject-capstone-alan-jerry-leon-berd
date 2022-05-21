@@ -169,7 +169,7 @@ public class Enemy extends Type implements ShipType{
 
             events.call(Event.enemyDestroyed);
 
-            Sounds.playSound("fuel_explosion.mp3");
+            if(soundEffects) Sounds.playSound("fuel_explosion.mp3");
         }
 
         @Override
