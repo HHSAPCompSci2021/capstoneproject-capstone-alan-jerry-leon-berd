@@ -26,7 +26,7 @@ public class Button extends Drawable{
     public void update(){
         super.update();
         if(bounds().contains(input.mouse) && input.mouseLeft()){
-            if(soundEffects) Sounds.playSound("press.mp3");
+            if(soundEffects) Sounds.playSound("ComputerSFX.mp3");
             press.get(this);
             input.remove(input.left);
         }

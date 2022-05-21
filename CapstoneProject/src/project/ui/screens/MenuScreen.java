@@ -2,8 +2,8 @@ package project.ui.screens;
 
 import gameutils.func.*;
 import processing.core.*;
-import project.core.*;
 import project.core.Input.*;
+import project.core.*;
 import project.core.UI.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
@@ -24,7 +24,7 @@ public class MenuScreen extends Screen{
     public Sprite background = new Sprite().set(SpritePath.backgrounds, "space3");
     public int menu = 0;
     public float sidex = 0;
-    public Cons<Button> buttonHover = b -> Effects.blur.draw(-50, 0, 350, b.height(), Pal.opaqueWhite);
+    public Cons<Button> buttonHover = b -> Effects.blur.draw(-50, 0, sidex + 33, b.height(), Pal.opaqueWhite);
 
     /** Sets the defaults for the specified slider. */
     public void def(Slider slider){
@@ -157,11 +157,10 @@ public class MenuScreen extends Screen{
                     list.button(button -> {
                         button.hover = buttonHover;
                         button.press(b -> {
-                            if(music) {
+                            if(music){
                                 Sounds.stopSong();
                                 music = false;
-                            }
-                            else {
+                            }else{
                                 Sounds.resumeSong();
                                 music = true;
                             }

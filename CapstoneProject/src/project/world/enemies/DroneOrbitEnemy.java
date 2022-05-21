@@ -1,7 +1,6 @@
 package project.world.enemies;
 
 import project.*;
-import project.core.*;
 import project.world.enemies.DroneOrbitEnemy.OrbitDrone.*;
 
 import java.awt.*;
@@ -93,6 +92,7 @@ public class DroneOrbitEnemy extends MultiEnemy{
 
         public DroneOrbitEntity(DroneOrbitEnemy type){
             super(type);
+            deathSound = "field_explosion.mp3";
         }
 
         @Override
@@ -122,13 +122,6 @@ public class DroneOrbitEnemy extends MultiEnemy{
 
             rotate(Tmp.v1.set(world.player.pos).sub(pos).ang());
             if(dst(world.player.pos, pos) > kiteDistance) thrust();
-        }
-
-        @Override
-        public void remove(){
-            super.remove();
-
-            if(soundEffects) Sounds.playSound("fuel_explosion.mp3");
         }
     }
 }

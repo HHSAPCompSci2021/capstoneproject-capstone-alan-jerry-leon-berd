@@ -24,11 +24,11 @@ public class Sounds{
         }
     }
 
-    public static void stopSong() {
+    public static void stopSong(){
         layer.stopSong();
     }
 
-    public static void resumeSong() {
+    public static void resumeSong(){
         layer.nextSong();
     }
 
@@ -55,7 +55,7 @@ public class Sounds{
             playSong("Neverend.mp3");
         }
 
-        String[] soundList = new String[]{"fuel_explosion.mp3", "field_explosion.mp3", "car_explosion.mp3", "laser_impact.mp3", "mine_explosion.mp3"};
+        String[] soundList = new String[]{"car_explosion.mp3", "ComputerSFX.mp3", "digital_slow_down.mp3", "digital_slow_down_2.mp3", "digital_speed_up.mp3", "digital_speed_up_2.mp3", "field_explosion.mp3", "fireworks_burst.mp3", "fuel_explosion.mp3", "laser_impact.mp3", "mine_explosion.mp3"};
         for(String sound : soundList){
             soundMap.put(sound, soundMap.size());
         }
