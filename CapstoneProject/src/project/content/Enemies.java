@@ -125,7 +125,7 @@ public class Enemies implements ContentList{
             elite = new BomberEnemy(){{
                 sprite.set("tracer-1");
                 health = 75;
-                size = 15;
+                size = 25;
                 reload = 1.5f;
                 shootInterval = 7;
                 accel = 0.7f;
@@ -139,7 +139,7 @@ public class Enemies implements ContentList{
             champion = new BomberEnemy(){{
                 sprite.set("tracer-1");
                 health = 175;
-                size = 50;
+                size = 35;
                 reload = 1.2f;
                 shootInterval = 5;
                 accel = 1f;
