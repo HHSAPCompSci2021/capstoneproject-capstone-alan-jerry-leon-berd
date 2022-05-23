@@ -67,9 +67,9 @@ public class GameScreen extends Screen{
     @Override
     public void draw(){
         canvas.pushMatrix();
-        canvas.translate(-pan.x / 50f, -pan.y / 50f);
+        canvas.translate(-pan.x / 10f, -pan.y / 10f);
         canvas.tint(255, 255, 255);
-        background.draw(Tmp.v1.setr(rot, 1).x * 1 - 400, Tmp.v1.y * 100 - 100, (float)background.image.width * (height + 300) / background.image.height, height + 300, Color.white);
+        background.draw(Tmp.v1.setr(rot, 1).x * 100 - 400, Tmp.v1.y * 100 - 100, (float)background.image.width * (height + 300) / background.image.height, height + 300, Color.white);
         canvas.popMatrix();
 
 //        canvas.fill(220, 220, 220);
@@ -82,7 +82,7 @@ public class GameScreen extends Screen{
         
 
         if(world.player.keep()){
-            canvas.fill(100, 100, 100, 100);
+            canvas.fill(200, 200, 200, 200);
             canvas.textSize(30);
             canvas.textAlign(canvas.CENTER, canvas.TOP);
             canvas.text("WAVE: " + world.waves.wave(), width / 2f, 20);
