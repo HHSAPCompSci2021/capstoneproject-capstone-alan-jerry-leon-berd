@@ -5,8 +5,8 @@ import gameutils.struct.*;
 
 /** Processes and stores runnables when an event is called. */
 public class Events{
-    public Seq<Cons<Event>>[] on;
-    public Set<Cons<Event>>[] set; //(Hash) Sets, to prevent duplicates (Especially when init is called multiple times to reset the game)
+    private Seq<Cons<Event>>[] on;
+    private Set<Cons<Event>>[] set; //(Hash) Sets, to prevent duplicates (Especially when init is called multiple times to reset the game)
 
     public Events(){
     }

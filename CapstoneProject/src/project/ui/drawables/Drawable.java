@@ -7,9 +7,13 @@ import static project.Vars.*;
 
 /** Represents any piece of UI that has supports a runnable as a renderer. */
 public class Drawable extends Table{
-    public Cons<Drawable> drawer;
+    protected Cons<Drawable> drawer;
 
-    /** Set the renderer of this Drawable. */
+    /**
+     * Set the renderer of this Drawable.
+     * @param drawer the drawer
+     * @return itself, for chaining
+     */
     public Drawable drawer(Cons<Drawable> drawer){
         this.drawer = drawer;
         return this;

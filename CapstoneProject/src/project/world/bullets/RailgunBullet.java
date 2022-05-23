@@ -7,7 +7,7 @@ import java.awt.*;
 
 import static project.Vars.*;
 
-/** Contains stats for a railgun bullet. */
+/** Contains presets for a railgun bullet. */
 public class RailgunBullet extends Bullet{
     public RailgunBullet(){
         super();
@@ -28,7 +28,7 @@ public class RailgunBullet extends Bullet{
 
     /** Represents and simulates a railgun bullet. */
     public class RailgunBulletEntity extends BulletEntity{
-        public float spent;
+        protected float spent;
 
         public RailgunBulletEntity(RailgunBullet type){
             super(type);

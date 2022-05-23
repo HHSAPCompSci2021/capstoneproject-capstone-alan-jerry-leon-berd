@@ -1,8 +1,13 @@
 package project.world.ship.weapons;
 
+/** Stores stats for a shotgun weapon. */
 public class ShotgunWeapon extends Weapon{
-    public int shotMult = 2;
+    protected int shotMult = 2;
 
+    /**
+     * Create a shotgun weapon with the specified name
+     * @param name the name
+     */
     public ShotgunWeapon(String name){
         super(name);
 
@@ -20,7 +25,7 @@ public class ShotgunWeapon extends Weapon{
         return new ShotgunWeaponInstance(this);
     }
 
-    public class ShotgunWeaponInstance extends WeaponInstance{
+    protected class ShotgunWeaponInstance extends WeaponInstance{
         public ShotgunWeaponInstance(ShotgunWeapon type){
             super(type);
         }

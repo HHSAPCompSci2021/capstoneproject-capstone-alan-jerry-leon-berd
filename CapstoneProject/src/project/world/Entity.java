@@ -20,6 +20,10 @@ public class Entity extends Instance implements Pos2{
     /** Stores the "life" of this entity. This can mean health, frames since created, or something else entirely. */
     public float life;
 
+    /**
+     * Create an entity with the specified type
+     * @param type the type
+     */
     public Entity(Type type){
         super(type);
     }

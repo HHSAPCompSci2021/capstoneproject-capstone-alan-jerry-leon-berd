@@ -2,9 +2,14 @@ package project.world.ship.shields;
 
 import static project.Vars.*;
 
+/** Stores stats for a shield with a cooldown. */
 public class CooldownShield extends Shield{
-    public float cooldown = 10f;
+    protected float cooldown = 10f;
 
+    /**
+     * Create a cooldown shield with the specified name
+     * @param name the name
+     */
     public CooldownShield(String name){
         super(name);
     }
@@ -21,8 +26,9 @@ public class CooldownShield extends Shield{
         return new CooldownShieldInstance(this);
     }
 
-    public class CooldownShieldInstance extends ShieldInstance{
-        public float cooldownt;
+    /** Represents a shield with a cooldown. */
+    protected class CooldownShieldInstance extends ShieldInstance{
+        protected float cooldownt;
 
         public CooldownShieldInstance(CooldownShield type){
             super(type);
@@ -38,7 +44,7 @@ public class CooldownShield extends Shield{
             effect();
         }
 
-        public void effect(){
+        protected void effect(){
         }
 
         @Override

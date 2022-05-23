@@ -7,6 +7,7 @@ import project.world.ship.*;
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
+/** Contains presets for a grenade bullet. */
 public class GrenadeBullet extends Bullet{
     public float drag = 0.025f;
 
@@ -29,7 +30,7 @@ public class GrenadeBullet extends Bullet{
         return new GrenadeBulletEntity(this);
     }
 
-    /** Represents and simulates a laser bullet. */
+    /** Represents and simulates a grenade bullet. */
     public class GrenadeBulletEntity extends BulletEntity{
         public GrenadeBulletEntity(GrenadeBullet type){
             super(type);

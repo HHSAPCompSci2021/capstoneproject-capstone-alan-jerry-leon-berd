@@ -8,7 +8,12 @@ import project.world.bullets.LanceBullet.*;
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
+/** Stores stats for a lance weapon. */
 public class LanceWeapon extends Weapon{
+    /**
+     * Create a lance weapon with the specified name
+     * @param name the name
+     */
     public LanceWeapon(String name){
         super(name);
 
@@ -22,7 +27,7 @@ public class LanceWeapon extends Weapon{
     }
 
     /** Represents an instance of a weapon. */
-    public class LanceWeaponInstance extends WeaponInstance{
+    protected class LanceWeaponInstance extends WeaponInstance{
         public LanceBulletEntity current;
 
         public LanceWeaponInstance(LanceWeapon type){

@@ -6,8 +6,10 @@ import static project.Vars.*;
 
 /** Represents a piece of content, and the type of instance. Contains fields and methods that may control how each instance functions. */
 public class Type{
+    /** Whether this piece of content has been initialized or not. */
     public boolean initialized;
 
+    /** Create a new content type. */
     public Type(){
         content.add(this);
     }

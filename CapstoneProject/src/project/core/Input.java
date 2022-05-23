@@ -9,11 +9,16 @@ import static project.Vars.*;
 
 /** Handles all inputs by the user. */
 public class Input{
-    public int left = KeyEvent.BUTTON1_DOWN_MASK;
-    public int middle = KeyEvent.BUTTON2_DOWN_MASK;
-    public int right = KeyEvent.BUTTON3_DOWN_MASK;
+    /** Stores the value of a left click. */
+    public final int left = KeyEvent.BUTTON1_DOWN_MASK;
+    /** Stores the value of a middle click. */
+    public final int middle = KeyEvent.BUTTON2_DOWN_MASK;
+    /** Stores the value of a rightz click. */
+    public final int right = KeyEvent.BUTTON3_DOWN_MASK;
 
+    /** Stores the position of the mouse. */
     public Vec2 mouse;
+    /** Stores all inputs. */
     public IntSet inputs;
 
     /** Initializes the inputs. */

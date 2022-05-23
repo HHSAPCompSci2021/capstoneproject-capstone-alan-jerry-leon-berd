@@ -20,15 +20,18 @@ import static project.core.Rules.Rule.*;
 
 /** Represents a ship. */
 public class Ship extends Entity{
-    /** Stores the rotation of this ship. */
-    public float rotation = 0;
+    protected float rotation = 0;
 
-    public Seq<StatusEntry> buffer = new Seq<>();
-    public Seq<StatusEntry> statuses = new Seq<>();
-    public Set<Ship> collided = new Set<>();
+    protected Seq<StatusEntry> buffer = new Seq<>();
+    protected Seq<StatusEntry> statuses = new Seq<>();
+    protected Set<Ship> collided = new Set<>();
 
-    public float[] mult, add;
+    protected float[] mult, add;
 
+    /**
+     * Create a ship with the specified type
+     * @param type the type
+     */
     public Ship(ShipType type){
         super((Type)type);
         mult = new float[Rule.all.length];
@@ -36,19 +39,36 @@ public class Ship extends Entity{
         recalc();
     }
 
-    /** Applies the specified force on this ship. */
+    /**
+     * Applies the specified force on this ship.
+     * @param force the force
+     */
     public void apply(Vec2 force){
         apply(force.x, force.y);
     }
 
+    /**
+     * Applies the specified force on this ship.
+     * @param x the x component of the force
+     * @param y the y component of the force
+     */
     public void apply(float x, float y){
         vel.add(x / mass(), y / mass());
     }
 
+    /**
+     * Applies a status effect with an infinite duration onto this ship
+     * @param effect the effect
+     */
     public void entry(StatusEffect effect){
         entry(effect, 10000000);
     }
 
+    /**
+     * Applies a status effect with a specified duration onto this ship
+     * @param effect the effect
+     * @param duration the duration
+     */
     public void entry(StatusEffect effect, float duration){
         StatusEntry entry = effect.create();
         entry.lifetime = duration;
@@ -57,7 +77,7 @@ public class Ship extends Entity{
         recalc();
     }
 
-    public void recalc(){
+    protected void recalc(){
         for(int i = 0;i < Rule.all.length;i++){
             mult[i] = 1;
             add[i] = 0;
@@ -71,16 +91,32 @@ public class Ship extends Entity{
         }
     }
 
-    public float add(Rule rule){
+    protected float add(Rule rule){
         return add[rule.id()];
     }
 
-    public float mult(Rule rule){
+    protected float mult(Rule rule){
         return max(mult[rule.id()], 0);
     }
 
-    public float calc(Rule rule, float base){
+    protected float calc(Rule rule, float base){
         return (base + rules.add(rule, team) + add(rule)) * rules.mult(rule, team) * mult(rule);
+    }
+
+    /**
+     * Returns a list of status effects applied on this ship.
+     * @return the list
+     */
+    public Seq<StatusEntry> statuses(){
+        return statuses;
+    }
+
+    /**
+     * Returns the rotation of this ship
+     * @return the roation
+     */
+    public float rotation(){
+        return rotation;
     }
 
     /** Returns the sprite of this ship. */
@@ -93,15 +129,19 @@ public class Ship extends Entity{
         return life / health();
     }
 
-    public float mass(){
+    protected float mass(){
         return calc(shipMass, ship().mass());
     }
 
+    /**
+     * Returns the maximum health of this ship
+     * @return the value
+     */
     public float health(){
         return calc(maxHull, ship().health());
     }
 
-    public float vulnerability(){
+    protected float vulnerability(){
         return calc(vulnerability, 1f);
     }
 
@@ -110,28 +150,28 @@ public class Ship extends Entity{
         return ship().size();
     }
 
-    public float accel(){
+    protected float accel(){
         return calc(enginePower, ship().accel());
     }
 
-    public float rotate(){
+    protected float rotate(){
         return calc(rotateSpeed, ship().rotate()) * delta;
     }
 
-    public float ram(){
+    protected float ram(){
         return calc(ramDamage, ship().ram());
     }
 
-    public float drag(){
+    protected float drag(){
         return calc(shipDrag, ship().drag());
     }
 
-    public float resistance(){
+    protected float resistance(){
         return calc(ramResistance, 1f);
     }
 
-    public boolean spawned(){
-        return statuses.contains(b -> b.type() == Statuses.spawned); //Note that since spawned is usually the first effect added, this isn't very inefficient
+    protected boolean spawned(){
+        return statuses.contains(b -> b.type() == StatusEffects.spawned); //Note that since spawned is usually the first effect added, this isn't very inefficient
     }
 
     /** Deals the specified damage to this ship. */
@@ -139,17 +179,15 @@ public class Ship extends Entity{
         life -= damage * vulnerability();
     }
 
-    /** Moves the ship forward. */
-    public void thrust(){
+    protected void thrust(){
         apply(Tmp.v1.set(accel(), 0).rot(rotation));
     }
 
-    /** Rotates the ship to the specified angle. */
-    public void rotate(float angle){
+    protected void rotate(float angle){
         rotation = turn(rotation, angle, rotate());
     }
 
-    public void wrap(){
+    protected void wrap(){
         if(!Tmp.r1.set(world.bounds).expand(size()).contains(pos)){
             pos.x = mod(pos.x - Tmp.r1.x, Tmp.r1.w) + Tmp.r1.x;
             pos.y = mod(pos.y - Tmp.r1.y, Tmp.r1.h) + Tmp.r1.y;

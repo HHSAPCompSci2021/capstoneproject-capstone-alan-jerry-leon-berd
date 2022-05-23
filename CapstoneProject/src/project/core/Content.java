@@ -6,20 +6,17 @@ import project.world.*;
 
 /** Loads, stores, and processes all content in the game. */
 public class Content{
-    /** Stores all content classes to be loaded. */
-    public ContentList[] lists = new ContentList[]{
+    private ContentList[] lists = new ContentList[]{
     new Modifiers(),
     new Hulls(),
     new Shields(),
     new Weapons(),
     new Enemies(),
-    new Statuses()
+    new StatusEffects()
     };
 
-    /** Contains all content, sorted by it's type. */
-    public Seq<Type>[] map;
-    /** Contains all the content. */
-    public Seq<Type> all;
+    private Seq<Type>[] map;
+    private Seq<Type> all;
 
     /** Initialize the lists and loads the content. */
     public void init(){

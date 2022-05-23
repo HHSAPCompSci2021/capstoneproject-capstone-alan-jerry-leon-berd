@@ -7,8 +7,10 @@ import java.awt.*;
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
+/** This represents a teleporting enemy and it isn't even used. */
+@Deprecated
 public class TeleportingEnemy extends Enemy{
-    public float kiteDistance = 500;
+    protected float kiteDistance = 500;
 
     public TeleportingEnemy(){
         super();

@@ -20,11 +20,11 @@ import static project.graphics.Pal.*;
 
 /** Contains all the UI of a game screen. */
 public class GameScreen extends Screen{
-    public Table playerHealth, playerShield, playerAmmo, playerExp, enemyHealth;
+    private Table playerHealth, playerShield, playerAmmo, playerExp, enemyHealth;
 
-    public Sprite background = new Sprite().set(SpritePath.backgrounds, "space2");
-    public float rot = random(0, 360);
-    public Vec2 pan = new Vec2();
+    private Sprite background = new Sprite().set(SpritePath.backgrounds, "space2");
+    private float rot = random(0, 360);
+    private Vec2 pan = new Vec2();
 
     @Override
     public void init(){
@@ -76,7 +76,7 @@ public class GameScreen extends Screen{
         canvas.rect(0, 0, width, height);
 
         canvas.push();
-        canvas.translate(canvas.random(-1, 1) * canvas.shake * screenShake, canvas.random(-1, 1) * canvas.shake * screenShake);
+        canvas.translate(canvas.random(-1, 1) * canvas.shake() * screenShake, canvas.random(-1, 1) * canvas.shake() * screenShake);
         world.draw();
         canvas.pop();
 
@@ -84,7 +84,7 @@ public class GameScreen extends Screen{
             canvas.fill(100, 100, 100, 100);
             canvas.textSize(30);
             canvas.textAlign(canvas.CENTER, canvas.TOP);
-            canvas.text("WAVE: " + world.waves.wave, width / 2f, 20);
+            canvas.text("WAVE: " + world.waves.wave(), width / 2f, 20);
 
             playerHealth.process();
             playerShield.process();

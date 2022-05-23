@@ -6,15 +6,15 @@ import project.world.ship.*;
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
-/** Represents a missile bullet */
+/** Contains presets for a missile bullet. */
 public class MissileBullet extends Bullet{
-    public float accel = 0.4f;
+    protected float accel = 0.4f;
 
-    public float homingPower = 0.02f;
-    public float homingRange = 500;
+    protected float homingPower = 0.02f;
+    protected float homingRange = 500;
 
-    public float waveFrequency = 1.5f;
-    public float waveAmplitude = 2;
+    protected float waveFrequency = 1.5f;
+    protected float waveAmplitude = 2;
 
     public MissileBullet(){
         super();
@@ -33,6 +33,7 @@ public class MissileBullet extends Bullet{
         return new MissileBulletEntity(this);
     }
 
+    /** Represents and simulates a missile bullet. */
     public class MissileBulletEntity extends BulletEntity{
         public byte dir;
         public Ship target;

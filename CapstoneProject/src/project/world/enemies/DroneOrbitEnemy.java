@@ -10,14 +10,14 @@ import static project.Vars.*;
 
 /** Stores stats for an enemy with drones orbiting around it. */
 public class DroneOrbitEnemy extends MultiEnemy{
-    public int drones = 8;
-    public float droneSpace = 30;
-    public float orbitSpeed = 2;
+    protected int drones = 8;
+    protected float droneSpace = 30;
+    protected float orbitSpeed = 2;
 
-    public float kiteDistance = 200;
-    public boolean spacedShooting = false;
+    protected float kiteDistance = 200;
+    protected boolean spacedShooting = false;
 
-    public EnemyPart drone;
+    protected EnemyPart drone;
 
     public DroneOrbitEnemy(){
         super();

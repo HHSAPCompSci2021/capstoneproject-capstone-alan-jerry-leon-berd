@@ -4,14 +4,13 @@ import project.world.bullets.*;
 
 import java.awt.*;
 
-/** An enemy which rotates and spams bullets around itself. */
+/** Stores stats for an  enemy which rotates and spams bullets around itself. */
 public class SprayerEnemy extends Enemy{
-    public float shootDuration = 120;
-    public float shootInterval = 3;
+    protected float shootDuration = 120;
+    protected float shootInterval = 3;
 
-    public int bullets = 2;
-    /** Angle offset of each of the shots. */
-    public float offset = 120;
+    protected int bullets = 2;
+    protected float offset = 120;
 
     public SprayerEnemy(){
         super();

@@ -14,10 +14,12 @@ import java.awt.*;
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
+/** Stores stats for a ramming enemy. */
 public class RammingEnemy extends MultiEnemy{
-    public RammingSide side;
-    public RammingThruster thruster;
+    protected RammingSide side;
+    protected RammingThruster thruster;
 
+    /** Create a new RammingEnemy. */
     public RammingEnemy(){
         super();
 
@@ -46,10 +48,10 @@ public class RammingEnemy extends MultiEnemy{
         return new RammingEnemyEntity(this);
     }
 
-    public static class RammingThruster extends EnemyPart{
-        public Vec2 offset = new Vec2(0, 50);
+    protected static class RammingThruster extends EnemyPart{
+        protected Vec2 offset = new Vec2(0, 50);
 
-        public float ramPower = 200;
+        protected float ramPower = 200;
 
         public RammingThruster(){
             super();
@@ -75,7 +77,7 @@ public class RammingEnemy extends MultiEnemy{
             public void update(){
                 super.update();
 
-                rotation = parent.rotation;
+                rotation = parent.rotation();
 
                 reloadt += reload();
                 if(reloadt >= 60){
@@ -101,7 +103,7 @@ public class RammingEnemy extends MultiEnemy{
         }
     }
 
-    public class RammingEnemyEntity extends MultiEnemyEntity{
+    protected class RammingEnemyEntity extends MultiEnemyEntity{
         public RammingEnemyEntity(RammingEnemy type){
             super(type);
             deathSound = "car_explosion.mp3";
@@ -165,18 +167,18 @@ public class RammingEnemy extends MultiEnemy{
         }
     }
 
-    public class RammingSide extends EnemyPart{
-        public EnemySprite flipGlow;
-        public EnemySprite flipSprite = new EnemySprite();
+    protected class RammingSide extends EnemyPart{
+        protected EnemySprite flipGlow;
+        protected EnemySprite flipSprite = new EnemySprite();
 
-        public Vec2 offset = new Vec2(-22, 42);
+        protected Vec2 offset = new Vec2(-22, 42);
 
-        public int shootDuration = 30;
-        public int shootInterval = 3;
-        public float barrel = 240;
-        public float inaccuracy = 20;
+        protected int shootDuration = 30;
+        protected int shootInterval = 3;
+        protected float barrel = 240;
+        protected float inaccuracy = 20;
 
-        public float velRand = 0.3f;
+        protected float velRand = 0.3f;
 
         public RammingSide(){
             super();
@@ -221,7 +223,7 @@ public class RammingEnemy extends MultiEnemy{
             public void update(){
                 super.update();
 
-                rotation = parent.rotation;
+                rotation = parent.rotation();
 
                 reloadt += reload();
                 if(reloadt >= 60 && (reloadt - 60) % shootInterval < reload()){

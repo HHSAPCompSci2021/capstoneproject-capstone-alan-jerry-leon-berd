@@ -40,7 +40,10 @@ public class Player extends Ship{
         life = health();
     }
 
-    /** Returns the ratio of current hp to max health. */
+    /**
+     * Returns the ratio of current hp to max health.
+     * @return the ratio
+     */
     public float fin(){
         return life / health();
     }
@@ -48,7 +51,7 @@ public class Player extends Ship{
     @Override
     public Color color(){
         if(debug) return Color.getHSBColor(canvas.frameCount / 100f, 1f, 1f); //RGB PLAYER RGB PLAYER
-        return shield.type().color;
+        return shield.type().color();
     }
 
     @Override
@@ -56,11 +59,19 @@ public class Player extends Ship{
         return hull.type().ship;
     }
 
-    /** Add a modifier to this player. */
+    /**
+     * Add a modifier to this player.
+     * @param mod the modifier
+     */
     public void addMod(Modifier mod){
         modifiers.add(mod.create());
     }
 
+    /**
+     * Returns whether the player has the specified modifier
+     * @param mod the modifier
+     * @return whether the player has it or not
+     */
     public boolean hasMod(Modifier mod){
         return modifiers.contains(m -> m.type() == mod);
     }
@@ -70,8 +81,8 @@ public class Player extends Ship{
         events.call(Event.playerDamaged);
         float real = damage * vulnerability();
 
-        if(!shield.broken){
-            life -= max(real - shield.value, 0);
+        if(!shield.broken()){
+            life -= max(real - shield.value(), 0);
             shield.damage(real);
         }else life = max(life - real, 0);
     }
@@ -117,7 +128,7 @@ public class Player extends Ship{
         sprite().drawc(pos.x, pos.y, size() * 6, size() * 6, rotation + 90, color());
         sprite().drawc(pos.x, pos.y, size() * 6, size() * 6, rotation + 90, Color.white, 200);
 
-        if(!shield.broken){
+        if(!shield.broken()){
             canvas.noFill();
             canvas.stroke(color(), 255 * shield.fin());
             canvas.strokeWeight(3);

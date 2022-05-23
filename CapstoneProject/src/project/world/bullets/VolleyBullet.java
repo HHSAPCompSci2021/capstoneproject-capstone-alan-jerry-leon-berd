@@ -4,7 +4,7 @@ import project.graphics.*;
 
 import java.awt.*;
 
-/** Represents a volley of one type of bullet. */
+/** Contains presets for a volley bullet. */
 public class VolleyBullet extends Bullet{
     public BulletSprite flipSprite = new BulletSprite();
 
@@ -24,6 +24,7 @@ public class VolleyBullet extends Bullet{
         return new VolleyBulletEntity(this);
     }
 
+    /** Represents and simulates a volley bullet. */
     public class VolleyBulletEntity extends BulletEntity{
         /** Whether the alternate sprite for this bullet should be drawn. */
         public boolean flip;

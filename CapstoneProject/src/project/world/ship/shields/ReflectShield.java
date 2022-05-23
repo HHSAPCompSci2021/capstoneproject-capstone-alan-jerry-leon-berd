@@ -11,9 +11,14 @@ import java.awt.*;
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
+/** Stores stats for a shield that reflects bullets. */
 public class ReflectShield extends CooldownShield{
-    public float reflectRange = 200;
+    protected float reflectRange = 200;
 
+    /**
+     * Create a reflective shield with the specified name
+     * @param name the name
+     */
     public ReflectShield(String name){
         super(name);
 
@@ -28,16 +33,15 @@ public class ReflectShield extends CooldownShield{
         return new ReflectShieldInstance(this);
     }
 
-    /** Represents an instance of a shield. */
-    public class ReflectShieldInstance extends CooldownShieldInstance{
+    protected class ReflectShieldInstance extends CooldownShieldInstance{
         public ReflectShieldInstance(ReflectShield type){
             super(type);
         }
 
         @Override
-        public void effect(){
+        protected void effect(){
             world.bullets.each(b -> {
-                if(b.team != Team.player && dst(b.pos, player().pos) < reflectRange && b.bullet.reflectable){
+                if(b.team != Team.player && dst(b.pos, player().pos) < reflectRange && b.bullet.reflectable()){
                     b.rotation = Tmp.v1.set(b.pos).sub(player().pos).ang();
                     b.team = Team.player;
                     b.damage *= 10;

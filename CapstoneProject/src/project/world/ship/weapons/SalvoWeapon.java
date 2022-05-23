@@ -7,9 +7,14 @@ import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 import static project.core.Rules.Rule.*;
 
+/** Stores stats for a salvo weapon. */
 public class SalvoWeapon extends Weapon{
-    public float chargeBonus = 0.002f;
+    protected float chargeBonus = 0.002f;
 
+    /**
+     * Create a salvo weapon with the specified name
+     * @param name the name
+     */
     public SalvoWeapon(String name){
         super(name);
         shots = 4;
@@ -24,7 +29,7 @@ public class SalvoWeapon extends Weapon{
     }
 
     /** Represents an instance of a weapon which propels the player forward and drops mines behind it. */
-    public class SalvoWeaponInstance extends WeaponInstance{
+    protected class SalvoWeaponInstance extends WeaponInstance{
         public boolean shooting;
 
         public SalvoWeaponInstance(SalvoWeapon type){

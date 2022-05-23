@@ -9,7 +9,12 @@ import java.awt.*;
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
+/** Stores stats for a shield that teleports the player. */
 public class WarpShield extends CooldownShield{
+    /**
+     * Create a warp shield with the specified name
+     * @param name the name
+     */
     public WarpShield(String name){
         super(name);
 
@@ -26,8 +31,7 @@ public class WarpShield extends CooldownShield{
         return new WarpShieldInstance(this);
     }
 
-    /** Represents an instance of a warp shield. */
-    public class WarpShieldInstance extends CooldownShieldInstance{
+    protected class WarpShieldInstance extends CooldownShieldInstance{
         public WarpShieldInstance(WarpShield type){
             super(type);
         }

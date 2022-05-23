@@ -17,20 +17,24 @@ import static project.core.Rules.Rule.*;
 public class Hull extends Modifier implements ShipType{
     public ShipSprite ship = new ShipSprite();
 
-    public float health = 100;
+    protected float health = 100;
 
-    public float accel = 0.25f;
-    public float rotate = 10;
-    public float mass = 1;
-    public float size = 10;
-    public float ram = 10;
-    public float regen = 2;
-    public float drag = 1;
+    protected float accel = 0.25f;
+    protected float rotate = 10;
+    protected float mass = 1;
+    protected float size = 10;
+    protected float ram = 10;
+    protected float regen = 2;
+    protected float drag = 1;
 
-    public Vec2 shootPos = new Vec2(5, 0);
-    public float shootRot = 0;
-    public Seq<Thruster> thrusters = new Seq<>();
+    protected Vec2 shootPos = new Vec2(5, 0);
+    protected float shootRot = 0;
+    protected Seq<Thruster> thrusters = new Seq<>();
 
+    /**
+     * Create a new hull, with the specified name
+     * @param name the name
+     */
     public Hull(String name){
         super(name);
 
@@ -101,23 +105,35 @@ public class Hull extends Modifier implements ShipType{
 
     /** Represents an instance of a hull. */
     public class HullInstance extends ModInstance{
+        /**
+         * Creates the instance of the hull, ith the specified type
+         * @param type the type
+         */
         public HullInstance(Hull type){
             super(type);
         }
 
-        /** Returns the position to create bullets, taking the player's rotation into account. */
+        /**
+         * Returns the position to create bullets, taking the player's rotation into account.
+         * @return the position
+         */
         public Vec2 shootPos(){
-            return Tmp.v1.set(shootPos).rot(world.player.rotation).add(world.player.pos);
+            return Tmp.v1.set(shootPos).rot(world.player.rotation()).add(world.player.pos);
         }
 
+        /**
+         * Returns the rotation to create bullets.
+         * @return the rotation
+         */
         public float shootRot(){
             return shootRot;
         }
 
+        /** Called whenever a bullet is shot by the player. */
         public void shot(){
         }
 
-        public float regen(){
+        protected float regen(){
             return (regen + rules.add(hullRegen, Team.player)) * rules.mult(hullRegen, Team.player) / 100f / 60f;
         }
 
@@ -138,7 +154,7 @@ public class Hull extends Modifier implements ShipType{
         }
     }
 
-    public static class ShipSprite extends Sprite{
+    protected static class ShipSprite extends Sprite{
         public ShipSprite set(String name){
             super.set(SpritePath.ships, name);
             return this;

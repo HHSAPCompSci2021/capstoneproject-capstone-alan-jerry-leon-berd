@@ -8,10 +8,9 @@ import java.awt.*;
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
+/** Stores stats for a sniping enemy. */
 public class SniperEnemy extends Enemy{
-    public float thrustDuration = 300;
-    public float shootInterval = 10;
-    public float kiteDistance = 400;
+    protected float kiteDistance = 400;
 
     public SniperEnemy(){
         super();
@@ -26,7 +25,7 @@ public class SniperEnemy extends Enemy{
 
         health = 70;
         color = new Color(255, 110, 200);
-        reload = 1;
+        reload = 0.2f;
         rotate = 3;
         accel = 0.2f;
     }
@@ -37,7 +36,6 @@ public class SniperEnemy extends Enemy{
     }
 
     public class SniperEnemyEntity extends EnemyEntity{
-
         public SniperEnemyEntity(SniperEnemy type){
             super(type);
             deathSound = "laser_impact.mp3";
@@ -57,11 +55,10 @@ public class SniperEnemy extends Enemy{
             if(spawned()) return;
 
             reloadt += reload();
-        	rotate(Tmp.v1.set(world.player.pos).sub(pos).ang());
-            if(reloadt < 300) {
-                if(dst(world.player.pos, pos) > kiteDistance) thrust();
-            }
-            if(reloadt >= 300){
+            rotate(Tmp.v1.set(world.player.pos).sub(pos).ang());
+
+            if(dst(world.player.pos, pos) > kiteDistance) thrust();
+            if(reloadt >= 60){
                 reloadt = 0;
                 shoot(0);
             }

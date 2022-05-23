@@ -8,15 +8,23 @@ import static project.Vars.*;
 
 /** Represents a button. */
 public class Button extends Drawable{
-    public Cons<Button> hover, press;
+    private Cons<Button> hover, press;
 
-    /** Sets the renderer that is drawn when this button is hovered over. */
+    /**
+     * Sets the renderer that is drawn when this button is hovered over.
+     * @param hover the renderer
+     * @return itself, for chaining
+     */
     public Button hover(Cons<Button> hover){
         this.hover = hover;
         return this;
     }
 
-    /** Sets the runnable that is run when this button is pressed. */
+    /**
+     * Sets the runnable that is run when this button is pressed.
+     * @param press the runnable
+     * @return itself, for chaining
+     */
     public Button press(Cons<Button> press){
         this.press = press;
         return this;

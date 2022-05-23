@@ -11,7 +11,7 @@ import static project.core.Rules.Rule.*;
 
 /** Stores the multipliers for each rule in the game. */
 public class Rules{
-    public float[][][] rules;
+    private float[][][] rules;
 
     public Rules(){
     }
@@ -35,8 +35,8 @@ public class Rules{
 
     public void process(ModInstance m){
         for(int i = 0;i < all.length;i++){
-            rules[Team.player.id()][i][0] += m.type().mult[i];
-            rules[Team.player.id()][i][1] += m.type().add[i];
+            rules[Team.player.id()][i][0] += m.type().mult(all[i]);
+            rules[Team.player.id()][i][1] += m.type().add(all[i]);
         }
     }
 

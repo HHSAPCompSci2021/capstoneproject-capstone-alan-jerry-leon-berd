@@ -17,7 +17,7 @@ public class Vars{
     public static boolean effectsEnabled = true;
     public static boolean glowEnabled = true;
     public static boolean soundEffects = true;
-    public static boolean music = true;
+    public static boolean musicEnabled = true;
 
     public static float universalDrag = 0.02f;
     public static float universalSpeedLimit = 25;

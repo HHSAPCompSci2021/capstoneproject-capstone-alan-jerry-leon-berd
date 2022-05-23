@@ -27,15 +27,16 @@ import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 /** Contains all the UI of an upgrade screen. */
+@Deprecated
 public class UpgradeScreen extends PauseScreen{
-    public Modifier[] choices;
-    public Table selection;
-    public Table description;
-    public List stats;
-    public int selected, last;
-    public float hexSize = 75, fadein;
+    private Modifier[] choices;
+    private Table selection;
+    private Table description;
+    private List stats;
+    private int selected, last;
+    private float hexSize = 75, fadein;
 
-    public void def(Table t, Hexagon hex){
+    private void def(Table t, Hexagon hex){
         t.drawable(d -> {
             d.drawer(drawer -> {
                 canvas.tint(255, 255, 255);
@@ -45,10 +46,10 @@ public class UpgradeScreen extends PauseScreen{
         });
     }
 
-    public void def(Button button, int i){
+    private void def(Button button, int i){
         button.drawer(b -> {
             canvas.tint(255, 255, 255);
-            def(choices[i].sprite, b, 1f);
+            def(choices[i].sprite(), b, 1f);
         }).width(hexSize).height(hexSize);
         button.hover(b -> selected = i);
 
@@ -56,11 +57,11 @@ public class UpgradeScreen extends PauseScreen{
         button.alignX(AlignX.center).alignY(AlignY.center);
     }
 
-    public void def(Sprite sprite, Table t, float s){
+    private void def(Sprite sprite, Table t, float s){
         sprite.drawc(t.width() / 2, t.height() / 2, t.width() * s, t.width() / sprite.image.width * sprite.image.height * s);
     }
 
-    public void select(Modifier mod){
+    private void select(Modifier mod){
         if(mod == Modifiers.theVoid) return;
 
         if(mod instanceof Hull) world.player.hull = (HullInstance)mod.create();
@@ -76,7 +77,7 @@ public class UpgradeScreen extends PauseScreen{
         else rebuild();
     }
 
-    public void choose(Seq<Type> from){
+    private void choose(Seq<Type> from){
         Seq<Type> copy = new Seq<>();
         for(Type t : from) if(!world.player.hasMod((Modifier)t) && t != Modifiers.theVoid) copy.add(t);
         for(int i = 0;i < 7;i++){
@@ -89,7 +90,7 @@ public class UpgradeScreen extends PauseScreen{
         }
     }
 
-    public void reroll(){
+    private void reroll(){
         if(world.player.spent == 0) choose(content.list(ContentType.hull));
         if(world.player.spent == 1) choose(content.list(ContentType.weapon));
         if(world.player.spent == 2) choose(content.list(ContentType.shield));
@@ -100,28 +101,28 @@ public class UpgradeScreen extends PauseScreen{
         choices[9] = (Modifier)content.list(ContentType.shield).get(randInt(0, content.list(ContentType.shield).size - 1));
     }
 
-    public void stats(){
+    private void stats(){
         if(selected == -1) return;
 
         stats.clear();
-        stats.text(text -> text.update(t -> ((Text)t).text(format(choices[selected].tag + ": " + choices[selected].name)).size(30)));
+        stats.text(text -> text.update(t -> ((Text)t).text(format(choices[selected].tag() + ": " + choices[selected].name())).size(30)));
         stats.row(25);
         stats.drawable(d -> d.drawer(drawer -> Effects.blur.draw(0, 0, 400, 4, Color.white)));
 
         stats.row(20);
-        for(String str : choices[selected].pros){
+        for(String str : choices[selected].pros()){
             stats.text(text -> text.text(str).size(20).x(10));
             stats.row(5);
         }
 
         stats.row(10);
-        for(String str : choices[selected].cons){
+        for(String str : choices[selected].cons()){
             stats.text(text -> text.text(str).size(20).x(10).color(Pal.healthRed));
             stats.row(5);
         }
     }
 
-    public String format(String name){
+    private String format(String name){
         StringBuilder res = new StringBuilder();
         for(int i = 0;i < name.length();i++){
             if(name.charAt(i) == '-') res.append(' ');

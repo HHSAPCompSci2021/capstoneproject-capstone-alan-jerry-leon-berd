@@ -6,21 +6,31 @@ import static project.Vars.*;
 
 /** Represents a segmented bar. */
 public class SegmentedBar extends ProgressBar{
-    public Intp segments;
-    public float padding;
+    protected Intp segments;
+    private float padding;
 
-    /** Creates a segmented bar with the specified width, height, and padding between segments. */
+    /**
+     *  Creates a segmented bar with the specified width, height, and padding between segments.
+     * @param width the width
+     * @param height the height
+     * @param padding the padding
+     */
     public SegmentedBar(float width, float height, float padding){
         super(width, height);
         this.padding = padding;
     }
 
+    /**
+     * Set the segments of the bar to the specified runnable
+     * @param segments a runnable that returns an int, the segments
+     * @return itself, for chaining
+     */
     public SegmentedBar segments(Intp segments){
         this.segments = segments;
         return this;
     }
 
-    public int segments(){
+    protected int segments(){
         return segments.get();
     }
 

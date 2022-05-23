@@ -8,7 +8,12 @@ import java.awt.*;
 
 import static project.Vars.*;
 
+/** Stores stats for a railgun weapon. */
 public class RailgunWeapon extends Weapon{
+    /**
+     * Create a railgun weapon with the specified name
+     * @param name the name
+     */
     public RailgunWeapon(String name){
         super(name);
 
@@ -22,7 +27,7 @@ public class RailgunWeapon extends Weapon{
         return new RailgunWeaponInstance(this);
     }
 
-    public class RailgunWeaponInstance extends WeaponInstance{
+    protected class RailgunWeaponInstance extends WeaponInstance{
         public RailgunWeaponInstance(Weapon type){
             super(type);
         }

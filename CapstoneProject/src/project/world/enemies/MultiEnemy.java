@@ -7,8 +7,7 @@ import static project.Vars.*;
 
 /** Stores stats for an enemy with multiple parts. */
 public class MultiEnemy extends Enemy{
-    /** Stores the piece types of this multi part enemy. */
-    public Seq<EnemyPart> pieces = new Seq<>();
+    protected Seq<EnemyPart> pieces = new Seq<>();
 
     @Override
     public void init(){
@@ -27,8 +26,7 @@ public class MultiEnemy extends Enemy{
 
     /** Represents and simulates an enemy with multiple parts. */
     public class MultiEnemyEntity extends EnemyEntity{
-        /** Stores the part entities of this multi part enemy. */
-        public Seq<EnemyPartEntity> parts = new Seq<>();
+        protected Seq<EnemyPartEntity> parts = new Seq<>();
 
         public MultiEnemyEntity(MultiEnemy type){
             super(type);

@@ -11,16 +11,18 @@ import static project.Vars.*;
 
 /** Stores stats for a modifier. */
 public class Modifier extends Type{
-    public UpgradeSprite sprite = new UpgradeSprite();
-    public String name;
-    public String tag;
-    public Seq<String> pros, cons;
+    protected UpgradeSprite sprite = new UpgradeSprite();
+    protected String name;
+    protected String tag;
+    protected Seq<String> pros, cons;
 
-    public boolean recursive;
+    protected float[] mult = new float[Rule.all.length];
+    protected float[] add = new float[Rule.all.length];
 
-    public float[] mult = new float[Rule.all.length];
-    public float[] add = new float[Rule.all.length];
-
+    /**
+     * Creates a new modifier with the specified name
+     * @param name the name
+     */
     public Modifier(String name){
         super();
 
@@ -33,11 +35,11 @@ public class Modifier extends Type{
         sprite.set("mod-" + name);
     }
 
-    public void addPro(String point){
+    protected void addPro(String point){
         pros.add(" > " + point.toUpperCase());
     }
 
-    public void addCon(String point){
+    protected void addCon(String point){
         cons.add(" > " + point.toUpperCase());
     }
 
@@ -54,11 +56,83 @@ public class Modifier extends Type{
         super.init();
     }
 
+    /**
+     * Returns the sprite of this modifier.
+     * @return the sprite
+     */
+    public Sprite sprite(){
+        return sprite;
+    }
+
+    /**
+     * Returns the name of this modifier.
+     * @return the name
+     */
+    public String name(){
+        return name;
+    }
+
+    /**
+     * Returns the tag of this modifier.
+     * @return the tag
+     */
+    public String tag(){
+        return tag;
+    }
+
+    /**
+     * Returns the pros of this modifier.
+     * @return the pros
+     */
+    public Seq<String> pros(){
+        return pros;
+    }
+
+    /**
+     * Returns the cons of this modifier.
+     * @return the cons
+     */
+    public Seq<String> cons(){
+        return cons;
+    }
+
+    /**
+     * Returns the multiplier of a certain rule in this modifier.
+     * @param rule the rule
+     * @return the value
+     */
+    public float mult(Rule rule){
+        return mult[rule.id()];
+    }
+
+    /**
+     * Returns the additive of a certain rule in this modifier.
+     * @param rule the rule
+     * @return the value
+     */
+    public float add(Rule rule){
+        return add[rule.id()];
+    }
+
+    /**
+     * Sets the multiplier of a certain rule of this modifier
+     * @param rule the rule
+     * @param value the value
+     * @return itself, for chaining
+     */
+    @Deprecated
     public Modifier mult(Rule rule, float value){
         mult[rule.id()] = value;
         return this;
     }
 
+    /**
+     * Sets the additive of a certain rule of this modifier
+     * @param rule the rule
+     * @param value the value
+     * @return itself, for chaining
+     */
+    @Deprecated
     public Modifier add(Rule rule, float value){
         add[rule.id()] = value;
         return this;
@@ -76,11 +150,15 @@ public class Modifier extends Type{
 
     /** Represents and simulates an instance of a modifier. */
     public class ModInstance extends Instance{
+        /**
+         * Create a new instance of a modifier with the specified type
+         * @param type the type
+         */
         public ModInstance(Modifier type){
             super(type);
         }
 
-        public Player player(){
+        protected Player player(){
             return world.player;
         }
 
@@ -90,7 +168,7 @@ public class Modifier extends Type{
         }
     }
 
-    public class UpgradeSprite extends Sprite{
+    protected class UpgradeSprite extends Sprite{
         public UpgradeSprite set(String name){
             super.set(SpritePath.upgrades, name);
             return this;

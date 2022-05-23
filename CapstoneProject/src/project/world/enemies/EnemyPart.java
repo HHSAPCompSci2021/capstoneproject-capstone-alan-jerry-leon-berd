@@ -17,8 +17,7 @@ public class EnemyPart extends Enemy{
 
     /** Represents and simulates a part of an Enemy. */
     public class EnemyPartEntity extends EnemyEntity{
-        /** The parent enemy of this part. */
-        public MultiEnemyEntity parent;
+        protected MultiEnemyEntity parent;
 
         public EnemyPartEntity(EnemyPart type){
             super(type);

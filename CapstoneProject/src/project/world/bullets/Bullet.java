@@ -16,40 +16,84 @@ import static project.core.Rules.Rule.*;
 
 /** Contains stats for a bullet. */
 public class Bullet{
-    public BulletSprite sprite = new BulletSprite().set("blast");
+    protected BulletSprite sprite = new BulletSprite().set("blast");
 
-    public float speed = 10;
-    public float size = 5;
-    public float damage = 10;
-    public float knockback = 0.05f;
-    public float lifetime = -1;
-    public float splashRadius = 0;
-    public float splashDamage = 0;
+    protected float speed = 10;
+    protected float size = 5;
+    protected float damage = 10;
+    protected float knockback = 0.05f;
+    protected float lifetime = -1;
+    protected float splashRadius = 0;
+    protected float splashDamage = 0;
 
-    public int trailDuration = 4;
-    public float trailSize = 8;
-    public float trailAlpha = 255;
+    protected int trailDuration = 4;
+    protected float trailSize = 8;
+    protected float trailAlpha = 255;
 
-    public boolean reflectable = true;
+    protected boolean reflectable = true;
 
+    /**
+     * Returns whether this bullet is reflectable or not.
+     * @return whether this bullet is reflectable or not.
+     */
+    public boolean reflectable(){
+        return reflectable;
+    }
+
+    /**
+     * Returns the damage of this bullet
+     * @return the damage
+     */
+    public float damage(){
+        return damage;
+    }
+
+    /**
+     * Returns the lifetime of this bullet
+     * @return the lifetime
+     */
+    public float lifetime(){
+        return lifetime;
+    }
+
+    /**
+     * Creates a bullet entity with this type
+     * @return the bullet entity
+     */
     public BulletEntity create(){
         return new BulletEntity(this);
     }
 
     /** Represents and simulates a bullet. */
     public class BulletEntity extends Entity{
+        /** The bullet that is the type of this entity. */
         public Bullet bullet;
 
+        /** Rotation, damage multiplier, and speed, respectively. */
         public float rotation, damage = 1f, speed = 1f;
-        public Vec2 pPos = new Vec2();
+        protected Vec2 pPos = new Vec2();
 
-        public Ship origin;
+        protected Ship origin;
 
-        public Set<Entity> collided = new Set<>();
+        protected Set<Entity> collided = new Set<>();
 
+        /**
+         * Creates a bullet entity with the specified type
+         * @param type the bullet type
+         */
         public BulletEntity(Bullet type){
             super(null);
             this.bullet = type;
+        }
+
+        /**
+         * Ses the origin of this bullet
+         * @param origin the origin
+         * @return
+         */
+        public BulletEntity origin(Ship origin){
+            this.origin = origin;
+            return this;
         }
 
         @Override
@@ -67,23 +111,23 @@ public class Bullet{
             return origin.color();
         }
 
-        public float speed(){
+        protected float speed(){
             return (bullet.speed + rules.add(bulletSpeed, origin.team)) * rules.mult(bulletSpeed, origin.team);
         }
 
-        public float knockback(){
+        protected float knockback(){
             return (knockback + rules.add(bulletKnockback, origin.team)) * rules.mult(bulletKnockback, origin.team);
         }
 
-        public float damage(){
+        protected float damage(){
             return (damage + rules.add(bulletDamage, origin.team)) * rules.mult(bulletDamage, origin.team);
         }
 
-        public float blastRadius(){
+        protected float blastRadius(){
             return (splashRadius + rules.add(blastRadius, origin.team)) * rules.mult(blastRadius, origin.team);
         }
 
-        public float blastDamage(){
+        protected float blastDamage(){
             return damage() * (splashDamage + rules.add(blastDamage, origin.team)) * rules.mult(blastDamage, origin.team) / 10f;
         }
 
@@ -146,7 +190,7 @@ public class Bullet{
         }
     }
 
-    public static class BulletSprite extends Sprite{
+    protected static class BulletSprite extends Sprite{
         public BulletSprite set(String name){
             super.set(SpritePath.bullets, name);
             return this;

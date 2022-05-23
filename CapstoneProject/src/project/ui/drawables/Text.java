@@ -6,23 +6,30 @@ import static project.Vars.*;
 
 /** Represents a text box. */
 public class Text extends Table{
-    public float size = 10;
-    public String text;
+    private float size = 10;
+    private String text;
 
-    /** Set the test of this text box. */
+    /**
+     * Set the test of this text box.
+     * @param text the text
+     * @return itself, for chaining
+     */
     public Text text(String text){
         this.text = text;
         return this;
     }
 
-    /** Set the size of the text. */
+    /**
+     * Set the size of the text.
+     * @param size the size
+     * @return itself, for chaining
+     */
     public Text size(float size){
         this.size = size;
         return this;
     }
 
-    /** Returns the real size of this piece of text. */
-    public float size(){
+    private float size(){
         return size * UIscale;
     }
 

@@ -10,9 +10,14 @@ import java.awt.*;
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
+/** Stores stats for a shield that slows down time. */
 public class TemporalShield extends Shield{
-    public float slowest = 0.2f;
+    protected float slowest = 0.2f;
 
+    /**
+     * Create a temporal shield with the specified name
+     * @param name the name
+     */
     public TemporalShield(String name){
         super(name);
 
@@ -28,8 +33,7 @@ public class TemporalShield extends Shield{
         return new TemporalShieldInstance(this);
     }
 
-    /** Represents an instance of a shield. */
-    public class TemporalShieldInstance extends ShieldInstance{
+    protected class TemporalShieldInstance extends ShieldInstance{
         public TemporalShieldInstance(TemporalShield type){
             super(type);
         }

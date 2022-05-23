@@ -24,8 +24,6 @@ public class World{
     public Player player;
     public Waves waves;
 
-    public Ship lastHit;
-
     public Range2 bounds;
 
     public World(){
@@ -50,14 +48,15 @@ public class World{
         waves = new Waves();
         waves.spawnWave();
 
-        EnemyEntity e = Enemies.sniper.champion.create();
-        e.team = Team.enemy;
-        e.pos.set(Tmp.v1.set(random(0, width), random(0, height)).sub(world.bounds.center()).nor().scl(width).add(world.bounds.center()));
-        world.ships.add(e);
+//        EnemyEntity e = Enemies.sniper.champion.create();
+//        e.team = Team.enemy;
+//        e.pos.set(Tmp.v1.set(random(0, width), random(0, height)).sub(world.bounds.center()).nor().scl(width).add(world.bounds.center()));
+//        world.ships.add(e);
 
         events.on(Event.enemyDestroyed, event -> {
             boolean spawnNext = true;
-            for(Ship ship : ships.entities){
+
+            for(Ship ship : ships.all()){
                 if(ship.keep() && ship.team != Team.player){
                     spawnNext = false;
                     break;

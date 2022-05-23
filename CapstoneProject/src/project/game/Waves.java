@@ -12,10 +12,18 @@ import static project.Vars.*;
 
 /** Stores and simulates all waves in the game. */
 public class Waves{
-    public int wave = 0;
+    protected int wave = 0;
 
+    /**
+     * Returns the wave number
+     * @return the wave
+     */
+    public int wave(){
+        return wave;
+    }
+
+    /** Spawn the next wave. */
     public void spawnWave(){
-        //Ridiculous scaling
 //        rules.rules[Team.enemy.id()][Rule.weaponReload.ordinal()] += 0.1f;
 //        rules.rules[Team.enemy.id()][Rule.bulletDamage.ordinal()] += 0.5f;
 

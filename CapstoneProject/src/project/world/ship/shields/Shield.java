@@ -12,13 +12,17 @@ import static project.core.Rules.Rule.*;
 
 /** Stores stats for a shield. */
 public class Shield extends Modifier{
-    public Color color = new Color(120, 120, 255);
+    protected Color color = new Color(120, 120, 255);
 
-    public float max = 100;
-    public float regen = 20;
+    protected float max = 100;
+    protected float regen = 20;
 
-    public float respawn = 10;
+    protected float respawn = 10;
 
+    /**
+     * Creates a new shield with the specified name
+     * @param name the name
+     */
     public Shield(String name){
         super(name);
 
@@ -36,6 +40,14 @@ public class Shield extends Modifier{
         super.init();
     }
 
+    /**
+     * Returns the color of this shield.
+     * @return the color
+     */
+    public Color color(){
+        return color;
+    }
+
     @Override
     public ContentType type(){
         return ContentType.shield;
@@ -48,28 +60,54 @@ public class Shield extends Modifier{
 
     /** Represents an instance of a shield. */
     public class ShieldInstance extends ModInstance{
-        public boolean broken;
-        /** Stores the current health in the shield. */
-        public float value;
+        protected boolean broken;
+        protected float value;
 
+        /**
+         * Create a new shield with the specified type.
+         * @param type the type
+         */
         public ShieldInstance(Shield type){
             super(type);
             value = shields();
         }
 
-        public float shields(){
+        /**
+         * Returns whether this shield is broken or not.
+         * @return whether this shield is broken or not
+         */
+        public boolean broken(){
+            return broken;
+        }
+
+        /**
+         * Returns amount of shields left.
+         * @return the amount
+         */
+        public float value(){
+            return value;
+        }
+
+        protected float shields(){
             return (max + rules.add(maxShields, Team.player)) * rules.mult(maxShields, Team.player);
         }
 
-        public float regen(){
+        protected float regen(){
             return (regen + rules.add(shieldRegen, Team.player)) * rules.mult(shieldRegen, Team.player) / 100f / 60f;
         }
 
-        /** Returns ratio of the shields current value to it's maximum value. */
+        /**
+         * Returns ratio of the shields current value to it's maximum value.
+         * @return the ratio
+         */
         public float fin(){
             return broken ? 0 : value / shields();
         }
 
+        /**
+         * Damage this shield with a specified amount of damage.
+         * @param damage the amount of damage
+         */
         public void damage(float damage){
             if(damage > value) broken = true;
             value = max(0, value - damage);
@@ -77,8 +115,9 @@ public class Shield extends Modifier{
 
         /** Updates this shield. */
         public void update(){
+            System.out.println(value);
             if(broken){
-                value += regen() / regen;
+                value += regen() / regen * 100 * 60;
                 if(value > respawn * 60){
                     broken = false;
                     value = shields();

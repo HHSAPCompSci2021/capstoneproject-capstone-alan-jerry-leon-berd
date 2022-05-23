@@ -8,7 +8,7 @@ import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
 public class MultiBarrelHull extends Hull{
-    public Seq<Barrel> barrels = new Seq<>();
+    protected Seq<Barrel> barrels = new Seq<>();
 
     public MultiBarrelHull(String name){
         super(name);
@@ -27,7 +27,7 @@ public class MultiBarrelHull extends Hull{
     }
 
     public class MultiHullInstance extends HullInstance{
-        public int next = 0;
+        protected int next = 0;
 
         public MultiHullInstance(MultiBarrelHull type){
             super(type);
@@ -35,7 +35,7 @@ public class MultiBarrelHull extends Hull{
 
         @Override
         public Vec2 shootPos(){
-            return Tmp.v1.set(barrels.get(next).pos).rot(world.player.rotation).add(world.player.pos);
+            return Tmp.v1.set(barrels.get(next).pos).rot(world.player.rotation()).add(world.player.pos);
         }
 
         @Override
@@ -49,7 +49,7 @@ public class MultiBarrelHull extends Hull{
         }
     }
 
-    public class Barrel{
+    protected class Barrel{
         public Vec2 pos;
         public float offset;
 

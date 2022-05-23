@@ -15,10 +15,8 @@ import static project.Vars.*;
 
 /** An extension of PApplet. Represents the canvas of the project. */
 public class Canvas extends PApplet{
-    /** The current screen. */
-    public Screen screen;
-    /** Stores a "shake" variable, the current shaking of the screen. Used for visuals only. */
-    public float shake;
+    private Screen screen;
+    private float shake;
 
     public Canvas(){
     }
@@ -29,6 +27,14 @@ public class Canvas extends PApplet{
      */
     public void shake(float shake){
         this.shake = max(this.shake, shake);
+    }
+
+    /**
+     * Returns the amount of shake currently on the screen
+     * @return the shake
+     */
+    public float shake(){
+        return shake;
     }
 
     /**

@@ -6,6 +6,7 @@ import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 import static project.core.Rules.Rule.*;
 
+/** Contains presets for a flak bullet. */
 public class FlakBullet extends Bullet{
     public FlakBullet(){
         super();
@@ -23,12 +24,13 @@ public class FlakBullet extends Bullet{
         return new FlakBulletEntity(this);
     }
 
-    /** Represents and simulates a laser bullet. */
+    /** Represents and simulates a flak bullet. */
     public class FlakBulletEntity extends BulletEntity{
         public FlakBulletEntity(FlakBullet type){
             super(type);
         }
 
+        @Override
         public float damage(){
             return super.damage() * fin();
         }

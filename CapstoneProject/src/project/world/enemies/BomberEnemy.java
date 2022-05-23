@@ -8,13 +8,14 @@ import java.awt.*;
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
+/** Stores stats for a carpet bombing enemy. */
 public class BomberEnemy extends Enemy{
-    public float thrustDuration = 60;
-    public float shootInterval = 10;
+    protected float thrustDuration = 60;
+    protected float shootInterval = 10;
 
-    public float inaccuracy = 20;
-    public float waveFrequency = 10;
-    public float waveAmplitude = 5;
+    protected float inaccuracy = 20;
+    protected float waveFrequency = 10;
+    protected float waveAmplitude = 5;
 
     public BomberEnemy(){
         super();
@@ -40,7 +41,7 @@ public class BomberEnemy extends Enemy{
     }
 
     public class BomberEnemyEntity extends EnemyEntity{
-        public float wave;
+        protected float wave;
 
         public BomberEnemyEntity(BomberEnemy type){
             super(type);

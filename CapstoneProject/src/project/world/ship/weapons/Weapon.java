@@ -15,19 +15,23 @@ import static project.core.Rules.Rule.*;
 
 /** Stores stats for a weapon. */
 public class Weapon extends Modifier{
-    public int charges = 1;
-    public int shots = 1;
-    public float spread = 10;
-    public float reload = 10;
-    public float velRand = 0;
-    public float inaccuracy = 0;
-    public float recoil = 0.1f;
-    public float lifeRand = 0;
+    protected int charges = 1;
+    protected int shots = 1;
+    protected float spread = 10;
+    protected float reload = 10;
+    protected float velRand = 0;
+    protected float inaccuracy = 0;
+    protected float recoil = 0.1f;
+    protected float lifeRand = 0;
 
-    public boolean manual;
+    protected boolean manual;
 
-    public Bullet bullet;
+    protected Bullet bullet;
 
+    /**
+     * Create a weapon with the specified name
+     * @param name the name
+     */
     public Weapon(String name){
         super(name);
 
@@ -41,9 +45,17 @@ public class Weapon extends Modifier{
         if(charges != 1) addPro("Base charges: " + charges);
         if(shots != 1) addPro("Base projectiles: " + shots);
         addPro("Rate of fire: " + reload + "/sec");
-        addPro("Damage: " + bullet.damage);
+        addPro("Damage: " + bullet.damage());
 
         super.init();
+    }
+
+    /**
+     * Returns whether this weapon is manually shot or not.
+     * @return whether this weapon is manually shot or not
+     */
+    public boolean manual(){
+        return manual;
     }
 
     @Override
@@ -58,9 +70,12 @@ public class Weapon extends Modifier{
 
     /** Represents an instance of a weapon. */
     public class WeaponInstance extends ModInstance{
-        /** Stores the reloadTimer, which is incremented every frame and stores when the enemy should shoot. */
-        public float reloadt;
+        protected float reloadt;
 
+        /**
+         * Create a weapon instance with the specified type
+         * @param type the type
+         */
         public WeaponInstance(Weapon type){
             super(type);
         }
@@ -85,10 +100,12 @@ public class Weapon extends Modifier{
             return (recoil + rules.add(weaponRecoil, Team.player)) * rules.mult(weaponRecoil, Team.player);
         }
 
+        /** Returns the reload rate of the weapon. */
         public float reload(){
             return (reload + rules.add(weaponReload, Team.player)) * rules.mult(weaponReload, Team.player) * delta;
         }
 
+        /** Returns the spread in bullets of the weapon. */
         public float spread(){
             return (spread + rules.add(shotSpread, Team.player)) * rules.mult(shotSpread, Team.player);
         }
@@ -108,10 +125,10 @@ public class Weapon extends Modifier{
         public BulletEntity def(BulletEntity b){
             b.pos.set(player().hull.shootPos());
             b.team = Team.player;
-            b.rotation = player().rotation + random(-inaccuracy, inaccuracy) + player().hull.shootRot();
+            b.rotation = player().rotation() + random(-inaccuracy, inaccuracy) + player().hull.shootRot();
             b.speed *= random(1f - velRand, 1f);
-            b.life = b.bullet.lifetime * random(0, lifeRand);
-            b.origin = player();
+            b.life = b.bullet.lifetime() * random(0, lifeRand);
+            b.origin(player());
             return b;
         }
 
@@ -123,7 +140,7 @@ public class Weapon extends Modifier{
                 world.bullets.add(b);
                 Tmp.v1.set(player().hull.shootPos()).sub(player().pos);
                 Effects.gunfire.at(Tmp.v1.x, Tmp.v1.y, e -> e.color(0, player().color()).parent(player()));
-                player().apply(Tmp.v1.set(-recoil(), 0).rot(player().rotation + player().hull.shootRot()));
+                player().apply(Tmp.v1.set(-recoil(), 0).rot(player().rotation() + player().hull.shootRot()));
                 player().hull.shot();
             }
         }

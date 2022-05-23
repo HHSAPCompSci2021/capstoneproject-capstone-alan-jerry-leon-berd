@@ -20,14 +20,13 @@ import static project.Vars.*;
  * Contains all the UI of a menu screen.
  */
 public class MenuScreen extends Screen{
-    public Table side;
-    public Sprite background = new Sprite().set(SpritePath.backgrounds, "space3");
-    public int menu = 0;
-    public float sidex = 0;
-    public Cons<Button> buttonHover = b -> Effects.blur.draw(-50, 0, sidex + 33, b.height(), Pal.opaqueWhite);
+    private Table side;
+    private Sprite background = new Sprite().set(SpritePath.backgrounds, "space3");
+    private int menu = 0;
+    private float sidex = 0;
+    private Cons<Button> buttonHover = b -> Effects.blur.draw(-50, 0, sidex + 33, b.height(), Pal.opaqueWhite);
 
-    /** Sets the defaults for the specified slider. */
-    public void def(Slider slider){
+    private void def(Slider slider){
         slider.color(s -> s.bounds().contains(input.mouse) ? Pal.opaqueBlack : Pal.opaqueGray);
         slider.drawer(s -> {
             canvas.rectc(s.width() / 2, s.height() / 2, s.width(), s.height() / 2);
@@ -44,26 +43,27 @@ public class MenuScreen extends Screen{
                 list.row(20);
                 if(menu == 0){
                     list.button(button -> {
-                        button.hover = buttonHover;
+                        button.hover(buttonHover);
                         button.press(b -> canvas.screen(ui.gameScreen)).text(text -> text.text("PLAY").size(35).color(Pal.opaqueBlack)).width(150);
                     });
                     list.row(10);
                     list.button(button -> {
-                        button.hover = buttonHover;
+                        button.hover(buttonHover);
                         button.press(b -> {
                             menu = 1;
                             rebuild();
                         }).text(text -> text.text("SETTINGS").size(35).color(Pal.opaqueBlack)).width(150);
                     });
+                    list.row(10);
                     list.button(button -> {
-                        button.hover = buttonHover;
+                        button.hover(buttonHover);
                         button.press(b -> canvas.exit()).text(text -> text.text("EXIT").size(35).color(Pal.opaqueBlack)).width(150);
                     });
                 }else if(menu == 1){
                     list.text(text -> text.text("SETTINGS").size(40).color(Pal.opaqueBlack));
                     list.row(10);
                     list.button(button -> {
-                        button.hover = buttonHover;
+                        button.hover(buttonHover);
                         button.press(b -> {
                             menu = 2;
                             rebuild();
@@ -71,7 +71,7 @@ public class MenuScreen extends Screen{
                     });
                     list.row(10);
                     list.button(button -> {
-                        button.hover = buttonHover;
+                        button.hover(buttonHover);
                         button.press(b -> {
                             menu = 3;
                             rebuild();
@@ -79,7 +79,7 @@ public class MenuScreen extends Screen{
                     });
                     list.row(10);
                     list.button(button -> {
-                        button.hover = buttonHover;
+                        button.hover(buttonHover);
                         button.press(b -> {
                             menu = 4;
                             rebuild();
@@ -96,7 +96,7 @@ public class MenuScreen extends Screen{
                     list.text(text -> text.text("GRAPHICS").size(40).color(Pal.opaqueBlack));
                     list.row(10);
                     list.button(button -> {
-                        button.hover = buttonHover;
+                        button.hover(buttonHover);
                         button.press(b -> {
                             glowEnabled = !glowEnabled;
                             rebuild();
@@ -123,7 +123,7 @@ public class MenuScreen extends Screen{
                     });
                     list.row(10);
                     list.button(button -> {
-                        button.hover = buttonHover;
+                        button.hover(buttonHover);
                         button.press(b -> {
                             effectsEnabled = !effectsEnabled;
                             rebuild();
@@ -151,7 +151,7 @@ public class MenuScreen extends Screen{
                     list.text(text -> text.text("SOUNDS").size(40).color(Pal.opaqueBlack));
                     list.row(10);
                     list.button(button -> {
-                        button.hover = buttonHover;
+                        button.hover(buttonHover);
                         button.press(b -> {
                             soundEffects = !soundEffects;
                             rebuild();
@@ -159,22 +159,22 @@ public class MenuScreen extends Screen{
                     });
                     list.row(10);
                     list.button(button -> {
-                        button.hover = buttonHover;
+                        button.hover(buttonHover);
                         button.press(b -> {
-                            if(music){
+                            if(musicEnabled){
                                 Sounds.stopSong();
-                                music = false;
+                                musicEnabled = false;
                             }else{
                                 Sounds.resumeSong();
-                                music = true;
+                                musicEnabled = true;
                             }
                             rebuild();
-                        }).text(text -> text.text("MUSIC: " + (music ? "ON" : "OFF")).size(30).color(Pal.opaqueBlack));
+                        }).text(text -> text.text("MUSIC: " + (musicEnabled ? "ON" : "OFF")).size(30).color(Pal.opaqueBlack));
                     });
                 }
             }));
             if(menu > 0) table.button(button -> {
-                button.hover = buttonHover;
+                button.hover(buttonHover);
                 button.press(b -> {
                     menu = menu == 1 ? 0 : 1;
                     rebuild();

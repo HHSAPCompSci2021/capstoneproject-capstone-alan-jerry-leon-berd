@@ -13,7 +13,7 @@ import static project.Vars.*;
 
 /** Represents an orb of experience. */
 public class Experience extends Entity{
-    public float amount;
+    private float amount;
 
     public Experience(){
         super(null);

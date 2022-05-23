@@ -61,7 +61,7 @@ public class Sounds{
         }
         layer.addSongs(0, songList);
         layer.changePlayList(0);
-        if(music){
+        if(musicEnabled){
             layer.nextSong();
             playSong("Neverend.mp3");
         }

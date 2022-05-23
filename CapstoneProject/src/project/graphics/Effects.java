@@ -78,9 +78,9 @@ public class Effects{
         upgrade = new Effect(25, e -> e.create(2), e -> {
             for(int i = 0;i < 3;i++){
                 canvas.tint(world.player.color(), 255 * e.fout() / (i + 1));
-                world.player.sprite().drawc(0, 0, e.data[0] * 20 * e.fin() * i, e.data[0] * 20 * e.fin() * i, world.player.rotation + 90);
+                world.player.sprite().drawc(0, 0, e.data[0] * 20 * e.fin() * i, e.data[0] * 20 * e.fin() * i, world.player.rotation() + 90);
                 canvas.tint(255, 255, 255, 100 * e.fout() / (i + 1));
-                world.player.sprite().drawc(0, 0, e.data[0] * 20 * e.fin() * i, e.data[0] * 20 * e.fin() * i, world.player.rotation + 90);
+                world.player.sprite().drawc(0, 0, e.data[0] * 20 * e.fin() * i, e.data[0] * 20 * e.fin() * i, world.player.rotation() + 90);
             }
         }).follow(true);
         trail = new Effect(5, e -> e.create(6), e -> {
@@ -97,15 +97,15 @@ public class Effects{
         });
     }
 
-    public static class EffectSprite extends Sprite{
+    protected static class EffectSprite extends Sprite{
         public EffectSprite set(String name){
             super.set(SpritePath.effects, name);
             return this;
         }
     }
 
-    /** Represents a sprite that is only drawn when glowEnabled is on. */
-    public static class GlowSprite extends EffectSprite{
+    protected static class GlowSprite extends EffectSprite{
+        @Override
         public GlowSprite set(String name){
             super.set(name);
             return this;
@@ -131,29 +131,53 @@ public class Effects{
 
         public boolean essential, follow;
 
+        /**
+         * Creates an effect with the specified default lifetime and renderer
+         * @param lifetime the default lifetime
+         * @param drawer the renderer
+         */
         public Effect(float lifetime, Cons<EffectEntity> drawer){
             this.lifetime = lifetime;
             this.drawer = drawer;
         }
 
+        /**
+         * Creates an effect with the specified default lifetime, initialization, and renderer
+         * @param lifetime the default lifetime
+         * @param init the initialization runnable
+         * @param drawer the renderer
+         */
         public Effect(float lifetime, Cons<EffectEntity> init, Cons<EffectEntity> drawer){
             this(lifetime, drawer);
             this.init = init;
         }
 
-        /** Set whether this effect should still be drawn even when effects are disabled. */
+        /**
+         * Set whether this effect should still be drawn even when effects are disabled.
+         * @param essential whether this is essential
+         * @return itself, for chaining
+         */
         public Effect essential(boolean essential){
             this.essential = essential;
             return this;
         }
 
-        /** Set whether this effect follows along with it's parent. */
+        /**
+         * Set whether this effect follows along with it's parent.
+         * @param follow whether this effect follows it's parent
+         * @return itself, for chaining
+         */
         public Effect follow(boolean follow){
             this.follow = follow;
             return this;
         }
 
-        /** Create an effect at (x, y). */
+        /**
+         * Create an effect at (x, y).
+         * @param x the x coordinate
+         * @param y the y coordinate
+         * @return the entity created
+         */
         public EffectEntity at(float x, float y){
             EffectEntity e = new EffectEntity(this);
             e.pos.set(x, y);
@@ -161,7 +185,12 @@ public class Effects{
             return e;
         }
 
-        /** Create an effect at (x, y) and run the runnable init on it. */
+        /**
+         * Create an effect at (x, y) and run the runnable init on it.
+         * @param x the x coordinate
+         * @param y the y coordinate
+         * @param init the initialization runnable
+         */
         public void at(float x, float y, Cons<EffectEntity> init){
             EffectEntity e = at(x, y);
             init.get(e);
@@ -169,13 +198,18 @@ public class Effects{
 
         /** Represents a effect. */
         public class EffectEntity extends Entity{
+            /** The effect type. */
             public Effect effect;
 
             public float lifetime;
-            public float[] data;
+            private float[] data;
 
             public Pos2 parent;
 
+            /**
+             * Create an effect entity with specified type
+             * @param effect the type
+             */
             public EffectEntity(Effect effect){
                 super(null);
                 this.effect = effect;
@@ -183,19 +217,33 @@ public class Effects{
                 if(init != null) init.get(this);
             }
 
-            /** Create the data array as a float array of length len. */
+            /**
+             * Create the data array as a float array of length len.
+             * @param len the length of the float array
+             * @return itself, for chaining
+             */
             public EffectEntity create(int len){
                 data = new float[len];
                 return this;
             }
 
-            /** Sets all values in the data array in range [start, end - 1] inclusive to random values from 0-1. */
+            /**
+             * Sets all values in the data array in range [start, end - 1] inclusive to random values from 0-1.
+             * @param start the start the range
+             * @param end the end of the range
+             * @return itself, for chaining
+             */
             public EffectEntity rand(int start, int end){
                 for(int i = start;i < end;i++) data[i] = random();
                 return this;
             }
 
-            /** Sets the values of data[i], data[i+1], and data[i+2] to the rgb of the color, respectively. */
+            /**
+             * Sets the values of data[i], data[i+1], and data[i+2] to the rgb of the color, respectively.
+             * @param i the index in the array to write the rgb of the color to
+             * @param c the color
+             * @return itself, for chaining
+             */
             public EffectEntity color(int i, Color c){
                 data[i] = c.getRed();
                 data[i + 1] = c.getGreen();
@@ -203,18 +251,32 @@ public class Effects{
                 return this;
             }
 
-            /** Sets the value at data[i] to the specified value. */
+            /**
+             * Sets the value at data[i] to the specified value.
+             * @param i the index
+             * @param value the value
+             * @return itself, for chaining
+             */
             public EffectEntity set(int i, float value){
                 data[i] = value;
                 return this;
             }
 
-            /** Sets the parent of this effect. */
+            /**
+             * Sets the parent of this effect.
+             * @param parent the parent
+             * @return itself, for chaining.
+             */
             public EffectEntity parent(Pos2 parent){
                 this.parent = parent;
                 return this;
             }
 
+            /**
+             * Set a custom lifetime for this effect
+             * @param lifetime the lifetime
+             * @return itself, for chaining
+             */
             public EffectEntity lifetime(float lifetime){
                 this.lifetime = lifetime;
                 return this;
@@ -231,30 +293,53 @@ public class Effects{
                 return 1f - fin();
             }
 
-            /** Call the fill method of canvas with arguments data[i], data[i+1], and data[i+2], the rgb, respectively. */
+            /**
+             * Call the fill method of canvas with arguments data[i], data[i+1], and data[i+2], the rgb, respectively.
+             * @param i the index
+             */
             public void fill(int i){
                 canvas.fill(data[i], data[i + 1], data[i + 2]);
             }
 
-            /** Call the fill method of canvas with arguments data[i], data[i+1], and data[i+2], the rgb, respectively, with the specified alpha. */
+            /**
+             * Call the fill method of canvas with arguments data[i], data[i+1], and data[i+2], the rgb, respectively, with the specified alpha.
+             * @param i the index
+             * @param alpha the alpha
+             */
             public void fill(int i, float alpha){
                 canvas.fill(data[i], data[i + 1], data[i + 2], alpha);
             }
 
+            /**
+             * Call the stroke method of canvas with arguments data[i], data[i+1], and data[i+2], the rgb, respectively.
+             * @param i the index
+             */
             public void stroke(int i){
                 canvas.stroke(data[i], data[i + 1], data[i + 2]);
             }
 
+            /**
+             * Call the stroke method of canvas with arguments data[i], data[i+1], and data[i+2], the rgb, respectively, with the specified alpha.
+             * @param i the index
+             * @param alpha the alpha
+             */
             public void stroke(int i, float alpha){
                 canvas.stroke(data[i], data[i + 1], data[i + 2], alpha);
             }
 
-            /** Call the tint method of canvas with arguments data[i], data[i+1], and data[i+2], the rgb, respectively. */
+            /**
+             * Call the tint method of canvas with arguments data[i], data[i+1], and data[i+2], the rgb, respectively.
+             * @param i the index
+             */
             public void tint(int i){
                 canvas.tint(data[i], data[i + 1], data[i + 2]);
             }
 
-            /** Call the tint method of canvas with arguments data[i], data[i+1], and data[i+2], the rgb, respectively, with the specified alpha. */
+            /**
+             * Call the tint method of canvas with arguments data[i], data[i+1], and data[i+2], the rgb, respectively, with the specified alpha.
+             * @param i the index
+             * @param alpha the alpha
+             */
             public void tint(int i, float alpha){
                 canvas.tint(data[i], data[i + 1], data[i + 2], alpha);
             }

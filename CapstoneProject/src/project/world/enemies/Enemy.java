@@ -21,22 +21,22 @@ import static project.core.Rules.Rule.*;
 
 /** Stores stats for an enemy. */
 public class Enemy extends Type implements ShipType{
-    public EnemySprite glow;
-    public EnemySprite sprite = new EnemySprite();
-    public Color color = Color.white;
-    public String deathSound = "fuel_explosion.mp3";
+    protected EnemySprite glow;
+    protected EnemySprite sprite = new EnemySprite();
+    protected Color color = Color.white;
+    protected String deathSound = "fuel_explosion.mp3";
 
-    public float health = 100;
-    public float accel = 0.2f;
-    public float rotate = 10;
-    public float mass = 0;
-    public float size = 10;
-    public float ram = 1;
-    public float drag = 1;
+    protected float health = 100;
+    protected float accel = 0.2f;
+    protected float rotate = 10;
+    protected float mass = 0;
+    protected float size = 10;
+    protected float ram = 1;
+    protected float drag = 1;
 
-    public float reload = 1;
+    protected float reload = 1;
 
-    public Bullet bullet = new Bullet();
+    protected Bullet bullet = new Bullet();
 
     @Override
     public void init(){
@@ -91,7 +91,7 @@ public class Enemy extends Type implements ShipType{
         return drag;
     }
 
-    public static class EnemySprite extends Sprite{
+    protected static class EnemySprite extends Sprite{
         public EnemySprite set(String name){
             super.set(SpritePath.enemies, name);
             return this;
@@ -100,12 +100,11 @@ public class Enemy extends Type implements ShipType{
 
     /** Represents and simulates an enemy. */
     public class EnemyEntity extends Ship{
-        /** Stores the reloadTimer, which is incremented every frame and stores when the enemy should shoot. */
-        public float reloadt;
+        protected float reloadt;
 
         public EnemyEntity(Enemy type){
             super(type);
-            entry(Statuses.spawned);
+            entry(StatusEffects.spawned);
         }
 
         /** Returns the real reload speed of this enemy. */
@@ -130,7 +129,7 @@ public class Enemy extends Type implements ShipType{
             b.pos.set(pos);
             b.team = team;
             b.rotation = rotation + offset;
-            b.origin = this;
+            b.origin(this);
             world.bullets.add(b);
             return b;
         }

@@ -161,7 +161,6 @@ public class Enemies implements ContentList{
                 health = 75;
                 size = 15;
                 reload = 1.5f;
-                shootInterval = 7;
                 accel = 0.7f;
                 bullet = new RailgunBullet(){{
                     size = 8;
@@ -175,7 +174,6 @@ public class Enemies implements ContentList{
                 health = 175;
                 size = 20;
                 reload = 1.2f;
-                shootInterval = 5;
                 accel = 1f;
                 bullet = new RailgunBullet(){{
                     size = 12;
