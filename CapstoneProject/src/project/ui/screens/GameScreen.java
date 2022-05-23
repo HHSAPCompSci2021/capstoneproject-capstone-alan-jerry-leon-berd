@@ -67,7 +67,7 @@ public class GameScreen extends Screen{
         canvas.pushMatrix();
         canvas.translate(-pan.x / 50f, -pan.y / 50f);
         canvas.tint(255, 255, 255);
-        background.draw(Tmp.v1.setr(rot, 1).x * 550 - 550, Tmp.v1.y * 100 - 100, (float)background.image.width * (height + 200) / background.image.height, height + 200, Color.white);
+        background.draw(Tmp.v1.setr(rot, 1).x * 1 - 400, Tmp.v1.y * 100 - 100, (float)background.image.width * (height + 200) / background.image.height, height + 200, Color.white);
         canvas.popMatrix();
 
 //        canvas.fill(220, 220, 220);
@@ -78,10 +78,6 @@ public class GameScreen extends Screen{
         world.draw();
         canvas.pop();
         
-        if (pan.x == background.image.width - canvas.width || pan.y == background.image.height - canvas.height) {
-        	pan.x = 0;
-        	pan.y = 0;
-        }
 
         if(world.player.keep()){
             canvas.fill(100, 100, 100, 100);
