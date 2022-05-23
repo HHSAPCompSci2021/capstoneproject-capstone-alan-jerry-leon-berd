@@ -11,7 +11,7 @@ import static project.Vars.*;
 /** Stores stats for an enemy with drones orbiting around it. */
 public class DroneOrbitEnemy extends MultiEnemy{
     protected int drones = 8;
-    protected float droneSpace = 30;
+    protected float droneSpace = 50;
     protected float orbitSpeed = 2;
 
     protected float kiteDistance = 200;
@@ -22,10 +22,10 @@ public class DroneOrbitEnemy extends MultiEnemy{
     public DroneOrbitEnemy(){
         super();
 
-        sprite.set("host-body");
+        sprite.set("host-body-p");
         accel = 0.2f;
         color = new Color(80, 170, 255);
-        size = 13;
+        size = 24;
     }
 
     @Override
@@ -45,9 +45,9 @@ public class DroneOrbitEnemy extends MultiEnemy{
         public OrbitDrone(){
             super();
 
-            sprite.set("host-drone-1");
+            sprite.set("host-drone-p1");
             health = 10;
-            size = 6;
+            size = 8;
             mass = 0.1f;
             reload = 0.5f;
         }

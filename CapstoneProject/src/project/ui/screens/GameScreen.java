@@ -22,7 +22,7 @@ import static project.graphics.Pal.*;
 public class GameScreen extends Screen{
     private Table playerHealth, playerShield, playerAmmo, playerExp, enemyHealth;
 
-    private Sprite background = new Sprite().set(SpritePath.backgrounds, "space2");
+    private Sprite background = new Sprite().set(SpritePath.backgrounds, "city2");
     private float rot = random(0, 360);
     private Vec2 pan = new Vec2();
 
@@ -66,19 +66,20 @@ public class GameScreen extends Screen{
 
     @Override
     public void draw(){
-//        canvas.pushMatrix();
-//        canvas.translate(-pan.x / 50f, -pan.y / 50f);
-//        canvas.tint(255, 255, 255);
-//        background.draw(Tmp.v1.setr(rot, 1).x * 550 - 550, Tmp.v1.y * 100 - 100, (float)background.image.width * (height + 200) / background.image.height, height + 200, Color.white);
-//        canvas.popMatrix();
+        canvas.pushMatrix();
+        canvas.translate(-pan.x / 50f, -pan.y / 50f);
+        canvas.tint(255, 255, 255);
+        background.draw(Tmp.v1.setr(rot, 1).x * 1 - 400, Tmp.v1.y * 100 - 100, (float)background.image.width * (height + 200) / background.image.height, height + 200, Color.white);
+        canvas.popMatrix();
 
-        canvas.fill(220, 220, 220);
-        canvas.rect(0, 0, width, height);
+//        canvas.fill(220, 220, 220);
+//        canvas.rect(0, 0, width, height);
 
         canvas.push();
         canvas.translate(canvas.random(-1, 1) * canvas.shake() * screenShake, canvas.random(-1, 1) * canvas.shake() * screenShake);
         world.draw();
         canvas.pop();
+        
 
         if(world.player.keep()){
             canvas.fill(100, 100, 100, 100);

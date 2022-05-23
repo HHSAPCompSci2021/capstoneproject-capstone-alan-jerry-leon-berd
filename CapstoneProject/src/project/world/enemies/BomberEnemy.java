@@ -33,6 +33,7 @@ public class BomberEnemy extends Enemy{
         reload = 1;
         rotate = 3;
         accel = 0.5f;
+        size = 15;
     }
 
     @Override

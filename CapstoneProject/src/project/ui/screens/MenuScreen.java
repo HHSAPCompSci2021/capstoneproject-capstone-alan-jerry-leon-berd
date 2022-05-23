@@ -21,7 +21,7 @@ import static project.Vars.*;
  */
 public class MenuScreen extends Screen{
     private Table side;
-    private Sprite background = new Sprite().set(SpritePath.backgrounds, "space3");
+    private Sprite background = new Sprite().set(SpritePath.backgrounds, "city");
     private int menu = 0;
     private float sidex = 0;
     private Cons<Button> buttonHover = b -> Effects.blur.draw(-50, 0, sidex + 33, b.height(), Pal.opaqueWhite);

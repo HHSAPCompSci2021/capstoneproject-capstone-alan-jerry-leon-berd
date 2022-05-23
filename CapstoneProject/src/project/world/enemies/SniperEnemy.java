@@ -15,7 +15,7 @@ public class SniperEnemy extends Enemy{
     public SniperEnemy(){
         super();
 
-        sprite.set("beam-caster");
+        sprite.set("sniper");
         bullet = new RailgunBullet(){{
             size = 6;
             damage = 25;
@@ -28,6 +28,7 @@ public class SniperEnemy extends Enemy{
         reload = 0.2f;
         rotate = 3;
         accel = 0.2f;
+        size = 20;
     }
 
     @Override

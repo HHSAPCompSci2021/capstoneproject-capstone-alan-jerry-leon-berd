@@ -23,8 +23,8 @@ public class RammingEnemy extends MultiEnemy{
     public RammingEnemy(){
         super();
 
-        glow = new EnemySprite();
-        sprite.set("juggernaut-3");
+        // glow = new EnemySprite();
+        sprite.set("juggernaut-1-p");
 
         accel = 0.5f;
         rotate = 0.5f;
@@ -183,10 +183,10 @@ public class RammingEnemy extends MultiEnemy{
         public RammingSide(){
             super();
 
-            glow = new EnemySprite();
-            flipGlow = new EnemySprite();
-            sprite.set("juggernaut-side-1");
-            flipSprite.set("juggernaut-side-2");
+            // glow = new EnemySprite();
+            // flipGlow = new EnemySprite();
+            sprite.set("juggernaut-side-1-p");
+            flipSprite.set("juggernaut-side-2-p");
 
             reload = 0.5f;
             size = 15;
