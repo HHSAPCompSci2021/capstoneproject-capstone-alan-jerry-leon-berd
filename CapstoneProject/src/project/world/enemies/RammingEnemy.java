@@ -56,7 +56,7 @@ public class RammingEnemy extends MultiEnemy{
         public RammingThruster(){
             super();
 
-            glow = new EnemySprite();
+//            glow = new EnemySprite();
             sprite.set("juggernaut-thruster");
 
             reload = 0.1f;

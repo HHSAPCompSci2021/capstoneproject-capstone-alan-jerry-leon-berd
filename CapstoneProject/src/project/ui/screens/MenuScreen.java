@@ -192,7 +192,10 @@ public class MenuScreen extends Screen{
 
     @Override
     public void draw(){
-        canvas.background(220, 220, 220);
+        canvas.pushMatrix();
+        canvas.translate(-canvas.mouseX / 50f, -canvas.mouseY / 50f);
+        background.draw(-125, 0, (float)background.image.width * height / background.image.height * 2, height * 2, Color.white);
+        canvas.popMatrix();
 
         Effects.blur.draw(sidex - 300, 0, 300, height, Pal.opaqueGray);
 

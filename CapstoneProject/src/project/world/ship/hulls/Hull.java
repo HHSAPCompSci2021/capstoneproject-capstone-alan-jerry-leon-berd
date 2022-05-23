@@ -41,8 +41,8 @@ public class Hull extends Modifier implements ShipType{
 
         tag = "HULL";
 
-        sprite.set(SpritePath.ships, name);
-        ship.set(name);
+        sprite.set("hull-" + name);
+        ship.set("standard");
         thrusters.add(new Thruster(0, 7, 6f, 25f, 0));
     }
 
