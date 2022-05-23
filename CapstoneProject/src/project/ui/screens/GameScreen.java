@@ -77,6 +77,11 @@ public class GameScreen extends Screen{
         canvas.translate(canvas.random(-1, 1) * canvas.shake * screenShake, canvas.random(-1, 1) * canvas.shake * screenShake);
         world.draw();
         canvas.pop();
+        
+        if (pan.x == background.image.width - canvas.width || pan.y == background.image.height - canvas.height) {
+        	pan.x = 0;
+        	pan.y = 0;
+        }
 
         if(world.player.keep()){
             canvas.fill(100, 100, 100, 100);
