@@ -12,6 +12,10 @@ public class Sounds{
     private static int currentSong;
     private static JayLayer layer;
 
+    /**
+     * Play the specified song
+     * @param name the name of the song
+     */
     public static void playSong(String name){
         if(songMap.get(name) == null){
             return;
@@ -24,14 +28,20 @@ public class Sounds{
         }
     }
 
+    /** Stop the current song. */
     public static void stopSong(){
         layer.stopSong();
     }
 
+    /** Resume the current song. */
     public static void resumeSong(){
         layer.nextSong();
     }
 
+    /**
+     * Play the specified sound
+     * @param name the name of the sound
+     */
     public static void playSound(String name){
         if(soundMap.get(name) == null){
             return;
@@ -40,6 +50,7 @@ public class Sounds{
         layer.playSoundEffect(soundMap.get(name));
     }
 
+    /** Initializes all sounds. */
     public void init(){
         layer = new JayLayer("assets/audio/music/", "assets/audio/effects/", false);
 

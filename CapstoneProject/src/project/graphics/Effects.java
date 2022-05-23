@@ -24,6 +24,7 @@ public class Effects{
     upgrade,
     trail;
 
+    /** Initializes all effects. */
     public void init(){
         glow = new GlowSprite().set("glow");
         blur = new GlowSprite().set("blur");

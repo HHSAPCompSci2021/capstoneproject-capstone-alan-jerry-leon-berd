@@ -8,6 +8,7 @@ public enum Team{
 
     public static Team[] all = values();
 
+    /** Returns the id of this content. Effectively the same as ordinal(). */
     public int id(){
         return ordinal();
     }

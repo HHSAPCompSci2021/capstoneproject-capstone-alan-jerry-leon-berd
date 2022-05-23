@@ -6,6 +6,7 @@ import project.world.ship.hulls.*;
 
 import static project.core.Rules.Rule.*;
 
+/** Contains and loads all the hull types in the game. */
 public class Hulls implements ContentList{
     public static Hull standard, hullbreaker, courser, battery, firefly, research, assault;
 

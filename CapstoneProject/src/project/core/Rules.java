@@ -16,6 +16,7 @@ public class Rules{
     public Rules(){
     }
 
+    /** Initializes all rules. */
     public void init(){
         rules = new float[Team.all.length][Rule.all.length][2];
 
@@ -97,6 +98,7 @@ public class Rules{
             this.name = name;
         }
 
+        /** Returns the id of this content. Effectively the same as ordinal(). */
         public int id(){
             return ordinal();
         }

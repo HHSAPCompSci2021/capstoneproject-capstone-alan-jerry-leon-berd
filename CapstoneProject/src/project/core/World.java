@@ -31,6 +31,7 @@ public class World{
     public World(){
     }
 
+    /** Initializes the world. */
     public void init(){
         bounds = new Range2(0, 0, width, height).expand(20);
 

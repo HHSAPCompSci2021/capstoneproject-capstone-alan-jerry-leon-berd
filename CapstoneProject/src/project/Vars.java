@@ -45,6 +45,7 @@ public class Vars{
     public static Input input;
     public static UI ui;
 
+    /** Initializes the gameß. */
     public static void init(){
         sounds = new Sounds();
         events = new Events();

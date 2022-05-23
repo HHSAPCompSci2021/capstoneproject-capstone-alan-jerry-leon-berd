@@ -10,6 +10,7 @@ public class UI{
     public UpgradeScreen upgradeScreen;
     public LoseScreen loseScreen;
 
+    /** Initializes the UI. */
     public void init(){
         menuScreen = new MenuScreen();
         gameScreen = new GameScreen();

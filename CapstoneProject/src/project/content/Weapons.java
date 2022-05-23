@@ -4,7 +4,7 @@ import project.core.Content.*;
 import project.world.bullets.*;
 import project.world.ship.weapons.*;
 
-/** Contains anf laods all gears in the game. Might be better if this was split into 3 classes. */
+/** Contains and loads all the weapon types in the game. */
 public class Weapons implements ContentList{
     public static Weapon blaster, salvo, flak, burst, railgun, grenade, lance;
 

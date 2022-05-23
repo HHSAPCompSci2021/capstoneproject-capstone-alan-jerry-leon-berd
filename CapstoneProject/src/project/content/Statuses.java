@@ -7,6 +7,7 @@ import project.world.ship.*;
 import static java.lang.Math.*;
 import static project.Vars.*;
 
+/** Contains and loads all the status effects in the game. */
 public class Statuses implements ContentList{
     public static StatusEffect spawned, slow, burning, vulnerable;
 

@@ -3,6 +3,7 @@ package project.content;
 import project.core.Content.*;
 import project.world.ship.shields.*;
 
+/** Contains and loads all the shield types in the game. */
 public class Shields implements ContentList{
     public static Shield standard, reflect, shockwave, warp, temporal;
 

@@ -25,6 +25,7 @@ public class TeleportingEnemy extends Enemy{
         size = 20;
     }
 
+    @Override
     public void init(){
         super.init();
     }

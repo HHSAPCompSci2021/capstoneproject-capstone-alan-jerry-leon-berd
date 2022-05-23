@@ -31,6 +31,7 @@ public class RammingEnemy extends MultiEnemy{
         size = 50;
     }
 
+    @Override
     public void init(){
         if(side == null) side = new RammingSide();
         if(thruster == null) thruster = new RammingThruster();

@@ -7,6 +7,7 @@ import project.world.modifiers.*;
 import static project.core.Rules.Rule.*;
 
 /** Contains and loads all modifiers in the game. */
+@Deprecated
 public class Modifiers implements ContentList{
     public static Modifier
     theVoid,

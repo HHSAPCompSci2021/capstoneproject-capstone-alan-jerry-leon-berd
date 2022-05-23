@@ -23,12 +23,18 @@ public class Canvas extends PApplet{
     public Canvas(){
     }
 
-    /** Shake the screen with a specified intensity. */
+    /**
+     * Shake the screen with a specified intensity.
+     * @param shake intensity
+     */
     public void shake(float shake){
         this.shake = max(this.shake, shake);
     }
 
-    /** Switch the screen. */
+    /**
+     * Switch the screen.
+     * @param screen screen to switch to
+     */
     public void screen(Screen screen){
         screen.rebuild();
         this.screen = screen;
@@ -48,7 +54,6 @@ public class Canvas extends PApplet{
         screen(ui.menuScreen);
     }
 
-    /** Draw the screen. */
     @Override
     public void draw(){
         input.mouse = new Vec2(mouseX, mouseY);
@@ -82,28 +87,53 @@ public class Canvas extends PApplet{
         input.remove(keyCode);
     }
 
-    /** Very unreliable timer function; Returns true in once for every length specified. Use only for visual effects. */
+    /**
+     * Very unreliable timer function; Returns true in once for every length specified. Use only for visual effects.
+     * @param length amount of frames per true
+     * @return true/false depending on the current frame
+     */
     public boolean timer(int length){
         return frameCount % length == 0;
     }
 
-
+    /**
+     * Draw a background on the PApplet.
+     * @param color the color of the background
+     */
     public void background(Color color){
         background(color.getRGB());
     }
 
+    /**
+     * Set the tint of the PApplet
+     * @param color the color of the tint
+     */
     public void tint(Color color){
         tint(color, color.getAlpha());
     }
 
+    /**
+     * Set the tint of the PApplet
+     * @param color the color of the tint
+     * @param alpha the alpha of the color
+     */
     public void tint(Color color, float alpha){
         tint(color.getRed(), color.getGreen(), color.getBlue(), alpha);
     }
 
+    /**
+     * Set the fill of the PApplet
+     * @param color the color of the fill
+     */
     public void fill(Color color){
         fill(color, color.getAlpha());
     }
 
+    /**
+     * Set the fill of the PApplet
+     * @param color the color of the fill
+     * @param alpha the alpha of the color
+     */
     public void fill(Color color, float alpha){
         fill(color.getRed(), color.getGreen(), color.getBlue(), alpha);
     }
@@ -139,11 +169,19 @@ public class Canvas extends PApplet{
         noStroke();
     }
 
-
+    /**
+     * Set the stroke of the PApplet
+     * @param color the color of the stroke
+     */
     public void stroke(Color color){
         stroke(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
     }
 
+    /**
+     * Set the stroke of the PApplet
+     * @param color the color of the stroke
+     * @param alpha the alpha of the color
+     */
     public void stroke(Color color, float alpha){
         stroke(color.getRed(), color.getGreen(), color.getBlue(), alpha);
     }
@@ -174,14 +212,38 @@ public class Canvas extends PApplet{
     }
 
 
+    /**
+     * Draw a square
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param s length of a side
+     */
     public void rect(float x, float y, float s){
         rect(x, y, s, s);
     }
 
+    /**
+     * Draw a rotated rectangle
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param w width
+     * @param h height
+     * @param r rotation
+     */
     public void rectr(float x, float y, float w, float h, float r){
         rectr(0, 0, x, y, w, h, r);
     }
 
+    /**
+     * Draw a rotated rectangle
+     * @param tx translate x (applied with rotation)
+     * @param ty translate y (applied with rotation)
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param w width
+     * @param h height
+     * @param r rotation
+     */
     public void rectr(float tx, float ty, float x, float y, float w, float h, float r){
         pushMatrix();
         translate(x + w / 2, y + h / 2);
@@ -190,23 +252,60 @@ public class Canvas extends PApplet{
         popMatrix();
     }
 
+    /**
+     * Draw a centered square
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param s length of a side
+     */
     public void rectc(float x, float y, float s){
         rectc(x, y, s, s);
     }
 
+    /**
+     * Draw a centered rectangle
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param w width
+     * @param h height
+     */
     public void rectc(float x, float y, float w, float h){
         rect(x - w / 2, y - h / 2, w, h);
     }
 
+    /**
+     * Draw a centered rectangle
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param w width
+     * @param h height
+     * @param r rotation
+     */
     public void rectc(float x, float y, float w, float h, float r){
         rectr(x - w / 2, y - h / 2, w, h, r);
     }
 
+    /**
+     * Draw a centered rectangle
+     * @param tx translate x (applied with rotation)
+     * @param ty translate y (applied with rotation)
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param w width
+     * @param h height
+     * @param r rotation
+     */
     public void rectc(float tx, float ty, float x, float y, float w, float h, float r){
         rectr(tx, ty, x - w / 2, y - h / 2, w, h, r);
     }
 
 
+    /**
+     * Draw a centered circle
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param s radius
+     */
     public void ellipse(float x, float y, float s){
         ellipse(x, y, s, s);
     }

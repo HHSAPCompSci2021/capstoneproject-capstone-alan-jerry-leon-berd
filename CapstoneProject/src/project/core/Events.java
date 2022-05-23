@@ -11,6 +11,7 @@ public class Events{
     public Events(){
     }
 
+    /** Initializes all events. */
     public void init(){
         on = new Seq[Event.all.length];
         set = new Set[Event.all.length];
@@ -45,6 +46,7 @@ public class Events{
 
         public static Event[] all = values();
 
+        /** Returns the id of this content. Effectively the same as ordinal(). */
         public int id(){
             return ordinal();
         }

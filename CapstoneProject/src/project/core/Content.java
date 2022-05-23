@@ -32,7 +32,10 @@ public class Content{
         for(Type content : all) if(!content.initialized) content.init();
     }
 
-    /** Process the content specified (Add it to the content map and list). */
+    /**
+     * Process the content specified (Add it to the content map and list).
+     * @param content content to process
+     */
     public void add(Type content){
         if(content.type() == null) return;
 
@@ -40,6 +43,11 @@ public class Content{
         map[content.type().id()].add(content);
     }
 
+    /**
+     * Returns a list of all content with the specified type
+     * @param type type of content to list
+     * @return the list of content
+     */
     public Seq<Type> list(ContentType type){
         return map[type.id()];
     }
@@ -55,6 +63,7 @@ public class Content{
 
         public static ContentType[] all = values();
 
+        /** Returns the id of this content. Effectively the same as ordinal(). */
         public int id(){
             return ordinal();
         }
@@ -62,6 +71,7 @@ public class Content{
 
     /** Represents a loadable list of content. */
     public interface ContentList{
+        /** Loads the content. */
         void load();
     }
 }
