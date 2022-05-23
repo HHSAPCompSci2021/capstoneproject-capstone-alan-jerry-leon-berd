@@ -21,7 +21,7 @@ import static project.graphics.Pal.*;
 public class GameScreen extends Screen{
     public Table playerHealth, playerShield, playerAmmo, playerExp, enemyHealth;
 
-    public Sprite background = new Sprite().set(SpritePath.backgrounds, "space2");
+    public Sprite background = new Sprite().set(SpritePath.backgrounds, "city2");
     public float rot = random(0, 360);
     public Vec2 pan = new Vec2();
 
@@ -57,21 +57,21 @@ public class GameScreen extends Screen{
 
         if(input.pressed(KeyBind.upgrade)){
             input.consume(KeyBind.upgrade);
-            if(world.player.level > world.player.spent) canvas.screen(ui.upgradeScreen);
+            if(3 > world.player.spent) canvas.screen(ui.upgradeScreen);
             else canvas.screen(ui.pauseScreen);
         }
     }
 
     @Override
     public void draw(){
-//        canvas.pushMatrix();
-//        canvas.translate(-pan.x / 50f, -pan.y / 50f);
-//        canvas.tint(255, 255, 255);
-//        background.draw(Tmp.v1.setr(rot, 1).x * 550 - 550, Tmp.v1.y * 100 - 100, (float)background.image.width * (height + 200) / background.image.height, height + 200, Color.white);
-//        canvas.popMatrix();
+        canvas.pushMatrix();
+        canvas.translate(-pan.x / 50f, -pan.y / 50f);
+        canvas.tint(255, 255, 255);
+        background.draw(Tmp.v1.setr(rot, 1).x * 550 - 550, Tmp.v1.y * 100 - 100, (float)background.image.width * (height + 200) / background.image.height, height + 200, Color.white);
+        canvas.popMatrix();
 
-        canvas.fill(220, 220, 220);
-        canvas.rect(0, 0, width, height);
+//        canvas.fill(220, 220, 220);
+//        canvas.rect(0, 0, width, height);
 
         canvas.push();
         canvas.translate(canvas.random(-1, 1) * canvas.shake * screenShake, canvas.random(-1, 1) * canvas.shake * screenShake);
