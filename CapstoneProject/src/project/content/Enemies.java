@@ -88,7 +88,7 @@ public class Enemies implements ContentList{
 
         juggernaut = new EnemyVersions(){{
             common = new RammingEnemy(){{
-                sprite.set("juggernaut-1");
+                sprite.set("juggernaut-1-p");
                 size = 25;
                 accel = 0.2f;
                 rotate = 0.8f;
@@ -99,6 +99,7 @@ public class Enemies implements ContentList{
                     shootDuration = 10;
                     shootInterval = 2;
                     health = 40;
+                    sprite.set("juggernaut-side-1-p");
                     bullet = new MissileBullet(){{
                         damage = 5;
                         size = 3;
@@ -111,13 +112,74 @@ public class Enemies implements ContentList{
                 }};
                 thruster = new RammingThruster(){{
                     health = 40;
+                    sprite.set("juggernaut-thruster-p");
                     offset.set(0, 39);
                     size = 18;
                     ramPower = 70;
                 }};
             }};
-            elite = new RammingEnemy();
-            champion = new RammingEnemy();
+            elite = new RammingEnemy() {{
+                sprite.set("juggernaut-1-p");
+                size = 25;
+                accel = 0.2f;
+                rotate = 0.8f;
+                health = 250;
+                side = new RammingSide(){{
+                    offset.set(-21, 33);
+                    size = 13;
+                    shootDuration = 10;
+                    shootInterval = 2;
+                    health = 40;
+                    sprite.set("juggernaut-side-1-p-stronger");
+                    bullet = new MissileBullet(){{
+                        damage = 5;
+                        size = 3;
+                        speed = 3;
+                        accel = 0.07f;
+                        homingPower = 0.1f;
+                        homingRange = 2000;
+                        lifetime = 3 * 60f;
+                    }};
+                }};
+                thruster = new RammingThruster(){{
+                    health = 40;
+                    sprite.set("juggernaut-thruster-p-stronger");
+                    offset.set(0, 39);
+                    size = 18;
+                    ramPower = 70;
+                }};
+            }};;
+            champion = new RammingEnemy() {{
+                sprite.set("juggernaut-1-stronger");
+                size = 25;
+                accel = 0.2f;
+                rotate = 0.8f;
+                health = 250;
+                side = new RammingSide(){{
+                    offset.set(-21, 33);
+                    size = 13;
+                    shootDuration = 10;
+                    shootInterval = 2;
+                    health = 40;
+                    sprite.set("juggernaut-side-1-p-stronger");
+                    bullet = new MissileBullet(){{
+                        damage = 15;
+                        size = 3;
+                        speed = 3;
+                        accel = 0.07f;
+                        homingPower = 0.1f;
+                        homingRange = 2000;
+                        lifetime = 3 * 60f;
+                    }};
+                }};
+                thruster = new RammingThruster(){{
+                    health = 40;
+                    sprite.set("juggernaut-thruster-p-stronger");
+                    offset.set(0, 39);
+                    size = 18;
+                    ramPower = 70;
+                }};
+            }};;
         }};
         
         tracer = new EnemyVersions() {{
