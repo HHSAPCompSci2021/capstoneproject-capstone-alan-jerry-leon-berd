@@ -50,7 +50,7 @@ public class Hulls implements ContentList{
             drag = 1.25f;
             rotate = 4;
             barrels.addAll(new Barrel(10, 20, 90), new Barrel(10, -20, 270), new Barrel(-10, 20, 90), new Barrel(-10, -20, 270));
-            add(shotProjectiles, 2);
+            add(shotProjectiles, 4);
             mult(maxShields, 0.5f);
             mult(globalDamage, 0.25f);
             mult(shotSpread, -1f);

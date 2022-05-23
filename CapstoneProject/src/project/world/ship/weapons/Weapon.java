@@ -136,7 +136,7 @@ public class Weapon extends Modifier{
         public void shoot(){
             for(int i = 0;i < projectiles();i++){
                 BulletEntity b = def(bullet.create());
-                b.rotation += spread() * (i - (shots - 1) / 2f);
+                b.rotation += spread() * (i - (projectiles() - 1) / 2f);
                 world.bullets.add(b);
                 Tmp.v1.set(player().hull.shootPos()).sub(player().pos);
                 Effects.gunfire.at(Tmp.v1.x, Tmp.v1.y, e -> e.color(0, player().color()).parent(player()));
