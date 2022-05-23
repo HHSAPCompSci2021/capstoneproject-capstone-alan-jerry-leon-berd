@@ -40,6 +40,7 @@ public class SniperEnemy extends Enemy{
 
         public SniperEnemyEntity(SniperEnemy type){
             super(type);
+            deathSound = "laser_impact.mp3";
         }
 
         @Override

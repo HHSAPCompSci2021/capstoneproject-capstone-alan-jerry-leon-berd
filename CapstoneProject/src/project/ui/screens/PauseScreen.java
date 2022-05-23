@@ -1,6 +1,7 @@
 package project.ui.screens;
 
 import processing.core.*;
+import project.core.*;
 import project.core.Input.*;
 
 import static project.Vars.*;
@@ -16,6 +17,7 @@ public class PauseScreen extends Screen{
     public void update(){
         if(input.pressed(KeyBind.upgrade)){
             input.consume(KeyBind.upgrade);
+            if(soundEffects) Sounds.playSound("digital_speed_up_2.mp3");
             canvas.screen(ui.gameScreen);
         }
     }

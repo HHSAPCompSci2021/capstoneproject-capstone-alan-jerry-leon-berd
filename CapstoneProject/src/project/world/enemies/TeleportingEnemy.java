@@ -1,10 +1,6 @@
 package project.world.enemies;
 
 import project.*;
-import project.core.*;
-import project.graphics.*;
-import project.graphics.Sprite.*;
-import project.world.bullets.*;
 
 import java.awt.*;
 
@@ -43,6 +39,7 @@ public class TeleportingEnemy extends Enemy{
 
         public TeleportingEnemyEntity(TeleportingEnemy type){
             super(type);
+            deathSound = "mine_explosion.mp3";
         }
 
         @Override
@@ -71,13 +68,6 @@ public class TeleportingEnemy extends Enemy{
             if(dst(world.player.pos, pos) > kiteDistance) thrust();
 
             wrap();
-        }
-
-        @Override
-        public void remove(){
-            super.remove();
-
-            Sounds.playSound("car_explosion.mp3");
         }
 
         @Override

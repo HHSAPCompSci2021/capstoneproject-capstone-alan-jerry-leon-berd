@@ -2,9 +2,9 @@ package project.world.enemies;
 
 import project.*;
 import project.content.*;
-import project.core.*;
 import project.core.Content.*;
 import project.core.Events.Event;
+import project.core.*;
 import project.game.*;
 import project.graphics.*;
 import project.graphics.Sprite.*;
@@ -24,6 +24,7 @@ public class Enemy extends Type implements ShipType{
     public EnemySprite glow;
     public EnemySprite sprite = new EnemySprite();
     public Color color = Color.white;
+    public String deathSound = "fuel_explosion.mp3";
 
     public float health = 100;
     public float accel = 0.2f;
@@ -88,6 +89,13 @@ public class Enemy extends Type implements ShipType{
     @Override
     public float drag(){
         return drag;
+    }
+
+    public static class EnemySprite extends Sprite{
+        public EnemySprite set(String name){
+            super.set(SpritePath.enemies, name);
+            return this;
+        }
     }
 
     /** Represents and simulates an enemy. */
@@ -169,7 +177,7 @@ public class Enemy extends Type implements ShipType{
 
             events.call(Event.enemyDestroyed);
 
-            Sounds.playSound("fuel_explosion.mp3");
+            if(soundEffects) Sounds.playSound(deathSound);
         }
 
         @Override
@@ -180,13 +188,6 @@ public class Enemy extends Type implements ShipType{
         @Override
         public boolean keep(){
             return !(life <= 0) && (spawned() || world.bounds.contains(pos));
-        }
-    }
-
-    public static class EnemySprite extends Sprite{
-        public EnemySprite set(String name){
-            super.set(SpritePath.enemies, name);
-            return this;
         }
     }
 }

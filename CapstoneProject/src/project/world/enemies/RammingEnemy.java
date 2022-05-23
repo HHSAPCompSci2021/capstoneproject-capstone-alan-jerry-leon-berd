@@ -2,7 +2,6 @@ package project.world.enemies;
 
 import gameutils.math.*;
 import project.*;
-import project.core.*;
 import project.graphics.Sprite.*;
 import project.world.bullets.Bullet.*;
 import project.world.bullets.*;
@@ -46,9 +45,65 @@ public class RammingEnemy extends MultiEnemy{
         return new RammingEnemyEntity(this);
     }
 
+    public static class RammingThruster extends EnemyPart{
+        public Vec2 offset = new Vec2(0, 50);
+
+        public float ramPower = 200;
+
+        public RammingThruster(){
+            super();
+
+            glow = new EnemySprite();
+            sprite.set("juggernaut-thruster");
+
+            reload = 0.1f;
+            size = 18;
+        }
+
+        @Override
+        public RammingThrusterEntity create(){
+            return new RammingThrusterEntity(this);
+        }
+
+        public class RammingThrusterEntity extends EnemyPartEntity{
+            public RammingThrusterEntity(RammingThruster type){
+                super(type);
+            }
+
+            @Override
+            public void update(){
+                super.update();
+
+                rotation = parent.rotation;
+
+                reloadt += reload();
+                if(reloadt >= 60){
+                    reloadt = 0;
+                    apply(Tmp.v1.set(ramPower, 0).rot(rotation));
+                }
+            }
+
+            @Override
+            public void glow(){
+                if(glow != null) glow.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation, Color.white);
+            }
+
+            @Override
+            public RammingThruster type(){
+                return (RammingThruster)type;
+            }
+
+            @Override
+            public boolean keep(){
+                return life > 0 && parent.keep();
+            }
+        }
+    }
+
     public class RammingEnemyEntity extends MultiEnemyEntity{
         public RammingEnemyEntity(RammingEnemy type){
             super(type);
+            deathSound = "car_explosion.mp3";
         }
 
         @Override
@@ -101,13 +156,6 @@ public class RammingEnemy extends MultiEnemy{
             positions();
 
             wrap();
-        }
-
-        @Override
-        public void remove(){
-            super.remove();
-
-            Sounds.playSound("car_explosion.mp3");
         }
 
         @Override
@@ -197,61 +245,6 @@ public class RammingEnemy extends MultiEnemy{
             @Override
             public RammingSide type(){
                 return (RammingSide)type;
-            }
-
-            @Override
-            public boolean keep(){
-                return life > 0 && parent.keep();
-            }
-        }
-    }
-
-    public static class RammingThruster extends EnemyPart{
-        public Vec2 offset = new Vec2(0, 50);
-
-        public float ramPower = 200;
-
-        public RammingThruster(){
-            super();
-
-            glow = new EnemySprite();
-            sprite.set("juggernaut-thruster");
-
-            reload = 0.1f;
-            size = 18;
-        }
-
-        @Override
-        public RammingThrusterEntity create(){
-            return new RammingThrusterEntity(this);
-        }
-
-        public class RammingThrusterEntity extends EnemyPartEntity{
-            public RammingThrusterEntity(RammingThruster type){
-                super(type);
-            }
-
-            @Override
-            public void update(){
-                super.update();
-
-                rotation = parent.rotation;
-
-                reloadt += reload();
-                if(reloadt >= 60){
-                    reloadt = 0;
-                    apply(Tmp.v1.set(ramPower, 0).rot(rotation));
-                }
-            }
-
-            @Override
-            public void glow(){
-                if(glow != null) glow.drawc(pos.x, pos.y, size() * 5, size() * 5, rotation, Color.white);
-            }
-
-            @Override
-            public RammingThruster type(){
-                return (RammingThruster)type;
             }
 
             @Override

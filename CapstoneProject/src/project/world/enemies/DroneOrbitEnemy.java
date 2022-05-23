@@ -1,7 +1,6 @@
 package project.world.enemies;
 
 import project.*;
-import project.core.*;
 import project.world.enemies.DroneOrbitEnemy.OrbitDrone.*;
 
 import java.awt.*;
@@ -39,52 +38,6 @@ public class DroneOrbitEnemy extends MultiEnemy{
     @Override
     public DroneOrbitEntity create(){
         return new DroneOrbitEntity(this);
-    }
-
-    /** Represents and simulates an enemy with drones orbiting around it. */
-    public class DroneOrbitEntity extends MultiEnemyEntity{
-        /** The current orbit angle of the drones orbiting around it. */
-        public float orbit = 0;
-
-        public DroneOrbitEntity(DroneOrbitEnemy type){
-            super(type);
-        }
-
-        @Override
-        public void init(){
-            super.init();
-
-            for(int i = 0;i < drones;i++){
-                OrbitDroneEntity drone = (OrbitDroneEntity)parts.get(i);
-                drone.vel.set(0, 0);
-                drone.pos.set(Tmp.v1.setr(orbit + 360f / drones * i, droneSpace).add(pos));
-                if(spacedShooting) drone.reloadt = 60 * ((float)i / drones);
-            }
-        }
-
-        @Override
-        public void update(){
-            super.update();
-            orbit += orbitSpeed * delta;
-
-            for(int i = 0;i < drones;i++){
-                OrbitDroneEntity drone = (OrbitDroneEntity)parts.get(i);
-                if(drone.keep()){
-                    drone.vel.set(0, 0);
-                    drone.pos.set(Tmp.v1.setr(orbit + 360f / drones * i, droneSpace).add(pos));
-                }
-            }
-
-            rotate(Tmp.v1.set(world.player.pos).sub(pos).ang());
-            if(dst(world.player.pos, pos) > kiteDistance) thrust();
-        }
-
-        @Override
-        public void remove(){
-            super.remove();
-
-            Sounds.playSound("fuel_explosion.mp3");
-        }
     }
 
     /** Stores stats for the drones that rotate around the enemy. */
@@ -129,6 +82,46 @@ public class DroneOrbitEnemy extends MultiEnemy{
             public void remove(){
                 super.remove();
             }
+        }
+    }
+
+    /** Represents and simulates an enemy with drones orbiting around it. */
+    public class DroneOrbitEntity extends MultiEnemyEntity{
+        /** The current orbit angle of the drones orbiting around it. */
+        public float orbit = 0;
+
+        public DroneOrbitEntity(DroneOrbitEnemy type){
+            super(type);
+            deathSound = "field_explosion.mp3";
+        }
+
+        @Override
+        public void init(){
+            super.init();
+
+            for(int i = 0;i < drones;i++){
+                OrbitDroneEntity drone = (OrbitDroneEntity)parts.get(i);
+                drone.vel.set(0, 0);
+                drone.pos.set(Tmp.v1.setr(orbit + 360f / drones * i, droneSpace).add(pos));
+                if(spacedShooting) drone.reloadt = 60 * ((float)i / drones);
+            }
+        }
+
+        @Override
+        public void update(){
+            super.update();
+            orbit += orbitSpeed * delta;
+
+            for(int i = 0;i < drones;i++){
+                OrbitDroneEntity drone = (OrbitDroneEntity)parts.get(i);
+                if(drone.keep()){
+                    drone.vel.set(0, 0);
+                    drone.pos.set(Tmp.v1.setr(orbit + 360f / drones * i, droneSpace).add(pos));
+                }
+            }
+
+            rotate(Tmp.v1.set(world.player.pos).sub(pos).ang());
+            if(dst(world.player.pos, pos) > kiteDistance) thrust();
         }
     }
 }

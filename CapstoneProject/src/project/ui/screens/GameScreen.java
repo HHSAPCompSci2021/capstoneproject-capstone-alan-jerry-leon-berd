@@ -3,6 +3,7 @@ package project.ui.screens;
 import gameutils.math.*;
 import processing.core.*;
 import project.*;
+import project.core.*;
 import project.core.Events.Event;
 import project.core.Input.*;
 import project.core.UI.*;
@@ -57,6 +58,7 @@ public class GameScreen extends Screen{
 
         if(input.pressed(KeyBind.upgrade)){
             input.consume(KeyBind.upgrade);
+            if(soundEffects) Sounds.playSound("digital_slow_down_2.mp3");
             if(3 > world.player.spent) canvas.screen(ui.upgradeScreen);
             else canvas.screen(ui.pauseScreen);
         }
