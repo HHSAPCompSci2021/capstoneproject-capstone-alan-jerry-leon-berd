@@ -11,7 +11,7 @@ public class SprayerEnemy extends Enemy{
 
     public int bullets = 2;
     /** Angle offset of each of the shots. */
-    public float offset = 120;
+    public float offset = 90;
 
     public SprayerEnemy(){
         super();
@@ -20,13 +20,13 @@ public class SprayerEnemy extends Enemy{
             size = 2;
             speed = 5;
         }};
-        sprite.set("gyrogun-1");
+        sprite.set("gyrogun-1-p");
         accel = 0.5f;
         color = new Color(255, 110, 50);
         health = 50;
         reload = 0.25f;
         rotate = 1f;
-        size = 10;
+        size = 15;
     }
 
     @Override

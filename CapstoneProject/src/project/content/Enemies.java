@@ -63,8 +63,8 @@ public class Enemies implements ContentList{
             elite = new SprayerEnemy(){{
                 bullets = 4;
                 reload = 0.3f;
-                sprite.set("gyrogun-2");
-                size = 12;
+                sprite.set("gyrogun-2-p");
+                size = 20;
                 bullet = new Bullet(){{
                     damage = 15;
                     size = 2;
@@ -76,8 +76,8 @@ public class Enemies implements ContentList{
                 reload = 0.5f;
                 rotate = 0.6f;
                 shootInterval = 5;
-                sprite.set("gyrogun-3");
-                size = 14;
+                sprite.set("gyrogun-3-p");
+                size = 25;
                 bullet = new Bullet(){{
                     damage = 15;
                     size = 3f;
