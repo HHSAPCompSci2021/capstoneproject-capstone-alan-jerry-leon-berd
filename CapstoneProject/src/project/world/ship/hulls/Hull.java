@@ -6,6 +6,7 @@ import project.*;
 import project.core.Content.*;
 import project.game.*;
 import project.graphics.*;
+import project.graphics.Sprite.*;
 import project.world.modifiers.*;
 import project.world.ship.*;
 
@@ -40,7 +41,7 @@ public class Hull extends Modifier implements ShipType{
 
         tag = "HULL";
 
-        sprite.set("hull-" + name);
+        sprite.set(SpritePath.ships, name);
         ship.set(name);
         thrusters.add(new Thruster(0, 7, 6f, 25f, 0));
     }

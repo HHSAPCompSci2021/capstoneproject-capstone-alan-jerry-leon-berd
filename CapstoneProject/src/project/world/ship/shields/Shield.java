@@ -115,7 +115,6 @@ public class Shield extends Modifier{
 
         /** Updates this shield. */
         public void update(){
-            System.out.println(value);
             if(broken){
                 value += regen() / regen * 100 * 60;
                 if(value > respawn * 60){
