@@ -62,14 +62,14 @@ public class MenuScreen extends Screen{
                 }else if(menu == 1){
                     list.text(text -> text.text("SETTINGS").size(40).color(Pal.opaqueBlack));
                     list.row(10);
-                    list.button(button -> {
-                        button.hover(buttonHover);
-                        button.press(b -> {
-                            menu = 2;
-                            rebuild();
-                        }).text(text -> text.text("KEYBINDS").size(30).color(Pal.opaqueBlack));
-                    });
-                    list.row(10);
+//                    list.button(button -> {
+//                        button.hover(buttonHover);
+//                        button.press(b -> {
+//                            menu = 2;
+//                            rebuild();
+//                        }).text(text -> text.text("KEYBINDS").size(30).color(Pal.opaqueBlack));
+//                    });
+//                    list.row(10);
                     list.button(button -> {
                         button.hover(buttonHover);
                         button.press(b -> {
