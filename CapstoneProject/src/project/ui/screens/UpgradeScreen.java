@@ -73,7 +73,7 @@ public class UpgradeScreen extends PauseScreen{
         events.call(Event.modChange);
 
         reroll();
-        if(world.player.spent >= world.player.level) canvas.screen(ui.gameScreen);
+        if(world.player.spent >= 3) canvas.screen(ui.gameScreen);
         else rebuild();
     }
 

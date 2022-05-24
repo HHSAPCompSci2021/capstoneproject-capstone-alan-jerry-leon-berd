@@ -7,9 +7,14 @@ import project.*;
 import static gameutils.util.Mathf.*;
 import static project.Vars.*;
 
+/** Represents a ship with multiple barrels. */
 public class MultiBarrelHull extends Hull{
     protected Seq<Barrel> barrels = new Seq<>();
 
+    /**
+     * Create a new multibarrel hull with the specified name
+     * @param name the name
+     */
     public MultiBarrelHull(String name){
         super(name);
     }
