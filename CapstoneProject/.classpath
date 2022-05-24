@@ -7,7 +7,7 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/GameUtils.jar"/>
-	<classpathentry kind="lib" path="lib/sound.jar"/>
 	<classpathentry kind="lib" path="lib/processing.jar"/>
+	<classpathentry kind="lib" path="lib/JerrySound.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
