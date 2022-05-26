@@ -1,0 +1,14 @@
+modifiers?
+weapons
+enemies (snipe, teleport)
+shields + hulls
+bosses
+background (astroid, shooting stars, black hole)
+
+stretch:
+"Special" Modifiers
+multi
+shader?
+
+update:
+readme, javadocs, jar, uml
